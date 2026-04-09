@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Resultado — Instituto DERMA90</title>
     <meta name="description" content="Resultado de tu test diagnóstico y protocolo recomendado.">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
-    
+
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -26,20 +26,241 @@
     src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/assets/css/styles.css">
+
     <style>
+        /* ==========================================================================
+           INSTITUTO DERMA90 — V2 STYLES (INLINED)
+           ========================================================================== */
+
+        /* Variables de color */
+        :root {
+            /* Neutrales */
+            --color-black: #1a1a1a;
+            --color-gray-dark: #4a4a4a;
+            --color-gray-medium: #757575;
+            --color-gray-light: #d4d4d4;
+            --color-beige: #f5f3f0;
+            --color-white: #fafaf9;
+
+            /* Acento Terracota */
+            --color-primary: #c67856;
+            --color-primary-dark: #a25f42;
+            --color-primary-light: #f4e8e2;
+
+            /* Secundarios */
+            --color-gold: #b8945f;
+            --color-green-tea: #8a9b7a;
+
+            /* Estados */
+            --color-success: #6b7f5e;
+            --color-error: #c85a54;
+            --color-warning: #e8b84d;
+
+            /* Tipografía */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-size-base: 17px;
+            --line-height-base: 1.6;
+
+            /* Espaciado */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+
+            /* Transiciones */
+            --transition: all 0.3s ease;
+
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+        }
+
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            color: var(--color-black);
+            background-color: var(--color-white);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Contenedor */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .container-narrow {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Tipografía */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Imágenes responsivas */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(198, 120, 86, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--color-primary-light);
+        }
+
+        .btn-large {
+            padding: 1.25rem 3rem;
+            font-size: 1.125rem;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(250, 250, 249, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: block;
+        }
+
+        .logo p {
+            margin: 0;
+        }
+
+        /* Secciones */
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-alt {
+            background-color: var(--color-beige);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Result Header */
         .result-header {
             text-align: center;
             padding: 4rem 0 2rem;
             background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-beige) 100%);
         }
-        
+
         .result-badge {
             display: inline-block;
             padding: 0.75rem 2rem;
@@ -50,12 +271,12 @@
             font-size: 1.125rem;
             margin-bottom: 1rem;
         }
-        
+
         .result-icon {
             font-size: 4rem;
             margin: 1rem 0;
         }
-        
+
         .result-description {
             max-width: 700px;
             margin: 0 auto;
@@ -63,7 +284,7 @@
             line-height: 1.7;
             color: var(--color-gray-dark);
         }
-        
+
         .profile-card {
             background: white;
             padding: 2rem;
@@ -71,21 +292,21 @@
             box-shadow: var(--shadow-md);
             margin: 2rem 0;
         }
-        
+
         .profile-symptoms {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             margin: 1.5rem 0;
         }
-        
+
         .symptom-item {
             padding: 1rem;
             background: var(--color-beige);
             border-radius: 8px;
             font-size: 0.95rem;
         }
-        
+
         .recommendation-box {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
             color: white;
@@ -94,7 +315,7 @@
             margin: 3rem 0;
             text-align: center;
         }
-        
+
         .price-box {
             background: white;
             color: var(--color-black);
@@ -103,25 +324,25 @@
             margin: 2rem auto;
             max-width: 500px;
         }
-        
+
         .price-original {
             text-decoration: line-through;
             color: var(--color-gray-medium);
             font-size: 1.125rem;
         }
-        
+
         .price-current {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--color-primary);
             margin: 0.5rem 0;
         }
-        
+
         .price-note {
             font-size: 0.9rem;
             color: var(--color-gray-medium);
         }
-        
+
         .urgency-bar {
             background: rgba(255,255,255,0.2);
             padding: 1rem 1.5rem;
@@ -130,10 +351,211 @@
             max-width: 600px;
             font-size: 0.95rem;
         }
+
+        .progress-bar-container {
+            background: rgba(255,255,255,0.15);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, #8b4f38 0%, #6a3d2e 100%);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px rgba(107, 61, 46, 0.5);
+        }
+
+        .payment-option {
+            background: white;
+            border: 2px solid var(--color-gray-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .payment-option:first-child {
+            border: 3px solid var(--color-primary);
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        /* ─── STICKY DISCLAIMER BOX (TERRACOTA) ─── */
+        .sticky-disclaimer-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+            max-width: 380px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(198, 120, 86, 0.4);
+            animation: slideInUp 0.5s ease 0.3s both;
+        }
+
+        .sticky-disclaimer-heading {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.35;
+        }
+
+        .sticky-disclaimer-text {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .sticky-whatsapp-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.85rem 1.25rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 0.75rem;
+        }
+
+        .sticky-whatsapp-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .sticky-whatsapp-btn:active {
+            transform: translateY(0);
+        }
+
+        .sticky-whatsapp-icon {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticky-whatsapp-text {
+            display: inline;
+        }
+
+        .sticky-disclaimer-footer {
+            font-size: 0.85rem;
+            text-align: center;
+            opacity: 0.85;
+            line-height: 1.4;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--color-black);
+            color: white;
+            padding: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .profile-symptoms {
+                grid-template-columns: 1fr;
+            }
+
+            .sticky-disclaimer-container {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                max-width: 320px;
+                padding: 1.5rem;
+            }
+
+            .sticky-disclaimer-heading {
+                font-size: 1rem;
+            }
+
+            .sticky-disclaimer-text {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .sticky-whatsapp-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sticky-disclaimer-container {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+                padding: 1.25rem;
+            }
+
+            .sticky-disclaimer-heading {
+                font-size: 0.95rem;
+            }
+
+            .sticky-disclaimer-text {
+                font-size: 0.85rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .sticky-whatsapp-btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .sticky-disclaimer-footer {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-    
+
     <!-- HEADER SIMPLE -->
     <header class="header">
         <div class="container">
@@ -160,7 +582,7 @@
     <!-- RESULT CONTENT -->
     <section class="section">
         <div class="container-narrow">
-            
+
             <!-- Profile Card -->
             <div class="profile-card">
                 <h3 style="margin-bottom: 1.5rem;">¿Qué significa tu perfil?</h3>
@@ -168,7 +590,7 @@
                     <p>Tu patrón indica que no estás lidiando con un solo síntoma aislado — es un colapso sistémico provocado por cambios hormonales que afectan múltiples capas de tu piel simultáneamente.</p>
                     <p style="margin-top: 1rem;">Esto explica por qué ningún producto individual ha funcionado: colágeno solo, cremas solas, vitaminas sueltas... todos atacaron solo 1 punto cuando tu piel necesita los 3 cerrados al mismo tiempo.</p>
                 </div>
-                
+
                 <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Síntomas principales detectados:</h4>
                 <div class="profile-symptoms" id="profile-symptoms">
                     <div class="symptom-item">✓ Sequedad extrema / tirantez</div>
@@ -177,7 +599,7 @@
                     <div class="symptom-item">✓ Ojeras / piel apagada</div>
                 </div>
             </div>
-            
+
             <!-- What You've Tried -->
             <div class="profile-card">
                 <h3 style="margin-bottom: 1.5rem;">Lo que probablemente ya probaste (y por qué no funcionó para tu perfil):</h3>
@@ -188,7 +610,7 @@
                     <p><strong>✗ Vitaminas/minerales sueltos:</strong> Tomaste nutrientes aislados cuando necesitabas un sistema completo coordinado.</p>
                 </div>
             </div>
-            
+
             <!-- Recommendation -->
             <div class="recommendation-box">
                 <h2 style="color: white; margin-bottom: 1rem;">Protocolo recomendado para tu perfil:</h2>
@@ -196,7 +618,7 @@
                 <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.95;">
                     12 semanas · 3 pilares simultáneos · Coaching 1:1
                 </p>
-                
+
                 <div style="background: rgba(255,255,255,0.15); padding: 2rem; border-radius: 12px; margin: 2rem 0; text-align: left;">
                     <h4 style="color: white; margin-bottom: 1rem; text-align: center;">El protocolo cierra los 3 puntos de falla:</h4>
                     <div style="display: grid; gap: 1rem; font-size: 1rem;">
@@ -214,7 +636,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="price-box">
                     <div class="price-original">Valor real: ~450€</div>
                     <div class="price-current">249€</div>
@@ -231,70 +653,60 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="urgency-bar">
-                    ⏱️ Plazas restantes en cohorte 30 de marzo: <strong id="stock-count">150</strong>
+                    ⏱️ Plazas restantes en cohorte 30 de abril: <strong id="stock-count">62</strong> de 150
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 58.67%;"></div>
+                    </div>
                 </div>
-                
+
                 <!-- Reserva copy -->
                 <div style="margin: 2rem 0; font-size: 1rem; opacity: 0.95; line-height: 1.6;">
-                    <p style="margin-bottom: 1rem;"><strong>Si reservas ahora</strong>, garantizas tu hueco en la primera cohorte que empieza el 30 de marzo.</p>
+                    <p style="margin-bottom: 1rem;"><strong>Si reservas ahora</strong>, garantizas tu hueco en la primera cohorte que empieza el 30 de abril.</p>
                     <p>Si lo dejas para "después", es posible que no queden plazas disponibles cuando decidas dar el paso.</p>
                 </div>
-                
+
                 <!-- Payment options -->
                 <div style="margin: 2rem auto; max-width: 450px;">
                     <form id="payment-form">
                         <!-- Pago único -->
-                        <div class="payment-option" data-option="unico" style="background: white; border: 3px solid var(--color-primary); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; cursor: pointer; position: relative; transition: all 0.3s ease;">
+                        <div class="payment-option" data-option="unico">
                             <input type="radio" name="payment-type" id="pago-unico" value="unico" checked style="position: absolute; opacity: 0; pointer-events: none;">
                             <label for="pago-unico" style="display: block; cursor: pointer;">
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
                                     <div style="font-weight: 600; font-size: 1.125rem; color: var(--color-black);">Pago único</div>
-                                    <div class="check-icon" style="width: 24px; height: 24px; border-radius: 50%; background: var(--color-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 700;">✓</div>
+                                    <div class="check-icon">✓</div>
                                 </div>
                                 <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary); margin: 0.5rem 0;">249€</div>
                                 <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Acceso completo de inmediato</div>
                             </label>
                         </div>
-                        
+
                         <!-- 3 pagos -->
-                        <div class="payment-option" data-option="plazos" style="background: white; border: 2px solid var(--color-gray-light); border-radius: 12px; padding: 1.5rem; cursor: pointer; position: relative; transition: all 0.3s ease;">
+                        <div class="payment-option" data-option="plazos">
                             <input type="radio" name="payment-type" id="pago-plazos" value="plazos" style="position: absolute; opacity: 0; pointer-events: none;">
                             <label for="pago-plazos" style="display: block; cursor: pointer;">
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
                                     <div style="font-weight: 600; font-size: 1.125rem; color: var(--color-black);">3 pagos mensuales</div>
-                                    <div class="check-icon" style="width: 24px; height: 24px; border-radius: 50%; background: transparent; border: 2px solid var(--color-gray-light); color: transparent; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; font-weight: 700;">✓</div>
+                                    <div class="check-icon" style="background: transparent; border: 2px solid var(--color-gray-light); color: transparent;">✓</div>
                                 </div>
                                 <div style="font-size: 2rem; font-weight: 700; color: var(--color-primary); margin: 0.5rem 0;">89€/mes</div>
                                 <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Total: 267€</div>
                             </label>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-large" style="width: 100%; background: white; color: var(--color-primary); font-size: 1.25rem; padding: 1.5rem; margin-top: 1.5rem;">
                             Solicitar mi plaza ahora →
                         </button>
                     </form>
                 </div>
-                
+
                 <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.9;">
                     🔒 Pago seguro con Stripe · Garantía 30 días devolución sin preguntas
                 </p>
-                
-                <!-- Disclaimer experta -->
-                <div style="margin: 3rem auto 0; max-width: 500px; padding: 1.5rem; background: rgba(255,255,255,0.1); border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);">
-                    <p style="font-size: 0.95rem; margin-bottom: 1rem; opacity: 0.95;">
-                        ¿Todavía no estás segura de que este protocolo sea para ti?
-                    </p>
-                    <a href="https://wa.me/34644124059?text=Hola,%20tengo%20algunas%20dudas%20sobre%20el%20Protocolo%20SŌMA%20y%20me%20gustaría%20hablar%20con%20alguien%20del%20equipo" target="_blank" class="btn" style="width: 100%; background: white; color: var(--color-primary); font-weight: 600; display: inline-block; text-decoration: none; text-align: center;">
-                        💬 Habla con una experta del equipo
-                    </a>
-                    <p style="font-size: 0.85rem; margin-top: 0.75rem; opacity: 0.8;">
-                        Te resolveremos todas tus dudas por WhatsApp
-                    </p>
-                </div>
             </div>
-            
+
             <!-- Testimonial -->
             <div class="profile-card" style="border-left: 4px solid var(--color-primary);">
                 <p style="font-style: italic; font-size: 1.125rem; line-height: 1.7; margin-bottom: 1rem;">
@@ -302,25 +714,25 @@
                 </p>
                 <p style="font-weight: 600;">— Isabel, 44 años, perfil SŌMA+</p>
             </div>
-            
+
             <!-- FAQ Quick -->
             <div style="margin: 3rem 0; padding: 2rem; background: var(--color-beige); border-radius: 12px;">
                 <h3 style="margin-bottom: 1.5rem; text-align: center;">Preguntas frecuentes</h3>
-                
+
                 <div style="margin-bottom: 1.5rem;">
                     <h4 style="margin-bottom: 0.5rem;">¿Cuándo veré resultados?</h4>
                     <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
                         La mayoría de mujeres reportan cambios visibles entre semana 4-6 (piel más hidratada, menos ojeras). Resultados completos a las 12 semanas. La piel necesita tiempo para regenerarse.
                     </p>
                 </div>
-                
+
                 <div style="margin-bottom: 1.5rem;">
                     <h4 style="margin-bottom: 0.5rem;">¿Es solo un suplemento?</h4>
                     <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
                         No. SŌMA (el suplemento) está disponible retail a ~€20/bote. Lo que pagas aquí es el PROTOCOLO COMPLETO: asesoramiento diario por WhatsApp, ritual guiado, check-ins quincenales, portal digital, comunidad exclusiva, seguimiento 12 semanas. El suplemento es la base — el protocolo es lo que hace que funcione.
                     </p>
                 </div>
-                
+
                 <div>
                     <h4 style="margin-bottom: 0.5rem;">¿Garantía de devolución?</h4>
                     <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
@@ -328,7 +740,7 @@
                     </p>
                 </div>
             </div>
-            
+
             <!-- Final CTA -->
             <div style="text-align: center; margin: 3rem 0;">
                 <p style="font-size: 1.125rem; margin-bottom: 2rem; color: var(--color-gray-dark);">
@@ -339,12 +751,26 @@
                     Ver opciones de pago
                 </a>
             </div>
-            
+
         </div>
     </section>
 
+    <!-- STICKY DISCLAIMER BOX (TERRACOTA) -->
+    <div class="sticky-disclaimer-container">
+        <div class="sticky-disclaimer-heading">
+            ¿Todavía no estás segura de que este protocolo sea para ti?
+        </div>
+        <a href="https://wa.me/34644124059?text=Hola,%20tengo%20algunas%20dudas%20sobre%20el%20Protocolo%20SŌMA%20y%20me%20gustaría%20hablar%20con%20alguien%20del%20equipo" target="_blank" rel="noopener noreferrer" class="sticky-whatsapp-btn">
+            <span class="sticky-whatsapp-icon">💬</span>
+            <span class="sticky-whatsapp-text">Habla con una experta del equipo</span>
+        </a>
+        <div class="sticky-disclaimer-footer">
+            Te resolveremos todas tus dudas por WhatsApp
+        </div>
+    </div>
+
     <!-- FOOTER SIMPLE -->
-    <footer class="footer" style="padding: 2rem 0; background: var(--color-black); color: white;">
+    <footer class="footer">
         <div class="container">
             <div style="text-align: center; font-size: 0.9rem; opacity: 0.7;">
                 <p>Instituto DERMA90 · Fabricado en España · Registro Sanitario AESAN</p>
@@ -358,7 +784,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const profile = urlParams.get('profile') || 'somaplus';
         const email = urlParams.get('email') || '';
-        
+
         // Profile data
         const profiles = {
             barrera: {
@@ -366,7 +792,7 @@
                 icon: '💧',
                 title: 'Patrón Barrera detectado',
                 description: 'Tu piel está experimentando una crisis de hidratación y barrera cutánea comprometida. Sequedad extrema, sensibilidad y tirantez son las señales principales.',
-                explanation: 'Tu patrón indica que la barrera lipídica de tu piel está dañada, probablemente por cambios hormonales que reducen la producción de ceramidas y ácidos grasos esenciales. Esto provoca pérdida de agua transepidérmica (TEWL) y hace que ninguna crema "normal" sea suficiente.',
+                explanation: 'Tu patrón indica que la barrera lipídica de tu piel está dañada, probablemente por cambios hormonales que reducen la producción de ceramidas y ácidos grasos esenciales.',
                 symptoms: [
                     '✓ Sequedad extrema / tirantez',
                     '✓ Sensibilidad / rojeces',
@@ -379,7 +805,7 @@
                 icon: '⏱️',
                 title: 'Patrón Densidad detectado',
                 description: 'Tu piel está perdiendo volumen y firmeza de manera visible. Líneas profundas, flacidez y pérdida de densidad dérmica son los síntomas principales.',
-                explanation: 'Tu patrón indica colapso de colágeno + elastina acelerado por retiro de estrógeno. Pierdes hasta 30% de colágeno en los primeros 5 años de menopausia. Las cremas no pueden revertir esto porque el problema está en la dermis profunda.',
+                explanation: 'Tu patrón indica colapso de colágeno + elastina acelerado por retiro de estrógeno.',
                 symptoms: [
                     '✓ Pérdida de firmeza visible',
                     '✓ Líneas profundas / arrugas',
@@ -392,7 +818,7 @@
                 icon: '😴',
                 title: 'Patrón Estrés detectado',
                 description: 'Tu piel muestra signos visibles de fatiga crónica: aspecto cansado, ojeras persistentes, piel apagada sin luminosidad.',
-                explanation: 'Tu patrón está relacionado con disrupción del sueño + cortisol elevado + inflamación crónica. Esto acelera el envejecimiento porque tu piel no tiene tiempo para repararse durante la noche. El estrés oxidativo también está destruyendo colágeno más rápido de lo que se produce.',
+                explanation: 'Tu patrón está relacionado con disrupción del sueño + cortisol elevado + inflamación crónica.',
                 symptoms: [
                     '✓ Aspecto cansado persistente',
                     '✓ Ojeras / bolsas bajo ojos',
@@ -404,8 +830,8 @@
                 badge: 'Patrón SŌMA+',
                 icon: '🌊',
                 title: 'Patrón SŌMA+ detectado',
-                description: 'Tu piel está experimentando múltiples puntos de falla simultáneos — sequedad, pérdida de firmeza y fatiga visible — que requieren un protocolo completo de 3 pilares.',
-                explanation: 'Tu patrón indica que no estás lidiando con un solo síntoma aislado — es un colapso sistémico provocado por cambios hormonales que afectan múltiples capas de tu piel simultáneamente. Esto explica por qué ningún producto individual ha funcionado: colágeno solo, cremas solas, vitaminas sueltas... todos atacaron solo 1 punto cuando tu piel necesita los 3 cerrados al mismo tiempo.',
+                description: 'Tu piel está experimentando múltiples puntos de falla simultáneos.',
+                explanation: 'Tu patrón indica que no estás lidiando con un solo síntoma aislado — es un colapso sistémico.',
                 symptoms: [
                     '✓ Sequedad extrema / tirantez',
                     '✓ Pérdida de firmeza visible',
@@ -414,81 +840,33 @@
                 ]
             }
         };
-        
+
         // Load profile data
         const currentProfile = profiles[profile];
-        
-        document.getElementById('profile-badge').textContent = `Tu Perfil: ${currentProfile.badge}`;
-        document.getElementById('profile-icon').textContent = currentProfile.icon;
-        document.getElementById('profile-title').textContent = currentProfile.title;
-        document.getElementById('profile-description').textContent = currentProfile.description;
-        document.getElementById('profile-explanation').innerHTML = `<p>${currentProfile.explanation}</p>`;
-        
-        // Load symptoms
-        const symptomsHTML = currentProfile.symptoms.map(s => `<div class="symptom-item">${s}</div>`).join('');
-        document.getElementById('profile-symptoms').innerHTML = symptomsHTML;
-        
-        // Track conversion (safe fallback)
-        try {
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'AddToCart', {
-                    content_name: 'Protocolo SOMA',
-                    content_category: currentProfile.badge,
-                    value: 249,
-                    currency: 'EUR'
-                });
-            }
-        } catch (e) {
-            console.log('FB Pixel not configured');
+        if (currentProfile) {
+            document.getElementById('profile-badge').textContent = `Tu Perfil: ${currentProfile.badge}`;
+            document.getElementById('profile-icon').textContent = currentProfile.icon;
+            document.getElementById('profile-title').textContent = currentProfile.title;
+            document.getElementById('profile-description').textContent = currentProfile.description;
+            document.getElementById('profile-explanation').innerHTML = `<p>${currentProfile.explanation}</p>`;
+
+            const symptomsHTML = currentProfile.symptoms.map(s => `<div class="symptom-item">${s}</div>`).join('');
+            document.getElementById('profile-symptoms').innerHTML = symptomsHTML;
         }
-        
-        // Update checkout links with profile
-        document.querySelectorAll('a[href^="checkout.html"]').forEach(link => {
-            const url = new URL(link.href, window.location.origin);
-            url.searchParams.set('profile', profile);
-            if (email) url.searchParams.set('email', email);
-            link.href = url.toString();
-        });
-        
+
         // Payment form handler
         const paymentForm = document.getElementById('payment-form');
         const stripeLinks = {
             unico: 'https://buy.stripe.com/5kQ3cvdkx0cR6J49s41kA01',
             plazos: 'https://buy.stripe.com/6oUeVdcgt0cR8Rc8o01kA00'
         };
-        
-        // Click entire card to select
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Update radio button
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                
-                // Update visual state
-                document.querySelectorAll('.payment-option').forEach(opt => {
-                    opt.style.border = '2px solid var(--color-gray-light)';
-                    const checkIcon = opt.querySelector('.check-icon');
-                    checkIcon.style.background = 'transparent';
-                    checkIcon.style.border = '2px solid var(--color-gray-light)';
-                    checkIcon.style.color = 'transparent';
-                });
-                
-                // Highlight selected
-                this.style.border = '3px solid var(--color-primary)';
-                const selectedCheck = this.querySelector('.check-icon');
-                selectedCheck.style.background = 'var(--color-primary)';
-                selectedCheck.style.border = 'none';
-                selectedCheck.style.color = 'white';
-            });
-        });
-        
-        // Form submit
+
         paymentForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const selectedPayment = document.querySelector('input[name="payment-type"]:checked').value;
             window.location.href = stripeLinks[selectedPayment];
         });
     </script>
-    
+
 </body>
 </html>
