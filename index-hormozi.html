@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Has probado TODO y nada funciona. Aquí está el por qué. | DERMA90</title>
+    <meta name="description" content="No es tu cuerpo el que dejó de responder. Es que nunca cerraste los 3 puntos de falla simultáneos. Descubre por qué nada funcionó... hasta ahora.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+    <style>
+        /* Hormozi-specific styles */
+        .hormozi-hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .hormozi-hero h1 {
+            color: white;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hormozi-hero .subheadline {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+        }
+        
+        .big-problem {
+            background: var(--color-error);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .enemy-section {
+            background: #f5f3f0;
+            padding: 4rem 2rem;
+        }
+        
+        .enemy-box {
+            background: white;
+            border-left: 4px solid var(--color-error);
+            padding: 2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .solution-section {
+            background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .solution-section h2 {
+            color: white;
+            font-size: clamp(1.75rem, 5vw, 2.75rem);
+            font-weight: 800;
+        }
+        
+        .mechanism-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .mechanism-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .mechanism-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .value-stack {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        
+        .stack-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: var(--color-beige);
+            border-radius: 8px;
+        }
+        
+        .stack-item-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .stack-item-value {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+        
+        .stack-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background: var(--color-primary-light);
+            border-radius: 12px;
+            border: 2px solid var(--color-primary);
+        }
+        
+        .stack-total-label {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .stack-total-value {
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--color-primary-dark);
+        }
+        
+        .price-reveal {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .price-old {
+            font-size: 2rem;
+            text-decoration: line-through;
+            color: var(--color-gray-medium);
+            margin-bottom: 1rem;
+        }
+        
+        .price-new {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin: 1rem 0;
+        }
+        
+        .price-subtext {
+            font-size: 1.125rem;
+            color: var(--color-gray-dark);
+        }
+        
+        .guarantee-box {
+            background: var(--color-success);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 700px;
+        }
+        
+        .guarantee-badge {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .scarcity-bar {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-error);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 700;
+            z-index: 999;
+        }
+    </style>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    try { if (typeof fbq !== 'undefined') fbq('init', '26790865950521543'); } catch(e) {}
+    try { if (typeof fbq !== 'undefined') fbq('track', 'PageView'); } catch(e) {}
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+    
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <img src="/assets/images/logo.svg" alt="Instituto DERMA90" style="height: 50px; width: auto;">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN 1: HOOK + BIG DOMINO -->
+    <section class="hormozi-hero">
+        <div class="container-narrow">
+            <div class="big-problem">⚠️ ATENCIÓN: Mujeres 37-50 años</div>
+            
+            <h1>
+                Has gastado miles en colágeno, cremas y vitaminas...<br>
+                Y tu piel sigue empeorando.
+            </h1>
+            
+            <p class="subheadline">
+                No es tu cuerpo el que "dejó de responder".<br>
+                Es que NUNCA cerraste los 3 puntos de falla simultáneos.
+            </p>
+            
+            <div style="margin: 3rem 0;">
+                <img src="/assets/images/hero-main.jpg" alt="Mujer perimenopausia" style="width: 100%; max-width: 600px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+            </div>
+            
+            <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">
+                En los próximos 5 minutos vas a descubrir por qué TODO lo que has probado hasta ahora estaba condenado al fracaso desde el día 1...<br>
+                <strong>Y qué hacer al respecto.</strong>
+            </p>
+            
+            <a href="#descubre" class="btn btn-primary btn-large" style="font-size: 1.25rem; padding: 1.5rem 3rem;">
+                Descubre por qué nada funcionó →
+            </a>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 2: AGITAR EL DOLOR -->
+    <section class="section">
+        <div class="container-narrow">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Déjame adivinar...</h2>
+            
+            <div style="background: var(--color-beige); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+                <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                    <strong style="color: var(--color-primary);">✓</strong> Te miras al espejo y no te reconoces<br>
+                    <strong style="color: var(--color-primary);">✓</strong> La gente te pregunta "¿estás cansada?" (cuando dormiste 8 horas)<br>
+                    <strong style="color: var(--color-primary);">✓</strong> Has gastado <strong>200€+ al mes</strong> en colágeno, vitaminas, cremas antiedad<br>
+                    <strong style="color: var(--color-primary);">✓</strong> Probaste ClimaFort, isoflavonas, 6 suplementos diferentes... nada<br>
+                    <strong style="color: var(--color-primary);">✓</strong> Tu armario tiene 12+ productos a medio usar<br>
+                    <strong style="color: var(--color-primary);">✓</strong> Cada nuevo producto te da esperanza... y luego, nada<br>
+                    <strong style="color: var(--color-primary);">✓</strong> Empiezas a pensar: "quizá mi cuerpo simplemente ya no responde"
+                </p>
+            </div>
+            
+            <p style="text-align: center; font-size: 1.25rem; font-weight: 600; margin: 2rem 0;">
+                Si esto te suena familiar, sigue leyendo.<br>
+                Porque no es culpa tuya.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 3: ENEMIGO COMÚN -->
+    <section class="enemy-section" id="descubre">
+        <div class="container-narrow">
+            <h2 style="text-align: center; margin-bottom: 2rem;">El enemigo no es tu cuerpo.<br>Es la MENTIRA que te vendieron.</h2>
+            
+            <div class="enemy-box">
+                <h3 style="color: var(--color-error); margin-bottom: 1rem;">❌ MENTIRA #1: "Toma colágeno y tu piel mejorará"</h3>
+                <p><strong>LA VERDAD:</strong> El colágeno solo es MATERIA PRIMA. Sin vitamina C + zinc + cobre presentes AL MISMO TIEMPO, tu cuerpo NO PUEDE ensamblarlo. Es como enviar ladrillos a una obra sin cemento ni obreros.</p>
+                <p style="margin-top: 0.5rem; font-style: italic; color: var(--color-gray-dark);">Meta-análisis 2025 (American Journal of Medicine): colágeno solo = sin efecto significativo en piel.</p>
+            </div>
+            
+            <div class="enemy-box">
+                <h3 style="color: var(--color-error); margin-bottom: 1rem;">❌ MENTIRA #2: "Las cremas antiedad con retinol arreglarán tu piel"</h3>
+                <p><strong>LA VERDAD:</strong> El problema está en la DERMIS (capa profunda). Las moléculas de colágeno son 600x demasiado grandes para penetrar. No importa cuánto gastes — físicamente NO PUEDEN llegar donde está el daño.</p>
+                <p style="margin-top: 0.5rem; font-style: italic; color: var(--color-gray-dark);">Regla de 500 Dalton: moléculas >500 Da no cruzan stratum corneum. Colágeno = 300,000 Da.</p>
+            </div>
+            
+            <div class="enemy-box">
+                <h3 style="color: var(--color-error); margin-bottom: 1rem;">❌ MENTIRA #3: "Los suplementos de menopausia resolverán todo"</h3>
+                <p><strong>LA VERDAD:</strong> ClimaFort, isoflavonas, etc. tratan SOFOCOS (síntomas hormonales generales). NO proveen los cofactores específicos que tu piel necesita. No atacan estrés oxidativo. No modifican hábitos que aceleran el colapso.</p>
+                <p style="margin-top: 0.5rem; font-style: italic; color: var(--color-gray-dark);">AARP: "Muchos suplementos menopausia se venden sin evidencia científica sólida de eficacia."</p>
+            </div>
+            
+            <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
+                <h3 style="margin-bottom: 1rem;">El resultado:</h3>
+                <p style="font-size: 1.25rem; font-weight: 600; color: var(--color-error);">
+                    Has estado atacando 1 problema a la vez...<br>
+                    Cuando tu cuerpo tiene 3 fallos SIMULTÁNEOS.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: SOLUCIÓN ÚNICA -->
+    <section class="solution-section">
+        <div class="container-narrow">
+            <h2>La única forma de que esto funcione:</h2>
+            <h3 style="color: white; font-size: clamp(1.25rem, 4vw, 2rem); font-weight: 700; margin: 2rem 0;">
+                Cerrar los 3 puntos de falla AL MISMO TIEMPO<br>
+                + Sostenerlo durante 12 semanas sin abandonar
+            </h3>
+            
+            <div class="mechanism-grid">
+                <div class="mechanism-card">
+                    <div class="mechanism-number">1</div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Estrés Oxidativo</h4>
+                    <p style="color: rgba(255,255,255,0.9);">
+                        Estrógeno ↓ = radicales libres destruyendo colágeno MÁS RÁPIDO de lo que produces.<br><br>
+                        <strong>Solución:</strong> Antioxidantes (vit E 225% VRN + selenio + licopeno + curcumina) que PROTEGEN lo que produces.
+                    </p>
+                </div>
+                
+                <div class="mechanism-card">
+                    <div class="mechanism-number">2</div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Gaps de Cofactores</h4>
+                    <p style="color: rgba(255,255,255,0.9);">
+                        Sin vitamina C + zinc + cobre presentes SIMULTÁNEAMENTE, tu cuerpo no puede ENSAMBLAR colágeno.<br><br>
+                        <strong>Solución:</strong> Sistema completo de cofactores en dosis coordinadas (no 6 botes sueltos).
+                    </p>
+                </div>
+                
+                <div class="mechanism-card">
+                    <div class="mechanism-number">3</div>
+                    <h4 style="color: white; margin-bottom: 1rem;">Saboteadores Conductuales</h4>
+                    <p style="color: rgba(255,255,255,0.9);">
+                        Deshidratación + falta de proteína + sueño roto = ACELERAN el colapso.<br><br>
+                        <strong>Solución:</strong> Micro-hábitos diarios guiados (2L agua + proteína desayuno + 10min luz) que ningún suplemento puede reemplazar.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 3rem; color: var(--color-black);">
+                <p style="font-size: 1.25rem; font-weight: 600; text-align: center;">
+                    Pero hay un problema...<br>
+                    Hacer esto TÚ SOLA es casi imposible.
+                </p>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Porque <strong>el 87% de las mujeres abandonan suplementos antes de la semana 8</strong> — justo cuando empezarían a ver resultados.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 5: MECANISMO ÚNICO (Protocolo SŌMA) -->
+    <section class="section">
+        <div class="container-narrow">
+            <h2 style="text-align: center; margin-bottom: 1rem;">Por eso creamos el Protocolo SŌMA</h2>
+            <p style="text-align: center; font-size: 1.125rem; color: var(--color-gray-dark); margin-bottom: 3rem;">
+                El primer (y único) sistema que cierra los 3 fallos simultáneos<br>
+                + te sostiene durante las 12 semanas críticas
+            </p>
+            
+            <div style="margin: 3rem 0;">
+                <img src="/assets/images/protocolo-ritual.jpg" alt="Protocolo SŌMA" style="width: 100%; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+            </div>
+            
+            <div style="background: var(--color-primary-light); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+                <h3 style="margin-bottom: 1.5rem; text-align: center;">3 componentes inseparables:</h3>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--color-primary);">🔬 Componente 1: Suplemento SŌMA (92 ingredientes)</h4>
+                    <p>Sistema completo de cofactores + antioxidantes en dosis verificables. No "mezcla propietaria" — transparencia total.</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem; line-height: 1.8;">
+                        <li>Vitamina C 36mg (formación colágeno - claim UE)</li>
+                        <li>Vitamina A 2700µg (mantenimiento piel - claim UE)</li>
+                        <li>Vitamina E 80.5mg 225% VRN (protección antioxidante - claim UE)</li>
+                        <li>Zinc 3mg + Selenio 60µg (mantenimiento piel - claim UE)</li>
+                        <li>Cúrcuma 54mg 95% curcuminoides + Licopeno 1.5mg</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--color-primary);">☀️ Componente 2: Ritual Diario Guiado</h4>
+                    <p>3 micro-hábitos que ningún suplemento puede reemplazar:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem; line-height: 1.8;">
+                        <li>2L agua (hidratación celular)</li>
+                        <li>Proteína en desayuno (aminoácidos para síntesis)</li>
+                        <li>10min luz natural (regulación circadiana/hormonal)</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: var(--color-primary);">💬 Componente 3: Coaching 12 Semanas (WhatsApp 1:1)</h4>
+                    <p>Esto es lo que cambia el juego:</p>
+                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem; line-height: 1.8;">
+                        <li>6 check-ins quincenales (Semana 2, 4, 6, 8, 10, 12)</li>
+                        <li>Calibración nocturna diaria (energía + sueño + skin)</li>
+                        <li>Portal digital con ritual guiado 20-25 min/día</li>
+                        <li>Ajustes personalizados según tu progreso</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-weight: 600;">Research shows: coaching aumenta adherencia de 23.7% a 54.9%. Eso es 2.3x más probabilidad de completar las 12 semanas.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; padding: 2rem; background: white; border-radius: 12px; border: 2px solid var(--color-primary);">
+                <p style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem;">
+                    No es un suplemento.<br>
+                    Es un SISTEMA que te sostiene hasta que funcione.
+                </p>
+                <p style="font-size: 1rem; color: var(--color-gray-dark);">
+                    (Porque sin los 3 componentes trabajando juntos, vuelves al mismo ciclo que te trajo aquí)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 6: STACK DE VALOR (Hormozi style) -->
+    <section class="section section-alt">
+        <div class="container-narrow">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Aquí está TODO lo que recibes:</h2>
+            
+            <div class="value-stack">
+                <div class="stack-item">
+                    <div>
+                        <div class="stack-item-name">Suplemento SŌMA (90 días)</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">92 ingredientes clínicos, dosis verificables</div>
+                    </div>
+                    <div class="stack-item-value">€180</div>
+                </div>
+                
+                <div class="stack-item">
+                    <div>
+                        <div class="stack-item-name">Asesoramiento privado diario por WhatsApp</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Soporte personalizado durante 12 semanas</div>
+                    </div>
+                    <div class="stack-item-value">€240</div>
+                </div>
+                
+                <div class="stack-item">
+                    <div>
+                        <div class="stack-item-name">Portal digital con ritual guiado</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">12 semanas de contenido diario + meditaciones</div>
+                    </div>
+                    <div class="stack-item-value">€90</div>
+                </div>
+                
+                <div class="stack-item">
+                    <div>
+                        <div class="stack-item-name">Check-ins quincenales</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Seguimiento personalizado durante 12 semanas</div>
+                    </div>
+                    <div class="stack-item-value">€60</div>
+                </div>
+                
+                <div class="stack-item" style="border: 2px solid var(--color-gold);">
+                    <div>
+                        <div class="stack-item-name">Comunidad privada 1ª Cohorte 🔥</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Acceso exclusivo grupo fundacional</div>
+                    </div>
+                    <div class="stack-item-value">€50</div>
+                </div>
+                
+                <div class="stack-item">
+                    <div>
+                        <div class="stack-item-name">Garantía devolución completa 30 días</div>
+                        <div style="font-size: 0.9rem; color: var(--color-gray-dark);">Riesgo cero - 100% satisfacción garantizada</div>
+                    </div>
+                    <div class="stack-item-value">Incluido</div>
+                </div>
+                
+                <div class="stack-total">
+                    <div class="stack-total-label">Valor Total Real:</div>
+                    <div class="stack-total-value">€620</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 7: PRECIO REVEAL -->
+    <section class="section">
+        <div class="container-narrow">
+            <div class="price-reveal">
+                <h2 style="margin-bottom: 2rem;">¿Cuánto cuesta esto normalmente?</h2>
+                
+                <div style="background: var(--color-beige); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <p style="font-size: 1.125rem; margin-bottom: 1rem;">Si compraras cada componente por separado:</p>
+                    <div class="price-old">€620</div>
+                    <p style="font-size: 0.9rem; color: var(--color-gray-dark);">(Y eso SIN garantía de que lo completarías sin coaching)</p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%); padding: 3rem 2rem; border-radius: 16px; color: white;">
+                    <h3 style="color: white; margin-bottom: 1rem;">Hoy, como primera cohorte pública:</h3>
+                    <div class="price-new" style="color: white;">€249</div>
+                    <div class="price-subtext" style="color: rgba(255,255,255,0.9);">O 3 pagos de €89 (sin intereses)</div>
+                    
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.3);">
+                        <p style="font-size: 1.125rem; margin-bottom: 1rem;">Contexto:</p>
+                        <p>Probablemente ya gastas ~€200/mes en colágeno + vitaminas + cremas sin protocolo.</p>
+                        <p style="margin-top: 0.5rem;">Eso son <strong>€600 cada 3 meses</strong> tirando dinero sin estructura ni seguimiento.</p>
+                        <p style="margin-top: 1rem; font-weight: 700; font-size: 1.25rem;">
+                            €249 por 12 semanas completas con sistema + coaching = €20.75/semana
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="quiz.html" class="btn btn-primary btn-large" style="font-size: 1.5rem; padding: 1.5rem 3rem; background: var(--color-black);">
+                        Solicita tu plaza ahora →
+                    </a>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--color-gray-medium);">
+                        Primero: test diagnóstico gratuito (2 min)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 8: GARANTÍA -->
+    <section class="section section-alt">
+        <div class="container-narrow">
+            <div class="guarantee-box">
+                <div class="guarantee-badge">💯</div>
+                <h2 style="color: white; margin-bottom: 1rem;">Garantía Triple Blindada</h2>
+                
+                <div style="text-align: left; margin-top: 2rem;">
+                    <h3 style="color: white; margin-bottom: 1rem;">1. Garantía 30 días devolución sin preguntas</h3>
+                    <p style="opacity: 0.95;">Prueba el protocolo durante 30 días. Si por CUALQUIER razón no estás satisfecha — devolución COMPLETA. No preguntas, no excusas.</p>
+                    
+                    <h3 style="color: white; margin: 2rem 0 1rem;">2. Garantía de transparencia total</h3>
+                    <p style="opacity: 0.95;">Todas las dosis publicadas. Todos los claims verificados por UE. Registro sanitario AESAN. Fabricación España con trazabilidad completa.</p>
+                    
+                    <h3 style="color: white; margin: 2rem 0 1rem;">3. Garantía de coaching real</h3>
+                    <p style="opacity: 0.95;">6 check-ins bi-semanales GARANTIZADOS vía WhatsApp. No bots, no automático — seguimiento humano real durante 84 días.</p>
+                </div>
+                
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid rgba(255,255,255,0.3);">
+                    <p style="font-size: 1.25rem; font-weight: 700;">
+                        En resumen: O funciona, o no pagas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 9: URGENCIA/ESCASEZ -->
+    <section class="section">
+        <div class="container-narrow">
+            <div style="background: var(--color-error); color: white; padding: 3rem 2rem; border-radius: 16px; text-align: center;">
+                <h2 style="color: white; margin-bottom: 1rem;">⚠️ Por qué las plazas SON limitadas</h2>
+                <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.95;">
+                    (Y no es marketing — es logística real)
+                </p>
+                
+                <div style="text-align: left; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px;">
+                    <p style="margin-bottom: 1rem;"><strong>1. Ingredientes de importación europea</strong></p>
+                    <p style="opacity: 0.9; margin-bottom: 1.5rem;">Extractos estandarizados al 95% de curcuminoides, vitamina A natural, licopeno de tomate cultivado específicamente. Este nivel de pureza NO se produce rápido ni en cualquier lugar.</p>
+                    
+                    <p style="margin-bottom: 1rem;"><strong>2. Capacidad de coaching 1:1 limitada</strong></p>
+                    <p style="opacity: 0.9; margin-bottom: 1.5rem;">Cada cohorte = 150 mujeres máximo. Es el límite para mantener seguimiento personalizado real durante 12 semanas.</p>
+                    
+                    <p style="margin-bottom: 1rem;"><strong>3. Inicio sincronizado: 30 de marzo 2026</strong></p>
+                    <p style="opacity: 0.9;">Todas empiezan juntas. Si lleno, próxima cohorte: mayo 2026.</p>
+                </div>
+                
+                <div style="margin-top: 2rem; font-size: 2rem; font-weight: 900;">
+                    Plazas restantes: <span id="stock-final">150</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 10: CTA FINAL -->
+    <section class="section">
+        <div class="container-narrow" style="text-align: center;">
+            <h2 style="margin-bottom: 2rem;">Tienes 2 opciones:</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
+                <div style="background: var(--color-beige); padding: 2rem; border-radius: 12px;">
+                    <h3 style="color: var(--color-error); margin-bottom: 1rem;">❌ OPCIÓN 1</h3>
+                    <p>Seguir haciendo lo mismo que hasta ahora.</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--color-gray-dark);">
+                        Comprar otro colágeno. Otra crema. Otro suplemento aislado. Gastar otros €200/mes sin protocolo. Dentro de 3 meses, mirarte al espejo y sentir lo mismo que hoy.
+                    </p>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%); padding: 2rem; border-radius: 12px; color: white;">
+                    <h3 style="color: white; margin-bottom: 1rem;">✅ OPCIÓN 2</h3>
+                    <p>Cerrar los 3 fallos simultáneos con sistema + coaching.</p>
+                    <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.95;">
+                        Empezar el protocolo SŌMA hoy. Seguir el sistema completo durante 12 semanas. Dentro de 3 meses, verte (y sentirte) diferente.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="margin: 3rem 0;">
+                <p style="font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;">
+                    La decisión es tuya.<br>
+                    Pero la oferta no va a estar aquí para siempre.
+                </p>
+                
+                <a href="quiz.html" class="btn btn-primary btn-large" style="font-size: 1.75rem; padding: 2rem 4rem; background: var(--color-black);">
+                    Solicitar plaza — €249
+                </a>
+                
+                <p style="margin-top: 1.5rem; font-size: 1rem; color: var(--color-gray-medium);">
+                    Paso 1: Test diagnóstico (2 min) · Paso 2: Confirmación plaza · Paso 3: Inicio 30 marzo
+                </p>
+                
+                <div style="margin-top: 3rem; padding: 2rem; background: var(--color-beige); border-radius: 12px;">
+                    <p style="font-size: 0.95rem;">
+                        ✓ Garantía 30 días devolución<br>
+                        ✓ 150 plazas disponibles<br>
+                        ✓ Inicio: 30 de marzo 2026
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div style="text-align: center; font-size: 0.9rem; opacity: 0.7; padding: 2rem 0;">
+                <p>Instituto DERMA90 · Fabricado en España · Registro Sanitario AESAN</p>
+                <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">
+                    <strong>Advertencia importante:</strong> No recomendado en embarazo, lactancia o búsqueda de embarazo. Contiene gluten (trigo) y soja. Si estás en tratamiento médico, consulta a un profesional. Los complementos no diagnostican, tratan, curan ni previenen enfermedades.
+                </p>
+                <p style="margin-top: 1rem;">© 2026 Instituto DERMA90. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCARCITY BAR -->
+    <div class="scarcity-bar">
+        ⚠️ PLAZAS LIMITADAS: <span id="stock-bar">150</span> restantes · Inicio 30 marzo · 
+        <a href="quiz.html" style="color: white; text-decoration: underline; margin-left: 1rem;">Solicitar ahora →</a>
+    </div>
+
+    <script>
+    // Capturar parámetros UTM y pasarlos al quiz
+    (function() {
+      const currentUrl = new URLSearchParams(window.location.search);
+      const utmParams = {};
+      
+      // Capturar todos los parámetros UTM
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(param => {
+        if (currentUrl.has(param)) {
+          utmParams[param] = currentUrl.get(param);
+        }
+      });
+      
+      // Si hay parámetros UTM, añadirlos a todos los enlaces de quiz.html
+      if (Object.keys(utmParams).length > 0) {
+        const quizLinks = document.querySelectorAll('a[href*="quiz.html"]');
+        quizLinks.forEach(link => {
+          const url = new URL(link.href);
+          Object.keys(utmParams).forEach(key => {
+            url.searchParams.set(key, utmParams[key]);
+          });
+          link.href = url.toString();
+        });
+      }
+    })();
+    </script>
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

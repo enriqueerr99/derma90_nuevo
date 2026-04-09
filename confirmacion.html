@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Bienvenida al Protocolo SŌMA! — Instituto DERMA90</title>
+    <meta name="description" content="Tu plaza está confirmada. Te damos la bienvenida a DERMA90.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26790865950521543');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+    <style>
+        .confirmation-hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-beige) 100%);
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: scaleIn 0.5s ease;
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        .next-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 50px;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <p style="font-size: 1.375rem; font-weight: 500; color: var(--color-black); letter-spacing: 2px;">DERMA90</p>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONFIRMATION HERO -->
+    <section class="confirmation-hero" style="margin-top: 70px;">
+        <div class="container-narrow">
+            <div class="success-icon">✓</div>
+            <h1 style="margin-bottom: 1rem;">¡Tu plaza está confirmada!</h1>
+            <p style="font-size: 1.25rem; color: var(--color-gray-dark); max-width: 600px; margin: 0 auto;">
+                Bienvenida al Protocolo SŌMA.<br>
+                Cohorte 30 de marzo · 12 semanas de transformación.
+            </p>
+        </div>
+    </section>
+
+    <!-- CONFIRMATION DETAILS -->
+    <section class="section">
+        <div class="container-narrow">
+            
+            <!-- Order Confirmation -->
+            <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: var(--shadow-md); margin-bottom: 3rem;">
+                <h3 style="margin-bottom: 1.5rem;">Resumen de tu pedido</h3>
+                
+                <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--color-beige);">
+                        <div>
+                            <strong>Protocolo SŌMA Completo</strong>
+                            <div style="font-size: 0.9rem; color: var(--color-gray-medium); margin-top: 0.25rem;">12 semanas · Cohorte 30 marzo</div>
+                        </div>
+                        <div style="font-weight: 600;">249€</div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; padding: 1rem 0; font-size: 1.25rem; font-weight: 600; border-top: 2px solid var(--color-black);">
+                        <div>Total pagado</div>
+                        <div style="color: var(--color-primary);">249€</div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--color-primary-light); padding: 1.5rem; border-radius: 8px;">
+                    <p style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>Email de confirmación enviado</strong></p>
+                    <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin: 0;">
+                        Revisa tu bandeja de entrada (y spam). Incluye:
+                    </p>
+                    <ul style="font-size: 0.9rem; color: var(--color-gray-dark); margin: 0.5rem 0 0 1.5rem; line-height: 1.8;">
+                        <li>Confirmación de compra + número de pedido</li>
+                        <li>Instrucciones de acceso al portal digital</li>
+                        <li>Cómo unirte al grupo WhatsApp de seguimiento</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Next Steps -->
+            <h2 class="section-title">¿Qué pasa ahora?</h2>
+            
+            <div class="next-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4 style="margin-bottom: 0.75rem;">Envío en 48-72h</h4>
+                    <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
+                        Recibirás tracking por email. Tu pack incluye suplemento SŌMA (90 días) + guía de inicio.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4 style="margin-bottom: 0.75rem;">Acceso al portal</h4>
+                    <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
+                        Recibirás credenciales para acceder al portal digital con ritual guiado y material de apoyo.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4 style="margin-bottom: 0.75rem;">Unirte a WhatsApp</h4>
+                    <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
+                        Te enviaremos invitación al grupo de tu cohorte. Ahí haremos check-ins y seguimiento durante 12 semanas.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4 style="margin-bottom: 0.75rem;">Inicio: 30 marzo</h4>
+                    <p style="font-size: 0.95rem; color: var(--color-gray-dark);">
+                        Primera sesión de bienvenida vía WhatsApp. Configuramos tu ritual y resolvemos dudas antes de empezar.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Important Notes -->
+            <div style="background: var(--color-beige); padding: 2rem; border-radius: 12px; margin-top: 3rem;">
+                <h3 style="margin-bottom: 1rem;">Importante antes de empezar:</h3>
+                <ul style="line-height: 2; color: var(--color-gray-dark);">
+                    <li>✓ Si estás en tratamiento médico, consulta a tu profesional antes de empezar</li>
+                    <li>✓ No recomendado en embarazo, lactancia o búsqueda de embarazo</li>
+                    <li>✓ Contiene gluten (trigo) y soja — revisa si tienes alergias</li>
+                    <li>✓ Los resultados son progresivos: semana 4-6 primeros cambios, semana 12 resultados completos</li>
+                    <li>✓ La constancia es clave — el protocolo funciona cuando lo sigues completo</li>
+                </ul>
+            </div>
+            
+            <!-- Reminder -->
+            <div style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); color: white; padding: 3rem 2rem; border-radius: 16px; text-align: center; margin-top: 3rem;">
+                <h3 style="color: white; margin-bottom: 1rem;">Recuerda: garantía 30 días</h3>
+                <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.95;">
+                    Prueba el protocolo durante 30 días. Si no estás satisfecha, devolución completa sin preguntas.
+                </p>
+                <p style="font-size: 0.95rem; opacity: 0.9;">
+                    Simplemente escríbenos a <a href="mailto:info@iderma90.com" style="color: white; text-decoration: underline;">info@iderma90.com</a>
+                </p>
+            </div>
+            
+            <!-- Support -->
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem;">
+                <h4 style="margin-bottom: 1rem;">¿Preguntas antes de empezar?</h4>
+                <p style="color: var(--color-gray-dark); margin-bottom: 1.5rem;">
+                    Estamos aquí para ayudarte.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="mailto:info@iderma90.com" class="btn btn-secondary">
+                        📧 Email: info@iderma90.com
+                    </a>
+                    <a href="https://wa.me/34600000000" class="btn btn-secondary" target="_blank">
+                        💬 WhatsApp
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- FOOTER SIMPLE -->
+    <footer class="footer" style="padding: 2rem 0; background: var(--color-black); color: white;">
+        <div class="container">
+            <div style="text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                <p>Instituto DERMA90 · Fabricado en España · Registro Sanitario AESAN</p>
+                <p style="margin-top: 0.5rem;">© 2026 Instituto DERMA90. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Track purchase (safe fallback)
+        try {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Purchase', {
+                    content_name: 'Protocolo SOMA',
+                    value: 249,
+                    currency: 'EUR'
+                });
+            }
+        } catch (e) {
+            console.log('FB Pixel not configured');
+        }
+        
+        // Get order details from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const profile = urlParams.get('profile') || 'somaplus';
+        const paymentIntent = urlParams.get('payment_intent');
+        
+        // Log for backend processing
+        console.log('Order confirmed:', {
+            profile,
+            paymentIntent,
+            timestamp: new Date().toISOString()
+        });
+        
+        // TODO: Send confirmation to backend
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo SŌMA — Instituto DERMA90</title>
+    <meta name="description" content="12 semanas · 3 pilares simultáneos · Primera cohorte pública">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26790865950521543');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+  
+  /* MOBILE-FIRST RESET */
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;}
+  body{font-family:'DM Sans',sans-serif;color:#1a1a1a;background:#faf8f5;font-size:15px;line-height:1.65;overflow-x:hidden;}
+  
+  .lp{min-height:100vh;}
+  .lp-gold{color:#d4aa60;}
+  .lp-dark{background:#12100e;}
+
+  /* TOPBAR - Mobile optimizado */
+  .lp-topbar{background:#8B1A1A;color:#fff;text-align:center;font-size:10px;padding:8px 12px;letter-spacing:0.02em;line-height:1.4;}
+  
+  /* HERO - Mobile First */
+  .lp-hero{background:#12100e;color:#f5f0e8;padding:36px 20px 40px;text-align:center;position:relative;}
+  .lp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(180,140,100,0.15) 0%,transparent 65%);pointer-events:none;}
+  
+  .lp-badge{display:inline-block;background:rgba(180,140,80,0.18);border:1px solid rgba(180,140,80,0.45);color:#d4aa60;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;margin-bottom:20px;}
+  
+  .lp-hero h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;line-height:1.2;color:#f5f0e8;margin:0 auto 16px;}
+  .lp-hero h1 em{font-style:italic;color:#d4aa60;}
+  
+  .lp-hero-sub{font-size:15px;color:rgba(245,240,232,0.7);margin:0 auto 10px;font-weight:300;line-height:1.5;}
+  .lp-hero-sub2{font-size:13px;color:rgba(245,240,232,0.5);margin:0 auto 28px;line-height:1.5;}
+  .lp-hero-sub2 strong{color:rgba(245,240,232,0.8);font-weight:500;}
+  
+  /* BOTONES - Mobile optimizado */
+  .btn-primary{display:inline-block;background:#d4aa60;color:#12100e;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;padding:14px 28px;border-radius:3px;cursor:pointer;border:none;letter-spacing:0.02em;margin-bottom:12px;text-decoration:none;transition:all 0.2s ease;width:100%;max-width:320px;text-align:center;}
+  .btn-primary:active{transform:scale(0.98);}
+  
+  .lp-urgency{font-size:10px;color:rgba(245,240,232,0.4);letter-spacing:0.04em;margin-top:6px;}
+
+  /* PROOF BAR - Mobile */
+  .proof-bar{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:#fff;border-top:1px solid #e8e0d4;border-bottom:1px solid #e8e0d4;}
+  .proof-item{text-align:center;padding:16px 12px;border-right:1px solid #e8e0d4;border-bottom:1px solid #e8e0d4;}
+  .proof-item:nth-child(2n){border-right:none;}
+  .proof-item:nth-last-child(-n+2){border-bottom:none;}
+  .proof-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#12100e;line-height:1;}
+  .proof-lbl{font-size:9px;color:#999;text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;}
+
+  /* SECCIONES - Mobile First */
+  .sec{padding:40px 20px;}
+  .sec-inner{max-width:100%;margin:0 auto;}
+  .sec-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#b09060;margin-bottom:10px;font-weight:500;}
+  .sec-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1.25;color:#12100e;margin-bottom:20px;}
+  .sec-title em{font-style:italic;color:#8B5E3C;}
+  .sec-title-light{color:#f5f0e8;}
+  .sec-title-light em{color:#d4aa60;}
+  .body-text{color:#3a3530;font-size:15px;line-height:1.7;margin-bottom:14px;}
+  .body-text strong{color:#12100e;font-weight:500;}
+
+  /* CHECKLIST HERO - Mobile */
+  .check-list{text-align:left;margin:0 auto 28px;}
+  .check-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:14px;color:rgba(245,240,232,0.85);line-height:1.5;}
+  .check-item:last-child{border-bottom:none;}
+  .check-tick{color:#d4aa60;font-size:12px;margin-top:2px;flex-shrink:0;}
+
+  /* MENTIRAS - Mobile */
+  .mentira-block{background:#fff;border:1px solid #e8e0d4;border-radius:4px;margin-bottom:14px;overflow:hidden;}
+  .mentira-head{background:#fdf0f0;padding:14px 16px;border-bottom:1px solid #f0d0d0;}
+  .mentira-head-label{font-size:10px;color:#b44;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;font-weight:500;}
+  .mentira-head-text{font-size:15px;font-weight:500;color:#6a1010;line-height:1.3;}
+  .mentira-body{padding:16px;}
+  .mentira-truth-label{font-size:10px;color:#5a8a5a;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;font-weight:500;}
+  .mentira-truth-text{font-size:14px;color:#2a3a2a;line-height:1.65;margin-bottom:10px;}
+  .mentira-source{font-size:11px;color:#999;font-style:italic;border-left:2px solid #e8e0d4;padding-left:10px;margin-top:8px;line-height:1.5;}
+
+  /* 3 FALLOS - Mobile First */
+  .fallos-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0;}
+  .fallo-card{border:1px solid rgba(212,170,96,0.3);border-radius:4px;padding:20px 16px;background:rgba(212,170,96,0.05);}
+  .fallo-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#d4aa60;line-height:1;margin-bottom:8px;}
+  .fallo-title{font-size:14px;font-weight:600;color:#f5f0e8;margin-bottom:8px;}
+  .fallo-problem{font-size:13px;color:rgba(245,240,232,0.6);margin-bottom:12px;line-height:1.5;}
+  .fallo-sol-label{font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:#d4aa60;margin-bottom:6px;}
+  .fallo-sol{font-size:13px;color:rgba(245,240,232,0.85);line-height:1.5;}
+
+  /* STAT CALLOUT - Mobile */
+  .stat-callout{background:#12100e;border:1px solid rgba(212,170,96,0.25);border-radius:4px;padding:24px 20px;margin:24px 0;text-align:center;}
+  .stat-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:#d4aa60;line-height:1;}
+  .stat-desc{font-size:14px;color:rgba(245,240,232,0.75);margin-top:10px;line-height:1.6;margin-left:auto;margin-right:auto;}
+  .stat-desc strong{color:#f5f0e8;}
+
+  /* COMPONENTES SOMA - Mobile */
+  .soma-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0;}
+  .soma-card{border:1px solid rgba(180,140,80,0.3);border-radius:4px;padding:18px;background:#faf8f5;}
+  .soma-card-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;}
+  .soma-card-icon{width:36px;height:36px;border-radius:2px;background:rgba(180,140,80,0.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .soma-card-title{font-size:15px;font-weight:600;color:#12100e;margin-bottom:3px;line-height:1.3;}
+  .soma-card-sub{font-size:12px;color:#999;line-height:1.4;}
+  .soma-ing-list{display:flex;flex-direction:column;gap:8px;}
+  .soma-ing{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:#4a4540;line-height:1.5;}
+  .soma-dot{color:#d4aa60;flex-shrink:0;margin-top:2px;}
+
+  /* VALOR TABLE - Mobile */
+  .valor-table{width:100%;border-collapse:collapse;margin:16px 0;}
+  .valor-table tr{border-bottom:1px solid rgba(255,255,255,0.07);}
+  .valor-table tr:last-child{border-bottom:none;}
+  .valor-table td{padding:12px 0;font-size:13px;color:rgba(245,240,232,0.75);vertical-align:top;line-height:1.4;}
+  .valor-table td:last-child{text-align:right;font-weight:500;color:rgba(245,240,232,0.5);white-space:nowrap;padding-left:10px;font-size:14px;}
+  .valor-table .val-name{font-weight:600;color:#f5f0e8;display:block;margin-bottom:2px;font-size:14px;}
+  .valor-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid rgba(212,170,96,0.3);margin-top:8px;}
+  .valor-total-lbl{font-size:12px;color:rgba(245,240,232,0.5);text-transform:uppercase;letter-spacing:0.06em;}
+  .valor-total-price{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:rgba(245,240,232,0.3);text-decoration:line-through;}
+
+  /* GARANTÍAS - Mobile */
+  .garantia-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:24px 0;}
+  .garantia-card{background:#fff;border:1px solid #e8e0d4;border-radius:4px;padding:18px;text-align:center;}
+  .garantia-icon{font-size:28px;margin-bottom:8px;}
+  .garantia-title{font-size:14px;font-weight:600;color:#12100e;margin-bottom:6px;}
+  .garantia-desc{font-size:13px;color:#5a5550;line-height:1.6;}
+
+  /* TESTIMONIOS - Mobile */
+  .testi-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+  .testi-card{background:#fff;border:1px solid #e8e0d4;border-radius:4px;padding:18px;}
+  .testi-stars{color:#d4aa60;font-size:11px;margin-bottom:8px;letter-spacing:1.5px;}
+  .testi-quote{font-size:14px;color:#3a3530;line-height:1.6;margin-bottom:12px;font-style:italic;}
+  .testi-name{font-size:11px;color:#999;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;}
+
+  /* 2 OPCIONES - Mobile */
+  .opciones-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:24px 0;}
+  .opcion-card{border-radius:4px;padding:20px 16px;}
+  .opcion-card.bad{background:#fdf8f5;border:1px solid #e8d0c0;}
+  .opcion-card.good{background:#12100e;border:1px solid rgba(212,170,96,0.4);}
+  .opcion-head{font-size:12px;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em;}
+  .opcion-head.bad{color:#b44;}
+  .opcion-head.good{color:#d4aa60;}
+  .opcion-item{display:flex;gap:8px;font-size:13px;margin-bottom:10px;line-height:1.5;align-items:flex-start;}
+  .opcion-item.bad{color:#5a4a40;}
+  .opcion-item.good{color:rgba(245,240,232,0.85);}
+
+  /* FAQ - Mobile */
+  .faq-item{border-bottom:1px solid #e8e0d4;padding:18px 0;}
+  .faq-item:first-child{padding-top:0;}
+  .faq-q{font-size:15px;font-weight:600;color:#12100e;margin-bottom:8px;line-height:1.4;}
+  .faq-a{font-size:14px;color:#5a5550;line-height:1.65;}
+
+  /* CIERRE - Mobile */
+  .cierre{background:#12100e;padding:48px 20px;text-align:center;}
+  .cierre-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#f5f0e8;margin:0 auto 12px;line-height:1.25;}
+  .cierre-title em{font-style:italic;color:#d4aa60;}
+  .cierre-sub{color:rgba(245,240,232,0.5);font-size:13px;margin-bottom:28px;line-height:1.5;margin-left:auto;margin-right:auto;}
+
+  /* STICKY BAR - Mobile */
+  .sticky-bar{position:sticky;bottom:0;background:#12100e;border-top:1px solid rgba(212,170,96,0.3);padding:10px 16px;display:flex;justify-content:space-between;align-items:center;z-index:100;gap:10px;}
+  .sticky-text{font-size:11px;color:rgba(245,240,232,0.65);flex:1;}
+  .sticky-text strong{color:#d4aa60;}
+  .sticky-bar .btn-primary{padding:10px 20px;font-size:13px;margin:0;width:auto;max-width:none;}
+
+  /* UTILIDADES */
+  .callout-dark{background:rgba(212,170,96,0.08);border-left:3px solid #d4aa60;padding:16px;margin:20px 0;font-size:14px;color:rgba(245,240,232,0.8);font-style:italic;line-height:1.65;}
+  .divider-gold{width:40px;height:2px;background:#d4aa60;margin:0 auto 28px;}
+  
+  /* HISTORIA TIMELINE - Mobile */
+  .historia-timeline{display:grid;grid-template-columns:1fr;gap:10px;margin-top:24px;}
+  .timeline-item{text-align:center;padding:16px 12px;border:1px solid #e8e0d4;border-radius:4px;}
+  .timeline-item.active{background:#12100e;border-color:rgba(212,170,96,0.4);}
+  .timeline-year{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:rgba(245,240,232,0.85);}
+  .timeline-year.gold{color:#d4aa60;}
+  .timeline-desc{font-size:11px;color:rgba(245,240,232,0.7);margin-top:4px;}
+  .timeline-desc.light{color:rgba(245,240,232,0.5);}
+
+  /* TABLET & DESKTOP - Progressive Enhancement */
+  @media (min-width:560px){
+    .lp-topbar{font-size:12px;padding:10px 16px;}
+    .lp-hero{padding:56px 24px 64px;}
+    .lp-badge{font-size:11px;padding:6px 16px;margin-bottom:24px;}
+    .lp-hero h1{font-size:clamp(32px,4.5vw,46px);max-width:700px;}
+    .lp-hero-sub{font-size:16px;max-width:540px;}
+    .lp-hero-sub2{font-size:14px;max-width:500px;margin-bottom:36px;}
+    .btn-primary{width:auto;padding:16px 36px;font-size:15px;max-width:none;}
+    .check-list{max-width:480px;}
+    .proof-bar{display:flex;justify-content:center;}
+    .proof-item{padding:24px 28px;border-right:1px solid #e8e0d4;border-bottom:none;}
+    .proof-item:last-child{border-right:none;}
+    .proof-num{font-size:30px;}
+    .proof-lbl{font-size:11px;}
+    .sec{padding:56px 24px;}
+    .sec-inner{max-width:680px;}
+    .sec-label{font-size:11px;}
+    .sec-title{font-size:clamp(26px,3.5vw,34px);}
+    .body-text{font-size:16px;}
+    .mentira-head{padding:16px 20px;}
+    .mentira-head-text{font-size:16px;}
+    .mentira-body{padding:20px;}
+    .mentira-truth-text{font-size:15px;}
+    .mentira-source{font-size:12px;}
+    .fallos-grid{grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+    .fallo-card{padding:24px 18px;}
+    .fallo-num{font-size:36px;}
+    .fallo-title{font-size:14px;}
+    .stat-callout{padding:28px 24px;margin:28px 0;}
+    .stat-num{font-size:56px;}
+    .stat-desc{font-size:15px;max-width:440px;}
+    .soma-grid{margin:28px 0;gap:16px;}
+    .soma-card{padding:24px;}
+    .soma-card-icon{width:40px;height:40px;font-size:18px;}
+    .soma-card-title{font-size:16px;}
+    .soma-card-sub{font-size:13px;}
+    .soma-ing{font-size:13px;}
+    .valor-table{margin:20px 0;}
+    .valor-table td{padding:14px 0;font-size:14px;}
+    .valor-table .val-name{font-size:14px;}
+    .valor-total{padding:18px 0;}
+    .valor-total-lbl{font-size:13px;}
+    .valor-total-price{font-size:32px;}
+    .garantia-grid{grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0;}
+    .garantia-card{padding:20px;}
+    .garantia-icon{font-size:24px;}
+    .garantia-title{font-size:14px;}
+    .garantia-desc{font-size:13px;}
+    .testi-grid{grid-template-columns:1fr 1fr;gap:16px;}
+    .testi-card{padding:20px;}
+    .testi-stars{font-size:12px;}
+    .testi-quote{font-size:14px;}
+    .testi-name{font-size:12px;}
+    .opciones-grid{grid-template-columns:1fr 1fr;gap:16px;margin:28px 0;}
+    .opcion-card{padding:24px 20px;}
+    .opcion-head{font-size:13px;}
+    .opcion-item{font-size:14px;}
+    .faq-item{padding:20px 0;}
+    .faq-q{font-size:15px;}
+    .faq-a{font-size:14px;}
+    .historia-timeline{grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;}
+    .timeline-item{padding:18px 12px;}
+    .timeline-year{font-size:22px;}
+    .timeline-desc{font-size:12px;}
+    .cierre{padding:64px 24px;}
+    .cierre-title{font-size:clamp(28px,4vw,38px);max-width:560px;}
+    .cierre-sub{font-size:14px;max-width:440px;}
+    .sticky-bar{padding:14px 24px;}
+    .sticky-text{font-size:13px;}
+    .callout-dark{padding:18px 20px;margin:24px 0;font-size:15px;}
+  }
+</style>
+
+</head>
+<body>
+
+<div class="lp">
+
+  <!-- TOPBAR -->
+  <div class="lp-topbar">⚠️ Mujeres 37-50 años en perimenopausia · Primera cohorte pública · 150 plazas · Inicio 30 de marzo</div>
+
+  <!-- HERO -->
+  <div class="lp-hero">
+    <div class="lp-badge">Instituto DERMA90 · Protocolo SŌMA · 12 Semanas</div>
+    <h1>Te miras al espejo y piensas: "¿quién es esta?"<br><em>Bienvenida a la perimenopausia. Nadie te preparó para esto.</em></h1>
+    <p class="lp-hero-sub">Tu piel, tu sueño, tu energía — todo cambió a la vez. Y ningún producto aislado te lo explicó ni te dio solución.</p>
+    <p class="lp-hero-sub2">En los próximos minutos vas a entender <strong>qué le está pasando realmente a tu cuerpo</strong> — y qué necesitas hacer cuando la perimenopausia lo cambia todo al mismo tiempo.</p>
+
+    <div class="check-list">
+      <div class="check-item"><span class="check-tick">✓</span>Te miras al espejo y no te reconoces (y no es solo la piel)</div>
+      <div class="check-item"><span class="check-tick">✓</span>Te despiertas a las 3 de la mañana sin razón y ya no vuelves a dormir</div>
+      <div class="check-item"><span class="check-tick">✓</span>La gente te pregunta "¿estás cansada?" aunque hayas dormido bien</div>
+      <div class="check-item"><span class="check-tick">✓</span>Tu ciclo cambió, tu energía cambió, tu piel cambió — todo a la vez</div>
+      <div class="check-item"><span class="check-tick">✓</span>Empiezas a pensar: "nadie me preparó para esto"</div>
+    </div>
+
+    <div>
+      <a href="quiz.html" class="btn-primary">Descubrir por qué nada funcionó →</a>
+    </div>
+    <p class="lp-urgency">2 minutos · Sin compromiso · 150 plazas disponibles</p>
+  </div>
+
+  <!-- PROOF BAR -->
+  <div class="proof-bar">
+    <div class="proof-item"><div class="proof-num">8</div><div class="proof-lbl">años de protocolo</div></div>
+    <div class="proof-item"><div class="proof-num">92</div><div class="proof-lbl">ingredientes clínicos</div></div>
+    <div class="proof-item"><div class="proof-num">12</div><div class="proof-lbl">semanas de seguimiento</div></div>
+    <div class="proof-item"><div class="proof-num">150</div><div class="proof-lbl">plazas limitadas</div></div>
+  </div>
+
+  <!-- 3 MENTIRAS -->
+  <div class="sec" style="background:#faf8f5;">
+    <div class="sec-inner">
+      <p class="sec-label">El problema real</p>
+      <h2 class="sec-title">El enemigo no es tu cuerpo.<br>Es <em>la mentira que te vendieron.</em></h2>
+
+      <div class="mentira-block">
+        <div class="mentira-head">
+          <div class="mentira-head-label">❌ Mentira #1</div>
+          <div class="mentira-head-text">"Toma colágeno y tu piel mejorará"</div>
+        </div>
+        <div class="mentira-body">
+          <div class="mentira-truth-label">✓ La verdad</div>
+          <p class="mentira-truth-text">El colágeno solo es <strong>materia prima</strong>. Sin vitamina C + zinc + cobre presentes al mismo tiempo, tu cuerpo no puede ensamblarlo. Es como enviar ladrillos a una obra sin cemento ni obreros. Da igual cuánto tomes.</p>
+          <p class="mentira-source">Meta-análisis 2025 (American Journal of Medicine): colágeno aislado = sin efecto significativo en piel.</p>
+        </div>
+      </div>
+
+      <div class="mentira-block">
+        <div class="mentira-head">
+          <div class="mentira-head-label">❌ Mentira #2</div>
+          <div class="mentira-head-text">"Las cremas con retinol arreglarán tu piel"</div>
+        </div>
+        <div class="mentira-body">
+          <div class="mentira-truth-label">✓ La verdad</div>
+          <p class="mentira-truth-text">El problema está en la <strong>dermis profunda</strong>. Las moléculas de colágeno son 600 veces demasiado grandes para penetrar la piel. No importa cuánto gastes en cremas — físicamente no pueden llegar donde está el daño.</p>
+          <p class="mentira-source">Regla de los 500 Dalton: moléculas &gt;500 Da no cruzan el stratum corneum. El colágeno tiene 300.000 Da.</p>
+        </div>
+      </div>
+
+      <div class="mentira-block">
+        <div class="mentira-head">
+          <div class="mentira-head-label">❌ Mentira #3</div>
+          <div class="mentira-head-text">"Los suplementos de menopausia resolverán todo"</div>
+        </div>
+        <div class="mentira-body">
+          <div class="mentira-truth-label">✓ La verdad</div>
+          <p class="mentira-truth-text">Los suplementos genéricos de menopausia tratan sofocos y síntomas hormonales generales. <strong>No proveen los cofactores específicos que tu piel necesita</strong>. No atacan el estrés oxidativo. No modifican los hábitos que aceleran el colapso.</p>
+          <p class="mentira-source">AARP: "Muchos suplementos de menopausia se venden sin evidencia científica sólida de eficacia."</p>
+        </div>
+      </div>
+
+      <div class="callout-dark" style="background:#fdf5e8;border-left-color:#c8903a;color:#5a3a10;">
+        Has estado atacando 1 problema a la vez. Cuando tu cuerpo tiene <strong>3 fallos simultáneos.</strong> Eso es por qué nada ha funcionado. No eres tú. Es el enfoque.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 FALLOS -->
+  <div class="sec lp-dark">
+    <div class="sec-inner">
+      <p class="sec-label" style="color:#d4aa60;">La única solución real</p>
+      <h2 class="sec-title sec-title-light">Cerrar los 3 puntos de falla<br><em>al mismo tiempo.</em></h2>
+      <p class="body-text" style="color:rgba(245,240,232,0.6);">No uno a la vez. No con productos aislados. Los tres. Simultáneamente. Durante 12 semanas sin abandonar.</p>
+
+      <div class="fallos-grid">
+        <div class="fallo-card">
+          <div class="fallo-num">01</div>
+          <div class="fallo-title">Estrés Oxidativo</div>
+          <p class="fallo-problem">Estrógeno ↓ = radicales libres destruyendo colágeno más rápido de lo que produces.</p>
+          <div class="fallo-sol-label">→ Solución</div>
+          <p class="fallo-sol">Antioxidantes en dosis clínicas: Vit E 225% VRN + selenio + licopeno + curcumina 95%.</p>
+        </div>
+        <div class="fallo-card">
+          <div class="fallo-num">02</div>
+          <div class="fallo-title">Gaps de Cofactores</div>
+          <p class="fallo-problem">Sin vitamina C + zinc + cobre simultáneos, tu cuerpo no puede ensamblar colágeno.</p>
+          <div class="fallo-sol-label">→ Solución</div>
+          <p class="fallo-sol">Sistema completo de cofactores en dosis coordinadas. No 6 botes sueltos. Un protocolo.</p>
+        </div>
+        <div class="fallo-card">
+          <div class="fallo-num">03</div>
+          <div class="fallo-title">Saboteadores Conductuales</div>
+          <p class="fallo-problem">Deshidratación + falta de proteína + sueño roto aceleran el colapso. Ningún suplemento puede reemplazarlo.</p>
+          <div class="fallo-sol-label">→ Solución</div>
+          <p class="fallo-sol">Micro-hábitos diarios guiados: 2L agua + proteína en desayuno + 10min de luz natural.</p>
+        </div>
+      </div>
+
+      <div class="stat-callout">
+        <div class="stat-num">87%</div>
+        <p class="stat-desc">de las mujeres abandona los suplementos antes de la semana 8. <strong>Justo cuando empezarían a ver resultados.</strong> Sin estructura y seguimiento, el fracaso está garantizado.</p>
+      </div>
+
+      <p class="body-text" style="color:rgba(245,240,232,0.6);text-align:center;">Por eso no basta con los ingredientes correctos. Necesitas el sistema que te sostiene hasta que funcione.</p>
+    </div>
+  </div>
+
+  <!-- PROTOCOLO SOMA -->
+  <div class="sec" style="background:#fff;border-top:1px solid #e8e0d4;border-bottom:1px solid #e8e0d4;">
+    <div class="sec-inner">
+      <p class="sec-label">El sistema</p>
+      <h2 class="sec-title">El Protocolo SŌMA:<br>3 componentes <em>inseparables.</em></h2>
+      <p class="body-text">No es un suplemento. Es el primer sistema que cierra los 3 fallos simultáneos y te sostiene durante las 12 semanas críticas. Sin los 3 juntos, vuelves al mismo ciclo.</p>
+
+      <div class="soma-grid">
+        <div class="soma-card" style="border-color:rgba(180,140,80,0.3);background:#faf8f5;">
+          <div class="soma-card-head">
+            <div class="soma-card-icon" style="background:rgba(180,140,80,0.15);">🔬</div>
+            <div><div class="soma-card-title" style="color:#12100e;">Componente 1 · Suplemento SŌMA</div><div class="soma-card-sub" style="color:#999;">92 ingredientes · Dosis clínicas verificables · Transparencia total</div></div>
+          </div>
+          <div class="soma-ing-list">
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Vitamina C 36mg — formación colágeno (claim UE verificado)</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Vitamina A 2700µg · 337% VRN — mantenimiento piel (claim UE)</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Vitamina E 80.5mg · 225% VRN — protección antioxidante (claim UE)</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Cúrcuma 54mg · 95% curcuminoides — antioxidante máxima pureza</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Zinc 3mg + Selenio 60µg — mantenimiento piel (claim UE)</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Licopeno 1.5mg — protección frente a estrés oxidativo</div>
+          </div>
+        </div>
+        <div class="soma-card" style="border-color:rgba(180,140,80,0.3);background:#faf8f5;">
+          <div class="soma-card-head">
+            <div class="soma-card-icon" style="background:rgba(180,140,80,0.15);">☀️</div>
+            <div><div class="soma-card-title" style="color:#12100e;">Componente 2 · Ritual Diario Guiado</div><div class="soma-card-sub" style="color:#999;">3 micro-hábitos que ningún suplemento puede reemplazar</div></div>
+          </div>
+          <div class="soma-ing-list">
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>2 litros de agua — hidratación celular real</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Proteína en el desayuno — aminoácidos para síntesis de colágeno</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>10 minutos de luz natural — regulación circadiana y hormonal</div>
+          </div>
+        </div>
+        <div class="soma-card" style="border-color:rgba(180,140,80,0.3);background:#faf8f5;">
+          <div class="soma-card-head">
+            <div class="soma-card-icon" style="background:rgba(180,140,80,0.15);">💬</div>
+            <div><div class="soma-card-title" style="color:#12100e;">Componente 3 · Asesoramiento 12 Semanas</div><div class="soma-card-sub" style="color:#999;">Esto es lo que cambia el juego</div></div>
+          </div>
+          <div class="soma-ing-list">
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Check-ins quincenales vía WhatsApp durante 12 semanas</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Asesoramiento privado diario</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Portal digital con ritual guiado 20-25 min/día</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Ajustes personalizados según tu progreso real</div>
+            <div class="soma-ing" style="color:#4a4540;"><span class="soma-dot">→</span>Comunidad privada 1ª Cohorte (exclusivo)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORIA MARCA -->
+  <div class="sec lp-dark">
+    <div class="sec-inner">
+      <p class="sec-label" style="color:#d4aa60;">Por qué nunca nos habías oído</p>
+      <h2 class="sec-title sec-title-light">8 años trabajando en privado.<br><em>Por primera vez, 150 plazas públicas.</em></h2>
+      <p class="body-text" style="color:rgba(245,240,232,0.6);">Instituto DERMA90 nació en 2018 cuando un equipo de nutricionistas, farmacéuticas y especialistas en salud hormonal vio algo que se repetía: mujeres brillantes, fuertes, al pie del cañón — sintiéndose invisibles en plena pre-menopausia.</p>
+      <p class="body-text" style="color:rgba(245,240,232,0.6);">Pasamos 3 años investigando y formulando. No queríamos otro suplemento. Queríamos un protocolo real que funcionara. Y solo trabajábamos por recomendación privada.</p>
+      <div class="callout-dark">En 2026 abrimos por primera vez al público. Porque demasiadas mujeres no tienen acceso a esto. Y merecen tenerlo.</div>
+      <div class="historia-timeline">
+        <div class="timeline-item"><div class="timeline-year">2018</div><div class="timeline-desc">Inicio del programa privado</div></div>
+        <div class="timeline-item"><div class="timeline-year">2019–25</div><div class="timeline-desc">Protocolo refinado en círculo cerrado</div></div>
+        <div class="timeline-item active"><div class="timeline-year gold">2026</div><div class="timeline-desc light">Primera apertura pública · 150 plazas</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESGLOSE DE VALOR -->
+  <div class="sec lp-dark" style="padding-top:0;">
+    <div class="sec-inner">
+      <div style="border:1px solid rgba(212,170,96,0.25);border-radius:4px;padding:28px 24px;">
+        <p class="sec-label" style="color:#d4aa60;">Sin letra pequeña</p>
+        <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#f5f0e8;margin-bottom:20px;">Todo lo que recibes</h3>
+        <table class="valor-table">
+          <tr><td><span class="val-name">Suplemento SŌMA (90 días)</span>92 ingredientes clínicos, dosis verificables</td><td>€180</td></tr>
+          <tr><td><span class="val-name">Asesoramiento privado diario WhatsApp</span>Soporte personalizado 12 semanas</td><td>€240</td></tr>
+          <tr><td><span class="val-name">Portal digital con ritual guiado</span>12 semanas de contenido diario</td><td>€90</td></tr>
+          <tr><td><span class="val-name">Check-ins quincenales</span>Seguimiento personalizado 12 semanas</td><td>€60</td></tr>
+          <tr><td><span class="val-name">Comunidad privada 1ª Cohorte</span>Acceso exclusivo grupo fundacional</td><td>€50</td></tr>
+        </table>
+        <div class="valor-total">
+          <span class="valor-total-lbl">Valor total real</span>
+          <span class="valor-total-price">€620</span>
+        </div>
+        <div style="text-align:center;padding:20px 0 8px;border-top:1px solid rgba(255,255,255,0.07);">
+          <div style="font-size:13px;color:rgba(245,240,232,0.4);margin-bottom:8px;">Hoy, como primera cohorte pública</div>
+          <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:#d4aa60;line-height:1;">€249</div>
+          <div style="font-size:13px;color:rgba(245,240,232,0.4);margin-top:6px;">O 3 pagos de €89 sin intereses</div>
+          <div style="font-size:13px;color:#d4aa60;margin-top:4px;">= €20.75 por semana</div>
+          <div style="font-size:13px;color:rgba(245,240,232,0.35);margin-top:12px;font-style:italic;">Probablemente ya gastas ~€200/mes en colágeno + cremas sin protocolo.<br>Eso son €600 cada 3 meses tirando dinero sin estructura ni seguimiento.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIOS -->
+  <div class="sec" style="background:#faf8f5;">
+    <div class="sec-inner">
+      <p class="sec-label" style="text-align:center;">Voces reales · Sin filtro</p>
+      <h2 class="sec-title" style="text-align:center;margin-bottom:32px;">Lo que dicen las mujeres<br>que ya lo han hecho</h2>
+      <div class="testi-grid">
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Mi hermana me preguntó si me había hecho algo en la cara. No me había hecho nada. Solo esto durante 10 semanas."</p><div class="testi-name">Ana · 42 años</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Lo empecé porque me veía cansada todo el rato. A mitad del tratamiento mi compañera me preguntó si había cambiado de crema de ojos."</p><div class="testi-name">Elena · 39 años</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Las manchas eran mi complejo desde hace años. He probado DE TODO. Con el protocolo SŌMA por fin vi mejoría real."</p><div class="testi-name">Isabel · 44 años</div></div>
+        <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-quote">"Funcionó. Esta es la primera vez que veo resultados reales. El pelo y las uñas también mejoraron. No me lo esperaba."</p><div class="testi-name">Patricia · 43 años</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GARANTÍA TRIPLE -->
+  <div class="sec" style="background:#fff;border-top:1px solid #e8e0d4;">
+    <div class="sec-inner">
+      <p class="sec-label" style="text-align:center;">Sin riesgo</p>
+      <h2 class="sec-title" style="text-align:center;margin-bottom:32px;">Garantía <em>triple blindada.</em><br>O funciona, o no pagas.</h2>
+      <div class="garantia-grid">
+        <div class="garantia-card">
+          <div class="garantia-icon">💯</div>
+          <div class="garantia-title">30 días sin preguntas</div>
+          <p class="garantia-desc">Prueba el protocolo durante 30 días. Si por cualquier razón no estás satisfecha — devolución completa. Sin preguntas, sin excusas.</p>
+        </div>
+        <div class="garantia-card">
+          <div class="garantia-icon">🔬</div>
+          <div class="garantia-title">Transparencia total</div>
+          <p class="garantia-desc">Todas las dosis publicadas. Todos los claims verificados por la UE. Registro sanitario AESAN. Fabricación en España con trazabilidad completa.</p>
+        </div>
+        <div class="garantia-card">
+          <div class="garantia-icon">💬</div>
+          <div class="garantia-title">Coaching real garantizado</div>
+          <p class="garantia-desc">Check-ins quincenales garantizados vía WhatsApp. No bots, no automático. Seguimiento humano real durante las 12 semanas completas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 OPCIONES -->
+  <div class="sec lp-dark">
+    <div class="sec-inner">
+      <p class="sec-label" style="color:#d4aa60;text-align:center;">La decisión</p>
+      <h2 class="sec-title sec-title-light" style="text-align:center;margin-bottom:32px;">Tienes exactamente<br><em>2 opciones.</em></h2>
+      <div class="opciones-grid">
+        <div class="opcion-card bad">
+          <div class="opcion-head bad">❌ Opción 1</div>
+          <div class="opcion-item bad"><span style="color:#b44;flex-shrink:0;">→</span>Seguir haciendo lo mismo de siempre</div>
+          <div class="opcion-item bad"><span style="color:#b44;flex-shrink:0;">→</span>Comprar otro colágeno. Otra crema. Otro suplemento aislado</div>
+          <div class="opcion-item bad"><span style="color:#b44;flex-shrink:0;">→</span>Gastar otros 200€/mes sin protocolo ni seguimiento</div>
+          <div class="opcion-item bad"><span style="color:#b44;flex-shrink:0;">→</span>Dentro de 3 meses, mirarte al espejo y sentir exactamente lo mismo que hoy</div>
+        </div>
+        <div class="opcion-card good">
+          <div class="opcion-head good">✓ Opción 2</div>
+          <div class="opcion-item good"><span style="color:#d4aa60;flex-shrink:0;">→</span>Cerrar los 3 fallos simultáneos con sistema + coaching</div>
+          <div class="opcion-item good"><span style="color:#d4aa60;flex-shrink:0;">→</span>Empezar el protocolo SŌMA el 30 de marzo</div>
+          <div class="opcion-item good"><span style="color:#d4aa60;flex-shrink:0;">→</span>Seguir el sistema completo durante 12 semanas</div>
+          <div class="opcion-item good"><span style="color:#d4aa60;flex-shrink:0;">→</span>Dentro de 3 meses, verte y sentirte diferente</div>
+        </div>
+      </div>
+      <p style="text-align:center;color:rgba(245,240,232,0.4);font-size:13px;margin-top:16px;">La decisión es tuya. Pero la oferta no va a estar aquí para siempre.</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="sec" style="background:#faf8f5;">
+    <div class="sec-inner">
+      <p class="sec-label">Preguntas sin rodeos</p>
+      <h2 class="sec-title" style="margin-bottom:32px;">Lo que toda mujer<br><em>necesita saber.</em></h2>
+      <div class="faq-item"><p class="faq-q">¿Por qué son solo 150 plazas?</p><p class="faq-a">No es un truco. Los ingredientes son de importación europea con trazabilidad completa y certificaciones de pureza que no existen en el mercado masivo. Y la capacidad de coaching 1:1 es limitada — 150 mujeres es el máximo para mantener seguimiento personalizado real durante 12 semanas.</p></div>
+      <div class="faq-item"><p class="faq-q">¿Cuándo empiezo a notar algo?</p><p class="faq-a">Las primeras semanas el cuerpo está asimilando. La mayoría empieza a notar cambios reales entre la semana 5 y la 8. El sueño suele ser lo primero. La piel va más despacio pero va. Por eso existe el seguimiento — para que no abandones justo antes de que empiece a funcionar.</p></div>
+      <div class="faq-item"><p class="faq-q">¿Y si no funciona en mi caso?</p><p class="faq-a">Garantía de devolución completa de 30 días sin preguntas. Pero tienes 12 semanas de seguimiento humano real para que eso no pase.</p></div>
+      <div class="faq-item"><p class="faq-q">¿Es compatible con mi medicación?</p><p class="faq-a">Si estás en tratamiento médico, consulta a tu profesional antes de empezar. No recomendado en embarazo, lactancia o si estás buscando embarazo. Contiene gluten (trigo) y soja.</p></div>
+      <div class="faq-item"><p class="faq-q">¿Qué pasa si no llego a la primera cohorte?</p><p class="faq-a">La próxima cohorte abre en mayo 2026. Pero el precio de primera cohorte no estará disponible. Y seguirás sintiéndote igual durante esos 2 meses.</p></div>
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="cierre">
+    <h2 class="cierre-title">Si lo dejas para después,<br>dentro de 3 meses<br>seguirás sintiéndote <em>exactamente igual.</em></h2>
+    <p class="cierre-sub">Si empiezas el 30 de marzo, dentro de 12 semanas estarás en otro lugar. Eso no es un eslogan. Es matemática.</p>
+    <a href="quiz.html" class="btn-primary" style="display:block;max-width:360px;margin:0 auto 16px;">
+      Hacer el test →
+    </a>
+    <p style="color:rgba(245,240,232,0.35);font-size:12px;margin-bottom:6px;">Paso 1: Test diagnóstico (2 min) · Paso 2: Confirmación plaza · Paso 3: Inicio 30 marzo</p>
+    <p style="color:rgba(245,240,232,0.25);font-size:11px;">✓ Garantía 30 días · ✓ 150 plazas · ✓ Fabricado en España · ✓ Registro AESAN</p>
+  </div>
+
+  <!-- STICKY BAR -->
+  <div class="sticky-bar">
+    <span class="sticky-text">⚠️ <strong>150 plazas</strong> · Inicio 30 marzo</span>
+    <a href="quiz.html" class="btn-primary" style="padding:10px 20px;font-size:13px;margin-bottom:0;">Hacer el test →</a>
+  </div>
+
+</div>
+
+<script>
+// Capturar parámetros UTM y pasarlos al quiz
+(function() {
+  const currentUrl = new URLSearchParams(window.location.search);
+  const utmParams = {};
+  
+  // Capturar todos los parámetros UTM
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(param => {
+    if (currentUrl.has(param)) {
+      utmParams[param] = currentUrl.get(param);
+    }
+  });
+  
+  // Si hay parámetros UTM, añadirlos a todos los enlaces de quiz.html
+  if (Object.keys(utmParams).length > 0) {
+    const quizLinks = document.querySelectorAll('a[href*="quiz.html"]');
+    quizLinks.forEach(link => {
+      const url = new URL(link.href);
+      Object.keys(utmParams).forEach(key => {
+        url.searchParams.set(key, utmParams[key]);
+      });
+      link.href = url.toString();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

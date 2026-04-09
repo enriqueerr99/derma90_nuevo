@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — Instituto DERMA90</title>
+    <meta name="description" content="Finaliza tu solicitud para el Protocolo SŌMA.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26790865950521543');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+    <!-- Stripe -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .checkout-main {
+            /* Left column */
+        }
+        
+        .checkout-sidebar {
+            background: var(--color-beige);
+            padding: 2rem;
+            border-radius: 16px;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--color-gray-light);
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .order-summary {
+            margin-bottom: 2rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-top: 2px solid var(--color-black);
+            margin-top: 1rem;
+        }
+        
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--color-gray-dark);
+            margin-top: 1rem;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+        
+        .payment-methods img {
+            height: 24px;
+            width: auto;
+        }
+        
+        #payment-element {
+            margin: 1.5rem 0;
+        }
+        
+        .guarantee-box {
+            background: var(--color-primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-sidebar {
+                position: static;
+                order: -1; /* Show summary first on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <p style="font-size: 1.375rem; font-weight: 500; color: var(--color-black); letter-spacing: 2px;">DERMA90</p>
+                </a>
+                <div style="font-size: 0.9rem; color: var(--color-gray-medium);">
+                    🔒 Pago seguro
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top: calc(70px + 2rem); min-height: 100vh; background: white;">
+        <div class="checkout-container">
+            
+            <!-- LEFT: CHECKOUT FORM -->
+            <div class="checkout-main">
+                <h1 style="margin-bottom: 0.5rem;">Finaliza tu solicitud</h1>
+                <p style="color: var(--color-gray-dark); margin-bottom: 2rem;">
+                    Cohorte 30 de marzo · <span id="profile-name">Protocolo SŌMA Completo</span>
+                </p>
+                
+                <form id="checkout-form">
+                    
+                    <!-- Contact Info -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="margin-bottom: 1.5rem;">1. Información de contacto</h3>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre *</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidos">Apellidos *</label>
+                                <input type="text" id="apellidos" name="apellidos" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono">Teléfono (WhatsApp) *</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" required>
+                            <small style="font-size: 0.85rem; color: var(--color-gray-medium); display: block; margin-top: 0.5rem;">
+                                Lo usaremos para el seguimiento vía WhatsApp durante las 12 semanas
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Address -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="margin-bottom: 1.5rem;">2. Dirección de envío</h3>
+                        
+                        <div class="form-group">
+                            <label for="direccion">Dirección *</label>
+                            <input type="text" id="direccion" name="direccion" placeholder="Calle, número, piso/puerta" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad *</label>
+                                <input type="text" id="ciudad" name="ciudad" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="provincia">Provincia *</label>
+                                <input type="text" id="provincia" name="provincia" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cp">Código Postal *</label>
+                                <input type="text" id="cp" name="cp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pais">País</label>
+                                <select id="pais" name="pais" required>
+                                    <option value="ES" selected>España</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="FR">Francia</option>
+                                    <option value="IT">Italia</option>
+                                    <option value="DE">Alemania</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment -->
+                    <div style="margin-bottom: 3rem;">
+                        <h3 style="margin-bottom: 1.5rem;">3. Pago</h3>
+                        
+                        <!-- Stripe Payment Element -->
+                        <div id="payment-element">
+                            <!-- Stripe.js will insert payment UI here -->
+                        </div>
+                        
+                        <div id="payment-message" style="color: var(--color-error); margin-top: 1rem; display: none;"></div>
+                    </div>
+                    
+                    <!-- Terms -->
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="terms" required style="margin-top: 0.25rem;">
+                            <span style="font-size: 0.9rem; line-height: 1.6;">
+                                Acepto los <a href="#" style="color: var(--color-primary); text-decoration: underline;">Términos y Condiciones</a> y la <a href="#" style="color: var(--color-primary); text-decoration: underline;">Política de Privacidad</a>. Entiendo que este es un complemento alimenticio que no diagnostica, trata, cura ni previene ninguna enfermedad.
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary btn-large btn-block" id="submit-btn" style="margin-top: 2rem;">
+                        <span id="button-text">Confirmar y pagar 249€</span>
+                        <span id="spinner" style="display: none;">Procesando...</span>
+                    </button>
+                    
+                    <div class="guarantee-box">
+                        <strong>✓ Garantía 30 días devolución sin preguntas</strong><br>
+                        Prueba el protocolo durante 30 días. Si no estás satisfecha, devolución completa.
+                    </div>
+                    
+                </form>
+            </div>
+            
+            <!-- RIGHT: ORDER SUMMARY -->
+            <div class="checkout-sidebar">
+                <h3 style="margin-bottom: 1.5rem;">Resumen del pedido</h3>
+                
+                <div class="order-summary">
+                    <div class="summary-item">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;" id="product-name">Protocolo SŌMA Completo</div>
+                            <div style="font-size: 0.85rem; color: var(--color-gray-medium);">12 semanas · Cohorte 30 marzo</div>
+                        </div>
+                        <div style="font-weight: 600;">249€</div>
+                    </div>
+                    
+                    <div class="summary-item" style="font-size: 0.9rem; color: var(--color-gray-dark);">
+                        <div>Envío (Península)</div>
+                        <div>Gratis</div>
+                    </div>
+                    
+                    <div class="summary-total">
+                        <div>Total</div>
+                        <div>249€</div>
+                    </div>
+                </div>
+                
+                <div style="font-size: 0.9rem; color: var(--color-gray-dark); margin-bottom: 1rem;">
+                    <strong>Incluye:</strong>
+                    <ul style="margin-top: 0.75rem; padding-left: 1.25rem; line-height: 1.8;">
+                        <li>Suplemento SŌMA (92 ingredientes, 90 días)</li>
+                        <li>Asesoramiento privado diario por WhatsApp</li>
+                        <li>Portal digital con ritual guiado</li>
+                        <li>Check-ins quincenales (12 semanas)</li>
+                        <li>Comunidad privada 1ª Cohorte (exclusivo)</li>
+                        <li>Garantía devolución completa 30 días</li>
+                    </ul>
+                </div>
+                
+                <div class="trust-badge">
+                    <span>🔒</span>
+                    <span>Pago seguro con encriptación SSL</span>
+                </div>
+                
+                <div class="trust-badge">
+                    <span>📦</span>
+                    <span>Envío en 48-72h laborables</span>
+                </div>
+                
+                <div class="trust-badge">
+                    <span>🇪🇸</span>
+                    <span>Fabricado en España · AESAN</span>
+                </div>
+                
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1);">
+                    <div style="font-size: 0.85rem; color: var(--color-gray-medium); margin-bottom: 0.5rem;">
+                        Métodos de pago aceptados:
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; opacity: 0.8;">
+                        <span style="padding: 0.25rem 0.5rem; background: white; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--color-gray-light);">💳 Visa</span>
+                        <span style="padding: 0.25rem 0.5rem; background: white; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--color-gray-light);">💳 Mastercard</span>
+                        <span style="padding: 0.25rem 0.5rem; background: white; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--color-gray-light);">🔵 PayPal</span>
+                        <span style="padding: 0.25rem 0.5rem; background: white; border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--color-gray-light);">📱 Apple/Google Pay</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        // Get URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const profile = urlParams.get('profile') || 'somaplus';
+        const email = urlParams.get('email') || '';
+        
+        // Pre-fill email if available
+        if (email) {
+            document.getElementById('email').value = email;
+        }
+        
+        // Stripe setup
+        const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY_HERE'); // TODO: Replace with real key
+        
+        let elements;
+        let paymentElement;
+        
+        initialize();
+        
+        async function initialize() {
+            // Create PaymentIntent on server (TODO: Replace with real backend call)
+            const response = await fetch('/api/create-payment-intent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount: 24900, // 249€ in cents
+                    currency: 'eur',
+                    profile: profile,
+                    email: email
+                })
+            }).catch(() => {
+                // Fallback for demo: use test client secret
+                return {
+                    ok: true,
+                    json: () => Promise.resolve({
+                        clientSecret: 'pi_test_secret' // Placeholder
+                    })
+                };
+            });
+            
+            const { clientSecret } = await response.json();
+            
+            // Create Stripe Elements
+            elements = stripe.elements({
+                clientSecret: clientSecret,
+                appearance: {
+                    theme: 'stripe',
+                    variables: {
+                        colorPrimary: '#c67856',
+                        colorBackground: '#fafaf9',
+                        colorText: '#1a1a1a',
+                        colorDanger: '#c85a54',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        spacingUnit: '4px',
+                        borderRadius: '8px'
+                    }
+                }
+            });
+            
+            paymentElement = elements.create('payment');
+            paymentElement.mount('#payment-element');
+        }
+        
+        // Handle form submission
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            setLoading(true);
+            
+            // Collect billing details
+            const billingDetails = {
+                name: document.getElementById('nombre').value + ' ' + document.getElementById('apellidos').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('telefono').value,
+                address: {
+                    line1: document.getElementById('direccion').value,
+                    city: document.getElementById('ciudad').value,
+                    state: document.getElementById('provincia').value,
+                    postal_code: document.getElementById('cp').value,
+                    country: document.getElementById('pais').value
+                }
+            };
+            
+            // Confirm payment
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: window.location.origin + '/confirmacion.html?profile=' + profile,
+                    payment_method_data: {
+                        billing_details: billingDetails
+                    }
+                }
+            });
+            
+            if (error) {
+                // Show error
+                const messageContainer = document.getElementById('payment-message');
+                messageContainer.textContent = error.message;
+                messageContainer.style.display = 'block';
+                setLoading(false);
+            } else {
+                // Payment will redirect to return_url
+            }
+        });
+        
+        function setLoading(isLoading) {
+            const submitButton = document.getElementById('submit-btn');
+            const buttonText = document.getElementById('button-text');
+            const spinner = document.getElementById('spinner');
+            
+            if (isLoading) {
+                submitButton.disabled = true;
+                buttonText.style.display = 'none';
+                spinner.style.display = 'inline';
+            } else {
+                submitButton.disabled = false;
+                buttonText.style.display = 'inline';
+                spinner.style.display = 'none';
+            }
+        }
+        
+        // Track initiate checkout (safe fallback)
+        try {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'Protocolo SOMA',
+                    content_category: profile,
+                    value: 249,
+                    currency: 'EUR'
+                });
+            }
+        } catch (e) {
+            console.log('FB Pixel not configured');
+        }
+    </script>
+    
+</body>
+</html>

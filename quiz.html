@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Diagnóstico DERMA90 — Descubre tu perfil</title>
+    <meta name="description" content="Test diagnóstico personalizado de 2 minutos. Descubre qué patrón de piel tienes y el protocolo recomendado para ti.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '26790865950521543');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=26790865950521543&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+        /* Quiz-specific styles */
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .quiz-progress {
+            width: 100%;
+            height: 8px;
+            background: var(--color-beige);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .quiz-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-gold) 100%);
+            border-radius: 50px;
+            transition: width 0.3s ease;
+        }
+        
+        .quiz-step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .quiz-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .quiz-question {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-option {
+            padding: 1.25rem 1.5rem;
+            background: white;
+            border: 2px solid var(--color-gray-light);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--color-primary);
+            background: var(--color-primary-light);
+            box-shadow: 0 4px 12px rgba(198, 120, 86, 0.2);
+        }
+        
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .quiz-step-indicator {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-gray-medium);
+            margin-bottom: 1rem;
+        }
+        
+        /* Email capture step */
+        .email-capture {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .email-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid var(--color-gray-light);
+            border-radius: 8px;
+            margin: 1rem auto;
+            display: block;
+            font-family: inherit;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+        
+        .privacy-note {
+            font-size: 0.85rem;
+            color: var(--color-gray-medium);
+            margin-top: 1rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--color-beige);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER SIMPLE -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <p style="font-size: 1.375rem; font-weight: 500; color: var(--color-black); letter-spacing: 2px;">DERMA90</p>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="section" style="padding-top: calc(70px + 3rem); min-height: 100vh;">
+        <div class="quiz-container">
+            
+            <!-- Progress Bar -->
+            <div class="quiz-progress">
+                <div class="quiz-progress-bar" id="progress-bar" style="width: 0%;"></div>
+            </div>
+            
+            <!-- Step Indicator -->
+            <div class="quiz-step-indicator" id="step-indicator">
+                Pregunta <span id="current-step">1</span> de <span id="total-steps">12</span>
+            </div>
+            
+            <!-- Quiz Form -->
+            <form id="quiz-form">
+                
+                <!-- Question 1 -->
+                <div class="quiz-step active" data-step="1">
+                    <h2 class="quiz-question">¿Qué te preocupa más de tu piel en este momento?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="sequedad" style="display: none;">
+                            <span>Sequedad extrema, tirantez, descamación</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="firmeza" style="display: none;">
+                            <span>Pérdida de firmeza, líneas profundas, flacidez</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="cansancio" style="display: none;">
+                            <span>Aspecto cansado, ojeras, piel apagada</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="todo" style="display: none;">
+                            <span>Todo lo anterior — es difícil priorizar</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="quiz-step" data-step="2">
+                    <h2 class="quiz-question">¿Cuándo empezaste a notar estos cambios?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="reciente" style="display: none;">
+                            <span>Hace menos de 6 meses</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="moderado" style="display: none;">
+                            <span>Entre 6 meses y 2 años</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="largo" style="display: none;">
+                            <span>Más de 2 años</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="quiz-step" data-step="3">
+                    <h2 class="quiz-question">¿Cómo describirías la velocidad del cambio?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="repentino" style="display: none;">
+                            <span>"De la noche a la mañana" — muy rápido</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="acelerado" style="display: none;">
+                            <span>Más rápido de lo que esperaba</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="gradual" style="display: none;">
+                            <span>Gradual, progresivo</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 4 -->
+                <div class="quiz-step" data-step="4">
+                    <h2 class="quiz-question">¿Has probado colágeno en polvo, cápsulas o bebible?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="si-nada" style="display: none;">
+                            <span>Sí, durante meses, sin resultados</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="si-poco" style="display: none;">
+                            <span>Sí, resultados mínimos</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="no" style="display: none;">
+                            <span>No, nunca lo he probado</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 5 -->
+                <div class="quiz-step" data-step="5">
+                    <h2 class="quiz-question">¿Gastas actualmente en cremas antiedad, sérums o tratamientos faciales?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="mucho" style="display: none;">
+                            <span>Sí, más de 100€/mes</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="moderado" style="display: none;">
+                            <span>Sí, entre 50-100€/mes</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="poco" style="display: none;">
+                            <span>Menos de 50€/mes</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q5" value="nada" style="display: none;">
+                            <span>Dejé de gastar porque nada funcionaba</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 6 -->
+                <div class="quiz-step" data-step="6">
+                    <h2 class="quiz-question">¿Te reconoces cuando te miras al espejo o ves fotos recientes?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q6" value="no" style="display: none;">
+                            <span>No, es angustiante — no soy yo</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q6" value="a-veces" style="display: none;">
+                            <span>A veces sí, a veces no</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q6" value="si" style="display: none;">
+                            <span>Sí, me reconozco aunque veo cambios</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 7 -->
+                <div class="quiz-step" data-step="7">
+                    <h2 class="quiz-question">¿Cómo describirías tu situación hormonal?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q7" value="peri" style="display: none;">
+                            <span>Pre-menopausia / perimenop ausia (ciclos irregulares)</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q7" value="meno" style="display: none;">
+                            <span>Menopausia confirmada (sin regla +12 meses)</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q7" value="no-se" style="display: none;">
+                            <span>No estoy segura / no he consultado</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 8 -->
+                <div class="quiz-step" data-step="8">
+                    <h2 class="quiz-question">¿Duermes bien?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q8" value="mal" style="display: none;">
+                            <span>No — despierto a las 4 AM, sueño fragmentado</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q8" value="regular" style="display: none;">
+                            <span>Regular — algunas noches bien, otras mal</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q8" value="bien" style="display: none;">
+                            <span>Sí, en general duermo 7-8h sin problemas</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 9 -->
+                <div class="quiz-step" data-step="9">
+                    <h2 class="quiz-question">¿Tomas desayuno con proteína (huevos, yogur, jamón, etc.)?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q9" value="no" style="display: none;">
+                            <span>No, solo café o carbohidratos</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q9" value="a-veces" style="display: none;">
+                            <span>A veces sí, a veces no</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q9" value="si" style="display: none;">
+                            <span>Sí, casi siempre</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 10 -->
+                <div class="quiz-step" data-step="10">
+                    <h2 class="quiz-question">¿Bebes al menos 1.5-2L de agua al día?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q10" value="no" style="display: none;">
+                            <span>No, bebo muy poca agua</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q10" value="poco" style="display: none;">
+                            <span>Bebo, pero menos de 1.5L</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q10" value="si" style="display: none;">
+                            <span>Sí, 2L o más</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 11 -->
+                <div class="quiz-step" data-step="11">
+                    <h2 class="quiz-question">¿Pasas tiempo al aire libre / luz natural durante el día?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q11" value="no" style="display: none;">
+                            <span>No, paso todo el día en interior</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q11" value="poco" style="display: none;">
+                            <span>Solo de camino al trabajo/casa</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q11" value="si" style="display: none;">
+                            <span>Sí, al menos 15-30 min diarios</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Question 12 -->
+                <div class="quiz-step" data-step="12">
+                    <h2 class="quiz-question">Si empiezas un protocolo, ¿podrías comprometerte 12 semanas completas?</h2>
+                    <div class="quiz-options">
+                        <label class="quiz-option">
+                            <input type="radio" name="q12" value="si-apoyo" style="display: none;">
+                            <span>Sí, si tengo seguimiento y apoyo</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q12" value="si" style="display: none;">
+                            <span>Sí, soy disciplinada</span>
+                        </label>
+                        <label class="quiz-option">
+                            <input type="radio" name="q12" value="no-segura" style="display: none;">
+                            <span>No estoy segura, depende</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Email Capture Step -->
+                <div class="quiz-step" id="email-step">
+                    <div class="email-capture">
+                        <h2 class="quiz-question">¡Casi listo!</h2>
+                        <p style="margin-bottom: 2rem; color: var(--color-gray-dark);">
+                            Para enviarte tu resultado personalizado:
+                        </p>
+                        <input 
+                            type="text" 
+                            id="user-nombre" 
+                            class="email-input" 
+                            placeholder="Tu nombre" 
+                            required
+                            style="margin-bottom: 1rem;"
+                        >
+                        <input 
+                            type="email" 
+                            id="user-email" 
+                            class="email-input" 
+                            placeholder="tu@email.com" 
+                            required
+                            style="margin-bottom: 1rem;"
+                        >
+                        <input 
+                            type="tel" 
+                            id="user-telefono" 
+                            class="email-input" 
+                            placeholder="+34 600 000 000 (WhatsApp)" 
+                            required
+                            pattern="[\+0-9\s\-\(\)]+"
+                            inputmode="tel"
+                            style="margin-bottom: 2rem;"
+                        >
+                        <button type="button" class="btn btn-primary btn-large" id="submit-email">
+                            Ver mi resultado →
+                        </button>
+                        <p class="privacy-note">
+                            🔒 Tus datos están protegidos. Solo usaremos tu información para enviarte el resultado y comunicaciones relacionadas con DERMA90. Puedes darte de baja en cualquier momento.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Loading Step -->
+                <div class="quiz-step" id="loading-step">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <h3>Analizando tus respuestas...</h3>
+                        <p style="color: var(--color-gray-medium);">Calculando tu perfil y protocolo personalizado</p>
+                    </div>
+                </div>
+                
+            </form>
+            
+            <!-- Navigation -->
+            <div class="quiz-nav" id="quiz-nav">
+                <button type="button" class="btn btn-secondary" id="prev-btn" style="display: none;">
+                    ← Anterior
+                </button>
+                <button type="button" class="btn btn-primary" id="next-btn" style="display: none;">
+                    Siguiente →
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        // Quiz Logic
+        const totalSteps = 12;
+        let currentStep = 1;
+        const answers = {};
+        let isAdvancing = false; // Flag para evitar avances dobles
+        
+        // Capturar origen del tráfico
+        const trafficSource = {
+            referrer: document.referrer || 'direct',
+            landing_url: document.referrer || 'direct',
+            timestamp: new Date().toISOString()
+        };
+        
+        // Capturar parámetros UTM si existen
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('utm_source')) {
+            trafficSource.utm_source = urlParams.get('utm_source');
+        }
+        if (urlParams.has('utm_medium')) {
+            trafficSource.utm_medium = urlParams.get('utm_medium');
+        }
+        if (urlParams.has('utm_campaign')) {
+            trafficSource.utm_campaign = urlParams.get('utm_campaign');
+        }
+        if (urlParams.has('utm_content')) {
+            trafficSource.utm_content = urlParams.get('utm_content');
+        }
+        
+        // Update progress
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('current-step').textContent = currentStep;
+            document.getElementById('total-steps').textContent = totalSteps;
+        }
+        
+        // Show specific step
+        function showStep(stepNum) {
+            document.querySelectorAll('.quiz-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            if (stepNum <= totalSteps) {
+                document.querySelector(`[data-step="${stepNum}"]`).classList.add('active');
+                currentStep = stepNum;
+                updateProgress();
+                updateNav();
+            } else {
+                // Show email capture
+                document.getElementById('email-step').classList.add('active');
+                document.getElementById('quiz-nav').style.display = 'none';
+            }
+            
+            // Reset advancing flag al cambiar de step
+            isAdvancing = false;
+            
+            window.scrollTo(0, 0);
+        }
+        
+        // Update navigation buttons
+        function updateNav() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            
+            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+            nextBtn.style.display = 'block';
+            
+            // Disable next if no answer selected
+            const currentQuestion = `q${currentStep}`;
+            const isAnswered = answers[currentQuestion] !== undefined;
+            nextBtn.disabled = !isAnswered;
+            nextBtn.style.opacity = isAnswered ? '1' : '0.5';
+        }
+        
+        // Handle option selection
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const input = this.querySelector('input');
+                const questionName = input.name;
+                
+                // Remove selected class from siblings
+                this.parentElement.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to this option
+                this.classList.add('selected');
+                input.checked = true;
+                
+                // Store answer
+                answers[questionName] = input.value;
+                
+                // Update nav
+                updateNav();
+                
+                // Auto-advance after 400ms (solo una vez)
+                if (!isAdvancing) {
+                    isAdvancing = true;
+                    setTimeout(() => {
+                        if (currentStep < totalSteps) {
+                            showStep(currentStep + 1);
+                        } else {
+                            showStep(totalSteps + 1); // Go to email capture
+                        }
+                        isAdvancing = false;
+                    }, 400);
+                }
+            });
+        });
+        
+        // Previous button
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        });
+        
+        // Next button
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                showStep(currentStep + 1);
+            } else {
+                showStep(totalSteps + 1); // Go to email capture
+            }
+        });
+        
+        // Filtrar caracteres no numéricos del teléfono en tiempo real
+        document.getElementById('user-telefono').addEventListener('input', function(e) {
+            const cursorPos = e.target.selectionStart;
+            const oldValue = e.target.value;
+            const newValue = oldValue.replace(/[^\+0-9\s\-\(\)]/g, '');
+            
+            if (oldValue !== newValue) {
+                e.target.value = newValue;
+                // Mantener posición del cursor
+                e.target.setSelectionRange(cursorPos - 1, cursorPos - 1);
+            }
+        });
+        
+        // Email submission
+        document.getElementById('submit-email').addEventListener('click', async () => {
+            const nombre = document.getElementById('user-nombre').value.trim();
+            const email = document.getElementById('user-email').value.trim();
+            const telefono = document.getElementById('user-telefono').value.trim();
+            
+            // Validación
+            if (!nombre) {
+                alert('Por favor, introduce tu nombre');
+                return;
+            }
+            
+            if (!email || !email.includes('@')) {
+                alert('Por favor, introduce un email válido');
+                return;
+            }
+            
+            // Validar teléfono: solo números, espacios, +, -, ( )
+            const telefonoLimpio = telefono.replace(/[^\+0-9\s\-\(\)]/g, '');
+            if (!telefonoLimpio || telefonoLimpio.length < 9) {
+                alert('Por favor, introduce un número de teléfono válido (mínimo 9 dígitos)');
+                return;
+            }
+            
+            // Store data
+            answers.nombre = nombre;
+            answers.email = email;
+            answers.telefono = telefonoLimpio;
+            
+            // Show loading
+            document.getElementById('email-step').classList.remove('active');
+            document.getElementById('loading-step').classList.add('active');
+            
+            // Calculate profile
+            const profile = calculateProfile(answers);
+            
+            // Send lead to Google Sheets
+            const webhookUrl = 'https://script.google.com/macros/s/AKfycbxcZWeu99dTautLTB-0onFfUip9tO73RoG5PHm_DCxExkRrBvvJSgqb18ciWms2D1w/exec';
+            
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // Importante para Google Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        email: email,
+                        telefono: telefonoLimpio,
+                        perfil: profile,
+                        respuestas: answers,
+                        landing_url: trafficSource.landing_url,
+                        utm_source: trafficSource.utm_source || '',
+                        utm_medium: trafficSource.utm_medium || '',
+                        utm_campaign: trafficSource.utm_campaign || '',
+                        utm_content: trafficSource.utm_content || '',
+                        timestamp: trafficSource.timestamp
+                    })
+                });
+                
+                console.log('Lead enviado a Google Sheets');
+            } catch (error) {
+                console.error('Error al enviar lead:', error);
+                // Continuar de todas formas
+            }
+            
+            // Facebook Pixel (safe fallback)
+            try {
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Quiz Completed',
+                        content_category: 'Quiz',
+                        value: 0,
+                        currency: 'EUR'
+                    });
+                }
+            } catch (e) {
+                console.log('FB Pixel not configured');
+            }
+            
+            // Redirect to result page with profile (siempre funciona)
+            setTimeout(() => {
+                window.location.href = `resultado.html?profile=${profile}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefonoLimpio)}`;
+            }, 1500);
+        });
+        
+        // Calculate profile based on answers
+        function calculateProfile(answers) {
+            let scores = {
+                barrera: 0,
+                densidad: 0,
+                estres: 0,
+                somaplus: 0
+            };
+            
+            // Q1: Main concern
+            if (answers.q1 === 'sequedad') scores.barrera += 3;
+            if (answers.q1 === 'firmeza') scores.densidad += 3;
+            if (answers.q1 === 'cansancio') scores.estres += 3;
+            if (answers.q1 === 'todo') scores.somaplus += 3;
+            
+            // Q2: Timeline
+            if (answers.q2 === 'largo') scores.somaplus += 2;
+            
+            // Q3: Speed
+            if (answers.q3 === 'repentino') scores.somaplus += 2;
+            
+            // Q4: Collagen tried
+            if (answers.q4 === 'si-nada') scores.somaplus += 2;
+            
+            // Q5: Current spend
+            if (answers.q5 === 'mucho' || answers.q5 === 'nada') scores.somaplus += 1;
+            
+            // Q6: Recognition
+            if (answers.q6 === 'no') scores.somaplus += 3;
+            
+            // Q7: Hormonal status
+            if (answers.q7 === 'peri') scores.estres += 1;
+            if (answers.q7 === 'meno') scores.densidad += 1;
+            
+            // Q8: Sleep
+            if (answers.q8 === 'mal') scores.estres += 2;
+            
+            // Q9: Protein breakfast
+            if (answers.q9 === 'no') scores.barrera += 1;
+            
+            // Q10: Hydration
+            if (answers.q10 === 'no' || answers.q10 === 'poco') scores.barrera += 2;
+            
+            // Q11: Sunlight
+            if (answers.q11 === 'no') scores.estres += 1;
+            
+            // Q12: Commitment
+            if (answers.q12 === 'si-apoyo') scores.somaplus += 1;
+            
+            // Find highest score
+            const maxScore = Math.max(...Object.values(scores));
+            
+            // Default to SOMA+ if multiple high scores or total complexity
+            if (scores.somaplus >= 8 || (scores.barrera >= 4 && scores.densidad >= 4)) {
+                return 'somaplus';
+            }
+            
+            // Otherwise return highest single score
+            for (let profile in scores) {
+                if (scores[profile] === maxScore) {
+                    return profile;
+                }
+            }
+            
+            return 'somaplus'; // Default
+        }
+        
+        // Initialize
+        updateProgress();
+        updateNav();
+    </script>
+    
+    <!-- Meta Pixel -->
+    <script>
+    fbq('track', 'ViewContent', {
+        content_name: 'Quiz',
+        content_category: 'Diagnostic'
+    });
+    </script>
+    
+</body>
+</html>

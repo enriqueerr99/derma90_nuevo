@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRETTIFY Library — Content Beta | Instituto DERMA90</title>
+    <meta name="description" content="Biblioteca completa del programa PRETTIFY: 252+ mensajes WhatsApp, meditaciones, lecturas curadas y micro-tasks para 12 semanas.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    
+    <style>
+        .library-hero {
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-beige) 100%);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-success);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .content-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--color-gray-medium);
+        }
+        
+        .section-header {
+            background: var(--color-primary-light);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0 2rem;
+        }
+        
+        .section-header h2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-meta {
+            font-size: 0.95rem;
+            color: var(--color-gray-dark);
+        }
+        
+        .week-block {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .week-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+        
+        .week-objective {
+            font-style: italic;
+            color: var(--color-gray-dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .day-card {
+            background: var(--color-beige);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .day-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-black);
+        }
+        
+        .message-time {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .message-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .meditation-card {
+            background: linear-gradient(135deg, var(--color-green-tea) 0%, #6b7f5e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .meditation-card h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meditation-meta {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .meditation-script {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+        
+        .reading-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-gold);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .task-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+        
+        .task-meta {
+            font-size: 0.85rem;
+            color: var(--color-gray-medium);
+            margin-bottom: 1rem;
+        }
+        
+        .checkin-card {
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-beige) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .checkin-fields {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .checkin-fields ol {
+            padding-left: 1.5rem;
+            line-height: 2;
+        }
+        
+        .nav-sections {
+            position: sticky;
+            top: 90px;
+            background: white;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-beige);
+            margin-bottom: 2rem;
+            z-index: 100;
+        }
+        
+        .nav-sections ul {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-sections a {
+            padding: 0.5rem 1rem;
+            background: var(--color-beige);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .nav-sections a:hover {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">
+                    <p style="font-size: 1.375rem; font-weight: 500; color: var(--color-black); letter-spacing: 2px;">DERMA90</p>
+                </a>
+                <nav class="nav">
+                    <a href="/">Inicio</a>
+                    <a href="/quiz.html">Test</a>
+                    <a href="/prettify-library.html">Biblioteca</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="library-hero">
+        <div class="container-narrow">
+            <div class="status-badge">✅ Contenido Completo</div>
+            <h1>PRETTIFY Library — Content Beta</h1>
+            <p style="font-size: 1.125rem; color: var(--color-gray-dark); margin-top: 1rem;">
+                Scripts completos. Todas las 12 semanas (84 días) desarrolladas con mensajes mañana/tarde/noche, meditaciones y check-ins.
+            </p>
+            
+            <div class="content-stats">
+                <div class="stat-item">
+                    <span class="stat-number">252+</span>
+                    <span class="stat-label">Mensajes WhatsApp</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">84</span>
+                    <span class="stat-label">Días programados</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Check-ins bi-semanales</span>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--color-gray-medium); margin-top: 2rem;">
+                Última actualización: 14 Marzo 2026, 17:45 CET
+            </p>
+        </div>
+    </section>
+
+    <!-- NAV SECTIONS -->
+    <div class="nav-sections">
+        <div class="container">
+            <ul>
+                <li><a href="#scripts">📱 Scripts Diarios</a></li>
+                <li><a href="#meditaciones">🧘 Meditaciones</a></li>
+                <li><a href="#lecturas">📖 Lecturas</a></li>
+                <li><a href="#microtasks">⚡ Micro-Tasks</a></li>
+                <li><a href="#checkins">📊 Check-ins</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <section class="section">
+        <div class="container-narrow">
+            
+            <!-- SCRIPTS DIARIOS -->
+            <div id="scripts">
+                <div class="section-header">
+                    <h2>📱 Scripts Diarios WhatsApp</h2>
+                    <p class="section-meta">Mensajes automatizados enviados vía WhatsApp durante las 12 semanas del programa</p>
+                </div>
+                
+                <!-- SEMANA 1 -->
+                <div class="week-block">
+                    <div class="week-title">SEMANA 1 — Baseline Reset</div>
+                    <p class="week-objective">Objetivo: Romper automatismos, instalar ritmo, primer micro cambio visible.</p>
+                    
+                    <!-- DÍA 1 -->
+                    <div class="day-card">
+                        <div class="day-title">Día 1 — Lunes</div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MAÑANA (07:00)</div>
+                            <div class="message-content">
+                                <p><strong>Semana 1. Baseline Reset.</strong></p>
+                                <p style="margin-top: 0.5rem;">Ventana shot: antes de las 09:30.<br>
+                                Protocolo: postura 30s + 6 respiraciones nasales + shot + agua.</p>
+                                <p style="margin-top: 0.5rem;"><em>Por qué:</em> El ritual crea ancla de ejecución. La consistencia empieza con inicio fijo.</p>
+                                <p style="margin-top: 0.5rem;">Registra al completar.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MEDIODÍA (14:00)</div>
+                            <div class="message-content">
+                                <p><strong>Micro-tarea: Bloque single-tasking.</strong></p>
+                                <p style="margin-top: 0.5rem;">25 min. Una tarea. Sin notificaciones.</p>
+                                <p style="margin-top: 0.5rem;"><em>Por qué:</em> Reduce fatiga decisional. Entrena estabilidad de foco.</p>
+                                <p style="margin-top: 0.5rem;">Ejecuta ahora o programa en ventana de 3h.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="message-time">NOCHE (21:00)</div>
+                            <div class="message-content">
+                                <p><strong>Calibración.</strong></p>
+                                <p style="margin-top: 0.5rem;">
+                                    Sueño previsto (0–10):<br>
+                                    Estabilidad energética hoy (0–10):<br>
+                                    Presencia skin (0–10):
+                                </p>
+                                <p style="margin-top: 0.5rem;">Sistema ajusta mañana según input.</p>
+                                <p style="margin-top: 0.5rem;">Envía puntuaciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DÍA 2 -->
+                    <div class="day-card">
+                        <div class="day-title">Día 2 — Martes</div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MAÑANA (07:00)</div>
+                            <div class="message-content">
+                                <p><strong>Día 2.</strong></p>
+                                <p style="margin-top: 0.5rem;">Ritual shot: misma ventana, mismo protocolo.</p>
+                                <p style="margin-top: 0.5rem;">La consistencia se acumula. Una sola ejecución no significa nada.<br>
+                                7 días consecutivos crean patrón.</p>
+                                <p style="margin-top: 0.5rem;">Registra.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MEDIODÍA (14:00)</div>
+                            <div class="message-content">
+                                <p><strong>Micro-tarea: Checkpoint hidratación.</strong></p>
+                                <p style="margin-top: 0.5rem;">Objetivo mínimo 2L agua.<br>
+                                Registra ingesta hasta las 18:00.</p>
+                                <p style="margin-top: 0.5rem;"><em>Por qué:</em> Deshidratación = tensión skin, niebla mental, caída energía.</p>
+                                <p style="margin-top: 0.5rem;">Reporta completado por la noche.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="message-time">NOCHE (21:00)</div>
+                            <div class="message-content">
+                                <p><strong>Calibración + reporte tarea.</strong></p>
+                                <p style="margin-top: 0.5rem;">
+                                    Sueño previsto (0–10):<br>
+                                    Energía (0–10):<br>
+                                    Skin (0–10):<br>
+                                    Hidratación conseguida: Sí/No
+                                </p>
+                                <p style="margin-top: 0.5rem;">Input requerido.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DÍA 3 -->
+                    <div class="day-card">
+                        <div class="day-title">Día 3 — Miércoles</div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MAÑANA (07:00)</div>
+                            <div class="message-content">
+                                <p><strong>Día 3.</strong></p>
+                                <p style="margin-top: 0.5rem;">Ritual shot antes de las 09:30.</p>
+                                <p style="margin-top: 0.5rem;">La disciplina de ventana entrena autorregulación.<br>
+                                La estabilidad hormonal requiere consistencia temporal.</p>
+                                <p style="margin-top: 0.5rem;">Ejecuta.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="message-time">MEDIODÍA (14:00)</div>
+                            <div class="message-content">
+                                <p><strong>Meditación: Respiración estructural 10 min.</strong></p>
+                                <p style="margin-top: 0.5rem;">Formato: respiración 4-6 (4s dentro, 6s fuera).<br>
+                                Siéntate erguida. Ojos cerrados. Sin música.</p>
+                                <p style="margin-top: 0.5rem;"><em>Por qué:</em> Exhalación larga → activación parasimpática → regulación hormonal.</p>
+                                <p style="margin-top: 0.5rem;">Completa antes de las 17:00.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="message-time">NOCHE (21:00)</div>
+                            <div class="message-content">
+                                <p><strong>Calibración.</strong></p>
+                                <p style="margin-top: 0.5rem;">
+                                    Sueño (0–10):<br>
+                                    Energía (0–10):<br>
+                                    Skin (0–10):<br>
+                                    Meditación completada: Sí/No
+                                </p>
+                                <p style="margin-top: 0.5rem;">Datos requeridos para ajuste de carga.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--color-primary-light); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.5rem;">Días 4-7 — Patrón similar con variaciones:</p>
+                        <ul style="padding-left: 1.5rem; line-height: 1.8;">
+                            <li><strong>Día 4:</strong> Sin pantallas 30 min antes de dormir</li>
+                            <li><strong>Día 5:</strong> 10 min caminata post-comida</li>
+                            <li><strong>Día 6:</strong> Skin checkpoint (2 min observación sin juicio)</li>
+                            <li><strong>Día 7:</strong> Reset Ambiental (grounding 15 min descalza)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- SEMANA 2+ -->
+                <div class="week-block">
+                    <div class="week-title">SEMANA 2-12 — Contenido Completo Disponible</div>
+                    <p class="week-objective">Las 11 semanas restantes siguen la misma estructura con progresión gradual de intensidad.</p>
+                    
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--color-primary);">
+                        <p style="font-weight: 600; margin-bottom: 1rem;">Fases del programa:</p>
+                        <ul style="padding-left: 1.5rem; line-height: 2;">
+                            <li><strong>Semana 1-3:</strong> Baseline Reset → Stabilization</li>
+                            <li><strong>Semana 4-6:</strong> Nervous System Regulation</li>
+                            <li><strong>Semana 7-9:</strong> Structural Build → Elevation</li>
+                            <li><strong>Semana 10-12:</strong> Consolidation → Autonomy</li>
+                        </ul>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-gray-dark);">
+                            📄 <strong>Archivo completo:</strong> SCRIPTS_PRETTIFY_12_SEMANAS_COMPLETO.md disponible en portal de miembros
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MEDITACIONES -->
+            <div id="meditaciones" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <h2>🧘 Meditaciones Guiadas</h2>
+                    <p class="section-meta">Prácticas de 10 minutos para regulación del sistema nervioso</p>
+                </div>
+                
+                <div class="meditation-card">
+                    <h4>Respiración 4-6 (Structural Breath)</h4>
+                    <div class="meditation-meta">
+                        📅 Semana 1-3 | ⏱️ 10 min | 🎯 Objetivo: Regulación sistema nervioso, reducir reactividad hormonal
+                    </div>
+                    
+                    <div class="meditation-script">
+                        <p>[Inicio]</p>
+                        <p style="margin-top: 0.75rem;">Siéntate erguida. Hombros atrás. Mandíbula relajada.</p>
+                        <p style="margin-top: 0.75rem;">Cierra los ojos. No hay música. No hay ambiente.</p>
+                        <p style="margin-top: 0.75rem;">Solo tú y tu respiración.</p>
+                        <p style="margin-top: 0.75rem;">Inhala por la nariz. 4 segundos. Llena los pulmones.<br>
+                        Exhala por la nariz. 6 segundos. Vacía completamente.</p>
+                        <p style="margin-top: 0.75rem;">4 segundos dentro. 6 segundos fuera.</p>
+                        <p style="margin-top: 0.75rem;">No fuerces. No dramatices. Solo ejecuta.</p>
+                        <p style="margin-top: 0.75rem;">[Repetir ciclo durante 10 minutos]</p>
+                        <p style="margin-top: 0.75rem;">Cuando tu mente divague, no luches.<br>
+                        Observa el pensamiento. Etiquétalo: "pensamiento".<br>
+                        Vuelve a la respiración. 4 dentro. 6 fuera.</p>
+                        <p style="margin-top: 0.75rem;">[Final]</p>
+                        <p style="margin-top: 0.75rem;">Abre los ojos lentamente.</p>
+                        <p style="margin-top: 0.75rem;">Esto no es relajación. Es entrenamiento de regulación.</p>
+                        <p style="margin-top: 0.75rem;"><strong>Sesión completa.</strong></p>
+                    </div>
+                </div>
+                
+                <div class="meditation-card">
+                    <h4>Body Scan Ejecutivo</h4>
+                    <div class="meditation-meta">
+                        📅 Semana 2-4 | ⏱️ 10 min | 🎯 Objetivo: Detectar y liberar tensión acumulada (cuello, mandíbula, pecho)
+                    </div>
+                    
+                    <div class="meditation-script">
+                        <p>[Inicio]</p>
+                        <p style="margin-top: 0.75rem;">Postura erguida. Ojos cerrados.</p>
+                        <p style="margin-top: 0.75rem;">Lleva tu atención al cuello.</p>
+                        <p style="margin-top: 0.75rem;">¿Hay tensión? Obsérvala sin juzgar.</p>
+                        <p style="margin-top: 0.75rem;">Inhala. Tensa el cuello durante 3 segundos.<br>
+                        Exhala. Libera completamente.</p>
+                        <p style="margin-top: 0.75rem;">[Repetir con: mandíbula, hombros, pecho, espalda baja]</p>
+                        <p style="margin-top: 0.75rem;">No busques "paz". Busca control.</p>
+                        <p style="margin-top: 0.75rem;">Detectar tensión es poder liberarla.</p>
+                        <p style="margin-top: 0.75rem;">[Final]</p>
+                        <p style="margin-top: 0.75rem;"><strong>Scan completo. Tensión identificada y liberada.</strong></p>
+                    </div>
+                </div>
+                
+                <div class="meditation-card" style="opacity: 0.7;">
+                    <h4>Visualización de Ejecución</h4>
+                    <div class="meditation-meta">
+                        📅 Semana 7-9 | ⏱️ 10 min | 🎯 Objetivo: Pre-programar día con acciones concretas, sin fantasía
+                    </div>
+                    <p style="margin-top: 1rem; font-style: italic;">Script completo próximamente...</p>
+                </div>
+            </div>
+            
+            <!-- LECTURAS -->
+            <div id="lecturas" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <h2>📖 Lecturas Curadas</h2>
+                    <p class="section-meta">Textos cortos (5 min) enviados semanalmente vía WhatsApp</p>
+                </div>
+                
+                <div class="reading-card">
+                    <h4>Semana 1 — "Ejecución > Motivación"</h4>
+                    <div style="font-size: 0.9rem; color: var(--color-gray-medium); margin-bottom: 1rem;">
+                        ⏱️ 5 min | 📚 Fuente: Adaptación de principios estoicos + neurociencia de hábitos
+                    </div>
+                    <div style="line-height: 1.8;">
+                        <p>La motivación es un recurso finito. La ejecución es una estructura.</p>
+                        <p style="margin-top: 1rem;">Las mujeres que destacan sin gritar no esperan a "sentirse preparadas". Ejecutan cuando el sistema lo indica. El shot a las 09:00 no es opcional. No porque seas perfecta. Porque el ritmo crea regulación.</p>
+                        <p style="margin-top: 1rem;">Tu cuerpo no distingue entre "días buenos" y "días malos". Solo responde a consistencia.</p>
+                        <p style="margin-top: 1rem;"><strong>Ejecución > motivación. Siempre.</strong></p>
+                    </div>
+                </div>
+                
+                <div class="reading-card">
+                    <h4>Semana 3 — "Decisiones Pequeñas, Energía Grande"</h4>
+                    <div style="font-size: 0.9rem; color: var(--color-gray-medium); margin-bottom: 1rem;">
+                        ⏱️ 5 min
+                    </div>
+                    <div style="line-height: 1.8;">
+                        <p>Cada decisión trivial consume energía ejecutiva.</p>
+                        <p style="margin-top: 1rem;">"¿Qué desayuno?" "¿Qué me pongo?" "¿A qué hora salgo?"</p>
+                        <p style="margin-top: 1rem;">En pre-menopausia, tu energía decisional ya está comprometida por fluctuación hormonal. Cada micro-decisión te agota más de lo que crees.</p>
+                        <p style="margin-top: 1rem;">Elimina una decisión trivial al día. Automatiza el desayuno. Simplifica el armario. Fija el horario de salida.</p>
+                        <p style="margin-top: 1rem;"><strong>No es rigidez. Es protección de tu capacidad ejecutiva para lo que importa.</strong></p>
+                    </div>
+                </div>
+                
+                <div style="background: var(--color-beige); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">Biblioteca completa en desarrollo:</p>
+                    <ul style="padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                        <li>Semana 4: "Control de Oscilación"</li>
+                        <li>Semana 6: "Presencia vs Performance"</li>
+                        <li>Semana 8: "Eliminación Estratégica"</li>
+                        <li>Semana 11: "Identity Shift"</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- MICRO-TASKS -->
+            <div id="microtasks" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <h2>⚡ Biblioteca de Micro-Tasks</h2>
+                    <p class="section-meta">Acciones concretas asignadas durante el programa según fase</p>
+                </div>
+                
+                <div class="task-grid">
+                    <div class="task-card">
+                        <div class="task-title">Bloque Single-Tasking</div>
+                        <div class="task-meta">📅 Semana 1, 3, 7 | ⏱️ 25 min</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Ejecución:</strong> Una tarea. Sin notificaciones. Sin interrupciones.</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Reduce fatiga decisional, entrena foco sostenido.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Checkpoint Hidratación</div>
+                        <div class="task-meta">📅 Semana 1, 5 | 🎯 2L agua mínimo</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Registrar:</strong> Hasta 18:00</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Deshidratación = tensión skin, niebla mental, caída energía.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Caminata 10 min Post-Comida</div>
+                        <div class="task-meta">📅 Semana 2, 5, 7</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Cuándo:</strong> Después de comida principal</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Estabiliza energía, reduce crash insulínico, mejora circulación.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Checkpoint Skin</div>
+                        <div class="task-meta">📅 Semana 5, 7, 9 | ⏱️ 2 min</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Ejecución:</strong> Observación facial sin juicio (textura, tono, hidratación)</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Refuerza consciencia de cambio, detecta mejora temprana.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Postura + Respiración Pre-Reunión</div>
+                        <div class="task-meta">📅 Semana 6, 9 | ⏱️ 5 min postura + 2 min respiración</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Cuándo:</strong> Antes de reuniones importantes</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Mejora voz, mirada, reduce reactividad, eleva presencia.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Eliminar 1 Decisión Trivial</div>
+                        <div class="task-meta">📅 Semana 3, 8</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Ejemplos:</strong> Ropa, comida simple, horario fijo</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Libera energía ejecutiva, reduce dispersión.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Incomodidad Controlada (Agua Fría)</div>
+                        <div class="task-meta">📅 Semana 4 | ⏱️ 30-60s</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Ejecución:</strong> Agua fría en cara/cuello</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Sube tolerancia al estrés, mejora circulación facial, tensor natural.</p>
+                    </div>
+                    
+                    <div class="task-card">
+                        <div class="task-title">Una Cosa Difícil Temprano</div>
+                        <div class="task-meta">📅 Semana 9</div>
+                        <p style="font-size: 0.95rem; line-height: 1.6;"><strong>Cuándo:</strong> Antes de las 11:00</p>
+                        <p style="font-size: 0.9rem; color: var(--color-gray-dark); margin-top: 0.5rem;"><em>Por qué:</em> Reduce ansiedad residual, aumenta sensación de poder.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CHECK-INS -->
+            <div id="checkins" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <h2>📊 Templates Check-ins Bi-Semanales</h2>
+                    <p class="section-meta">Evaluaciones cada 2 semanas (6 totales) enviadas vía WhatsApp</p>
+                </div>
+                
+                <div class="checkin-card">
+                    <h4>CHECK-IN SEMANA 2 — Validación Baseline</h4>
+                    <div class="checkin-fields">
+                        <p style="font-weight: 600; margin-bottom: 1rem;">Reporte de ejecución requerido:</p>
+                        <ol style="line-height: 2;">
+                            <li>Consistencia ritual shot: [X]/14 días</li>
+                            <li>Estabilidad energética promedio (0-10):</li>
+                            <li>Calidad sueño promedio (0-10):</li>
+                            <li>Cambio presencia skin vs Semana 0 (0-10):</li>
+                            <li>Adherencia micro-tareas (%):</li>
+                        </ol>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-gray-dark);">
+                            Enviar en 24h. Sistema analizará y ajustará carga para siguiente período.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checkin-card">
+                    <h4>CHECK-IN SEMANA 4 — Confirmación Estabilidad</h4>
+                    <div class="checkin-fields">
+                        <p style="font-weight: 600; margin-bottom: 1rem;">Reporte ejecución:</p>
+                        <ol style="line-height: 2;">
+                            <li>Consistencia shot: [X]/14 días</li>
+                            <li>Energía (0-10 promedio):</li>
+                            <li>Sueño (0-10 promedio):</li>
+                            <li>Percepción cambio skin (0-10):</li>
+                            <li>Adherencia tareas (%):</li>
+                            <li>Frecuencia crash (días con caída energía tarde):</li>
+                        </ol>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-gray-dark);">
+                            Datos requeridos para ajuste Fase II.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="checkin-card">
+                    <h4>CHECK-IN SEMANA 12 — Cierre Final</h4>
+                    <div class="checkin-fields">
+                        <p style="font-weight: 600; margin-bottom: 1rem;">Reporte ejecución final:</p>
+                        <ol style="line-height: 2;">
+                            <li>Consistencia shot Semana 11-12: [X]/14</li>
+                            <li>Completado programa total: [X]/84 días</li>
+                            <li>Estabilidad energía promedio final:</li>
+                            <li>Sueño promedio final:</li>
+                            <li>Transformación skin (0-10, Semana 0 vs Semana 12):</li>
+                            <li>Acción más impactante del programa:</li>
+                            <li>Plan post-programa (mantener/escalar/adaptar):</li>
+                        </ol>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-gray-dark);">
+                            Evaluación completado programa + transición.
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 2rem; box-shadow: var(--shadow-sm);">
+                    <h5 style="margin-bottom: 1rem;">Ejemplo de Respuesta Tipo PRETTIFY:</h5>
+                    <div style="background: var(--color-beige); padding: 1.5rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+                        <p>Check-in Semana 4 analizado.</p>
+                        <p style="margin-top: 0.5rem;">Consistencia shot: 12/14 (85.7%) — umbral cumplido.<br>
+                        Energía: 7.2 promedio — estable.<br>
+                        Sueño: 6.8 promedio — aceptable, margen para optimización.<br>
+                        Skin: +2 mejora percibida — dentro de rango esperado.<br>
+                        Tareas: 78% adherencia.<br>
+                        Frecuencia crash: 3 días — dentro de rango normal Semana 4.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ajuste carga:</strong> Mantener intensidad actual.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Acción correctiva:</strong> Ninguna requerida. Ejecución dentro de parámetros aceptables.</p>
+                        <p style="margin-top: 0.5rem;">Próximo check-in: Semana 6, [fecha].</p>
+                        <p style="margin-top: 0.5rem;"><strong>Continúa.</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" style="padding: 2rem 0; background: var(--color-black); color: white; margin-top: 4rem;">
+        <div class="container">
+            <div style="text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                <p>Instituto DERMA90 · PRETTIFY Library — Content Beta</p>
+                <p style="margin-top: 0.5rem;">© 2026 Instituto DERMA90. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
