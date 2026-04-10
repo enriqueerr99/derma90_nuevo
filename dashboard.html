@@ -1084,8 +1084,8 @@
                 <h3>Tráfico / Campaña</h3>
                 <div class="lead-info">
                     <div class="lead-info-row">
-                        <span class="lead-info-label">Landing Page:</span>
-                        <span class="lead-info-value" id="modalLandingUrl" style="word-break: break-all; font-size: 0.9rem;">-</span>
+                        <span class="lead-info-label">Landing:</span>
+                        <span class="lead-info-value" id="modalLandingUrl">-</span>
                     </div>
                     <div class="lead-info-row">
                         <span class="lead-info-label">Fuente:</span>
@@ -1281,11 +1281,13 @@
 
             // Landing URL - determinar si es premium o original
             const landingUrl = lead.landing_url || '-';
-            let landingLabel = landingUrl;
+            let landingLabel = '-';
             if (landingUrl.includes('premium')) {
-                landingLabel = '🔴 PREMIUM (' + landingUrl + ')';
-            } else if (landingUrl.includes('index.html') || landingUrl.includes('original')) {
-                landingLabel = '🟢 ORIGINAL (' + landingUrl + ')';
+                landingLabel = 'Premium';
+            } else if (landingUrl.includes('index.html') || landingUrl === 'direct' || landingUrl === '') {
+                landingLabel = 'Original';
+            } else if (landingUrl !== '-') {
+                landingLabel = 'Original';
             }
             document.getElementById('modalLandingUrl').textContent = landingLabel;
 
