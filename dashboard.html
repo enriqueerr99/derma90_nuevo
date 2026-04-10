@@ -746,6 +746,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>#ID</th>
                             <th>Email</th>
                             <th>Nombre</th>
                             <th>Perfil</th>
@@ -757,7 +758,7 @@
                     </thead>
                     <tbody id="leadsTableBody">
                         <tr>
-                            <td colspan="7" class="empty-state">
+                            <td colspan="8" class="empty-state">
                                 <p>Cargando leads...</p>
                             </td>
                         </tr>
@@ -778,6 +779,10 @@
             <div class="modal-section">
                 <h3>Información Personal</h3>
                 <div class="lead-info">
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">ID:</span>
+                        <span class="lead-info-value"><strong id="modalId">-</strong></span>
+                    </div>
                     <div class="lead-info-row">
                         <span class="lead-info-label">Email:</span>
                         <span class="lead-info-value" id="modalEmail">-</span>
@@ -901,12 +906,29 @@
             try {
                 const response = await fetch(GOOGLE_SHEETS_API);
                 const data = await response.json();
-                leadsData = data.map((lead, index) => ({
-                    ...lead,
-                    id: index,
-                    estado: leadsNotes[index]?.estado || 'nuevo',
-                    notas: leadsNotes[index]?.notas || ''
-                }));
+
+                // Mapear datos con headers correctamente
+                leadsData = data.map((lead, index) => {
+                    // Los datos vienen con las claves del header del sheet
+                    // Normalizamos los nombres de las claves
+                    const normalized = {
+                        id: index + 1, // ID numérico empezando en 1
+                        timestamp: lead['Timestamp'] || lead[0] || '',
+                        email: lead['Email'] || lead['email'] || lead[1] || '',
+                        nombre: lead['Nombre'] || lead['nombre'] || lead[2] || '',
+                        telefono: lead['Teléfono'] || lead['telefono'] || lead[3] || '',
+                        perfil: lead['Perfil'] || lead['perfil'] || lead[4] || '',
+                        landing_url: lead['Landing URL'] || lead['landing_url'] || lead[5] || '',
+                        utm_source: lead['UTM Source'] || lead['utm_source'] || lead[6] || '',
+                        utm_medium: lead['UTM Medium'] || lead['utm_medium'] || lead[7] || '',
+                        utm_campaign: lead['UTM Campaign'] || lead['utm_campaign'] || lead[8] || '',
+                        utm_content: lead['UTM Content'] || lead['utm_content'] || lead[9] || '',
+                        respuestas: lead['Respuestas'] || lead['respuestas'] || lead[10] || '{}',
+                        estado: leadsNotes[index]?.estado || 'nuevo',
+                        notas: leadsNotes[index]?.notas || ''
+                    };
+                    return normalized;
+                });
 
                 localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
                 filterAndDisplayLeads();
@@ -944,21 +966,25 @@
             const tbody = document.getElementById('leadsTableBody');
 
             if (filteredLeads.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--color-gray-medium);">No se encontraron leads</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--color-gray-medium);">No se encontraron leads</td></tr>';
                 return;
             }
 
-            tbody.innerHTML = filteredLeads.map((lead, idx) => `
-                <tr onclick="openLeadModal(${leadsData.indexOf(lead)})">
+            tbody.innerHTML = filteredLeads.map((lead, idx) => {
+                const leadIndex = leadsData.indexOf(lead);
+                return `
+                <tr onclick="openLeadModal(${leadIndex})">
+                    <td><strong>${lead.id || '-'}</strong></td>
                     <td>${lead.email || '-'}</td>
                     <td>${lead.nombre || '-'}</td>
                     <td><span class="badge badge-perfil">${(lead.perfil || 'N/A').toUpperCase()}</span></td>
                     <td><span class="badge badge-${lead.estado || 'nuevo'}">${(lead.estado || 'Nuevo').charAt(0).toUpperCase() + (lead.estado || 'nuevo').slice(1)}</span></td>
                     <td>${lead.telefono || '-'}</td>
-                    <td>${formatDate(lead[0])}</td>
-                    <td><button class="btn-action" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="openLeadModal(${leadsData.indexOf(lead)}); event.stopPropagation();">Ver</button></td>
+                    <td>${formatDate(lead.timestamp)}</td>
+                    <td><button class="btn-action" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="openLeadModal(${leadIndex}); event.stopPropagation();">Ver</button></td>
                 </tr>
-            `).join('');
+            `;
+            }).join('');
         }
 
         // ===== MODAL LEAD =====
@@ -966,11 +992,12 @@
             currentLeadIndex = leadIndex;
             const lead = leadsData[leadIndex];
 
+            document.getElementById('modalId').textContent = lead.id || '-';
             document.getElementById('modalEmail').textContent = lead.email || '-';
             document.getElementById('modalNombre').textContent = lead.nombre || '-';
             document.getElementById('modalTelefono').textContent = lead.telefono || '-';
             document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
-            document.getElementById('modalFecha').textContent = formatDate(lead[0]);
+            document.getElementById('modalFecha').textContent = formatDate(lead.timestamp);
             document.getElementById('modalUtmSource').textContent = lead.utm_source || '-';
             document.getElementById('modalUtmMedium').textContent = lead.utm_medium || '-';
             document.getElementById('modalUtmCampaign').textContent = lead.utm_campaign || '-';
@@ -1037,13 +1064,14 @@
                 return;
             }
 
-            const headers = ['Fecha', 'Email', 'Nombre', 'Teléfono', 'Perfil', 'Estado', 'Notas', 'UTM Source', 'UTM Medium', 'UTM Campaign'];
+            const headers = ['ID', 'Fecha', 'Email', 'Nombre', 'Teléfono', 'Perfil', 'Estado', 'Notas', 'UTM Source', 'UTM Medium', 'UTM Campaign'];
             const rows = leadsData.map(lead => [
-                formatDate(lead[0]),
-                lead.email,
-                lead.nombre,
-                lead.telefono,
-                lead.perfil,
+                lead.id || '',
+                formatDate(lead.timestamp),
+                lead.email || '',
+                lead.nombre || '',
+                lead.telefono || '',
+                lead.perfil || '',
                 lead.estado || 'nuevo',
                 lead.notas || '',
                 lead.utm_source || '',
