@@ -7,7 +7,29 @@
       "Bash(unzip -q \"C:\\\\Users\\\\Enrique\\\\Downloads\\\\derma90-v2.zip\")",
       "Bash(rm -rf /tmp/derma90-v2)",
       "Bash(unzip -o \"C:\\\\Users\\\\Enrique\\\\Downloads\\\\derma90-v2.zip\" -d /tmp/)",
-      "Bash(vercel deploy:*)"
+      "Bash(vercel deploy:*)",
+      "mcp__d0121c73-68f5-4a08-a5a1-be873098d974__deploy_to_vercel",
+      "Bash(python3 -c \"import fpdf; print\\('fpdf available'\\)\")",
+      "Bash(python3 -c \"import reportlab; print\\('reportlab available'\\)\")",
+      "Bash(python3 generar_pdf_barrera.py)",
+      "Bash(python generar_pdf_barrera.py)",
+      "Bash('/c/Users/Enrique/AppData/Local/Microsoft/WindowsApps/python3.exe' 'C:\\\\Users\\\\Enrique\\\\OneDrive\\\\Documentos\\\\Claude\\\\Projects\\\\IDERMA\\\\generar_pdf_barrera.py')",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(node generar_pdf_barrera.js)",
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__4ab846bd-8eee-4e4e-9594-394857d903ab__generate",
+      "mcp__4ab846bd-8eee-4e4e-9594-394857d903ab__get_themes",
+      "mcp__4ab846bd-8eee-4e4e-9594-394857d903ab__read_gamma",
+      "WebSearch",
+      "Bash(mkdir -p \"C:/Users/Enrique/.claude/skills/gammapdf\")",
+      "Bash(cp -r \"C:/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/gammapdf/\"* \"C:/Users/Enrique/.claude/skills/gammapdf/\")",
+      "Read(//c/Users/Enrique/.claude/skills/**)",
+      "Bash(cp \"/c/Users/Enrique/Downloads/PERFIL SOMA+.pdf\" \"/c/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/\")",
+      "Bash(cp \"/c/Users/Enrique/Downloads/PERFIL BARRERA.pdf\" \"/c/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/\")",
+      "Bash(cp \"/c/Users/Enrique/Downloads/PERFIL DENSIDAD.pdf\" \"/c/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/\")",
+      "Bash(cp \"/c/Users/Enrique/Downloads/PERFIL ESTRÉS.pdf\" \"/c/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/\")",
+      "Bash(ls -lh \"/c/Users/Enrique/OneDrive/Documentos/Claude/Projects/IDERMA/PERFIL\"*)"
     ]
   }
 }
