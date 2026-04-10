@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --color-black: #1a1a1a;
@@ -960,8 +961,8 @@
                 <img src="/assets/images/logo.svg" alt="IDERMA">
             </div>
             <ul class="sidebar-menu">
-                <li><a href="#" class="active" onclick="return false;">📊 Dashboard</a></li>
-                <li><a href="#" onclick="return false;">📋 Reportes</a></li>
+                <li><a href="#" class="active" onclick="showSection('dashboard'); return false;">📊 Dashboard</a></li>
+                <li><a href="#" onclick="showSection('reportes'); return false;">📋 Reportes</a></li>
                 <li><a href="#" onclick="return false;">⚙️ Configuración</a></li>
             </ul>
             <div class="sidebar-logout">
@@ -1015,9 +1016,11 @@
                 </div>
             </div>
 
-            <!-- TABLE -->
-            <div class="table-container">
-                <table>
+            <!-- SECTION: DASHBOARD -->
+            <div id="section-dashboard">
+                <!-- TABLE -->
+                <div class="table-container">
+                    <table>
                     <thead>
                         <tr>
                             <th>#ID</th>
@@ -1038,6 +1041,31 @@
                         </tr>
                     </tbody>
                 </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: REPORTES -->
+            <div id="section-reportes" style="display: none;">
+                <div class="dashboard-header">
+                    <h1>Reportes</h1>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <!-- Gráfico Perfiles -->
+                    <div class="table-container" style="padding: 2rem;">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary);">Distribución de Perfiles</h3>
+                        <canvas id="chartPerfiles"></canvas>
+                        <div id="statsPerfiles" style="margin-top: 1.5rem; font-size: 0.9rem;"></div>
+                    </div>
+
+                    <!-- Gráfico Landings -->
+                    <div class="table-container" style="padding: 2rem;">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary);">Distribución de Landings</h3>
+                        <canvas id="chartLandings"></canvas>
+                        <div id="statsLandings" style="margin-top: 1.5rem; font-size: 0.9rem;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1403,6 +1431,133 @@
         document.getElementById('leadModal').addEventListener('click', (e) => {
             if (e.target.id === 'leadModal') closeModal();
         });
+
+        // ===== SECCIONES =====
+        let chartPerfiles = null;
+        let chartLandings = null;
+
+        function showSection(section) {
+            document.getElementById('section-dashboard').style.display = section === 'dashboard' ? 'block' : 'none';
+            document.getElementById('section-reportes').style.display = section === 'reportes' ? 'block' : 'none';
+
+            // Actualizar gráficos cuando se muestre la sección de reportes
+            if (section === 'reportes') {
+                updateCharts();
+            }
+
+            // Actualizar sidebar
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function updateCharts() {
+            // Calcular distribución de perfiles
+            const perfilesCount = {};
+            const landingsCount = { premium: 0, original: 0 };
+
+            leadsData.forEach(lead => {
+                const perfil = (lead.perfil || 'N/A').toUpperCase();
+                perfilesCount[perfil] = (perfilesCount[perfil] || 0) + 1;
+
+                // Contar landings
+                if (lead.landing_url && lead.landing_url.includes('premium')) {
+                    landingsCount.premium++;
+                } else {
+                    landingsCount.original++;
+                }
+            });
+
+            // Gráfico de Perfiles
+            const perfilLabels = Object.keys(perfilesCount);
+            const perfilData = Object.values(perfilesCount);
+            const perfilTotal = perfilData.reduce((a, b) => a + b, 0);
+
+            const ctxPerfiles = document.getElementById('chartPerfiles').getContext('2d');
+            if (chartPerfiles) chartPerfiles.destroy();
+            chartPerfiles = new Chart(ctxPerfiles, {
+                type: 'doughnut',
+                data: {
+                    labels: perfilLabels,
+                    datasets: [{
+                        data: perfilData,
+                        backgroundColor: [
+                            '#c67856',
+                            '#8a9b7a',
+                            '#b8945f',
+                            '#e8b84d'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 12 }, padding: 15 }
+                        }
+                    }
+                }
+            });
+
+            // Estadísticas de perfiles
+            const statsPerfilesHtml = perfilLabels.map((label, idx) => {
+                const count = perfilData[idx];
+                const percentage = ((count / perfilTotal) * 100).toFixed(1);
+                return `<div style="margin-bottom: 0.5rem;"><strong>${label}:</strong> ${count} leads (${percentage}%)</div>`;
+            }).join('');
+            document.getElementById('statsPerfiles').innerHTML = statsPerfilesHtml;
+
+            // Gráfico de Landings
+            const landingLabels = ['Premium', 'Original'];
+            const landingData = [landingsCount.premium, landingsCount.original];
+            const landingTotal = landingData.reduce((a, b) => a + b, 0);
+
+            const ctxLandings = document.getElementById('chartLandings').getContext('2d');
+            if (chartLandings) chartLandings.destroy();
+            chartLandings = new Chart(ctxLandings, {
+                type: 'doughnut',
+                data: {
+                    labels: landingLabels,
+                    datasets: [{
+                        data: landingData,
+                        backgroundColor: [
+                            '#c67856',
+                            '#d4d4d4'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 12 }, padding: 15 }
+                        }
+                    }
+                }
+            });
+
+            // Estadísticas de landings
+            const statsPremium = ((landingsCount.premium / landingTotal) * 100).toFixed(1);
+            const statsOriginal = ((landingsCount.original / landingTotal) * 100).toFixed(1);
+            document.getElementById('statsLandings').innerHTML = `
+                <div style="margin-bottom: 0.5rem;"><strong>Premium:</strong> ${landingsCount.premium} leads (${statsPremium}%)</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Original:</strong> ${landingsCount.original} leads (${statsOriginal}%)</div>
+            `;
+        }
+
+        // Actualizar gráficos cuando se cargan nuevos leads
+        const originalFilterAndDisplay = filterAndDisplayLeads;
+        filterAndDisplayLeads = function() {
+            originalFilterAndDisplay();
+            if (document.getElementById('section-reportes').style.display === 'block') {
+                updateCharts();
+            }
+        };
     </script>
 </body>
 </html>
