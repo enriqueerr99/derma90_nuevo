@@ -236,23 +236,13 @@
             overflow: hidden;
         }
 
-        #section-dashboard {
-            display: block;
-        }
-
-        #section-reportes {
-            display: none;
-        }
-
-        .main-content.reportes-view #section-dashboard {
+        #section-dashboard[style*="display: none"] {
             display: none !important;
+            visibility: hidden;
             position: absolute;
-            left: -9999px;
-            top: -9999px;
-        }
-
-        .main-content.reportes-view #section-reportes {
-            display: block;
+            height: 0;
+            width: 0;
+            overflow: hidden;
         }
 
         /* ===== HEADER DASHBOARD ===== */
@@ -1037,7 +1027,7 @@
             </div>
 
             <!-- SECTION: DASHBOARD -->
-            <div id="section-dashboard">
+            <div id="section-dashboard" style="display: none; width: 100%;">
                 <!-- TABLE -->
                 <div class="table-container">
                     <table>
@@ -1477,13 +1467,12 @@
         let chartLandings = null;
 
         function showSection(section) {
-            const mainContent = document.querySelector('.main-content');
+            document.getElementById('section-dashboard').style.display = section === 'dashboard' ? 'block' : 'none';
+            document.getElementById('section-reportes').style.display = section === 'reportes' ? 'block' : 'none';
 
+            // Actualizar gráficos cuando se muestre la sección de reportes
             if (section === 'reportes') {
-                mainContent.classList.add('reportes-view');
                 updateCharts();
-            } else {
-                mainContent.classList.remove('reportes-view');
             }
 
             // Actualizar sidebar
