@@ -236,15 +236,6 @@
             overflow: hidden;
         }
 
-        #section-dashboard {
-            width: 100%;
-            display: block;
-        }
-
-        #section-reportes {
-            width: 100%;
-            display: none;
-        }
 
         /* ===== HEADER DASHBOARD ===== */
         .dashboard-header {
@@ -1028,7 +1019,7 @@
             </div>
 
             <!-- SECTION: DASHBOARD -->
-            <div id="section-dashboard" style="display: block; width: 100%;">
+            <div id="section-dashboard">
                 <!-- TABLE -->
                 <div class="table-container">
                     <table>
@@ -1057,7 +1048,7 @@
             </div>
 
             <!-- SECTION: REPORTES -->
-            <div id="section-reportes" style="display: none;">
+            <div id="section-reportes">
                 <div class="dashboard-header" style="justify-content: center; flex-direction: column; align-items: center;">
                     <h1 style="margin-bottom: 1.5rem;">Reportes</h1>
                     <div class="dashboard-header-stats" style="width: 100%; justify-content: center;">
@@ -1233,9 +1224,9 @@
         function showDashboard() {
             document.getElementById('loginContainer').classList.add('hidden');
             document.getElementById('dashboard').style.display = 'flex';
+            document.getElementById('section-dashboard').style.display = 'block';
+            document.getElementById('section-reportes').style.display = 'none';
             loadLeads();
-            // Mostrar reportes por defecto
-            showSection('reportes');
             // Polling cada 5 segundos
             setInterval(loadLeads, 5000);
         }
