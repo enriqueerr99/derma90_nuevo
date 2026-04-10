@@ -696,9 +696,9 @@
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-large" style="width: 100%; background: white; color: var(--color-primary); font-size: 1.25rem; padding: 1.5rem; margin-top: 1.5rem;">
-                            Solicitar mi plaza ahora →
-                        </button>
+                        <a id="checkout-btn" href="https://buy.stripe.com/5kQ3cvdkx0cR6J49s41kA01" class="btn btn-large" style="width: 100%; background: white; color: var(--color-primary); font-size: 1.25rem; padding: 1.5rem; margin-top: 1.5rem; display: block; text-align: center;">
+                            Reservar mi plaza ahora →
+                        </a>
                     </form>
                 </div>
 
@@ -854,18 +854,53 @@
             document.getElementById('profile-symptoms').innerHTML = symptomsHTML;
         }
 
-        // Payment form handler
-        const paymentForm = document.getElementById('payment-form');
+        // Payment option handler
         const stripeLinks = {
             unico: 'https://buy.stripe.com/5kQ3cvdkx0cR6J49s41kA01',
             plazos: 'https://buy.stripe.com/6oUeVdcgt0cR8Rc8o01kA00'
         };
 
-        paymentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const radioButtons = document.querySelectorAll('input[name="payment-type"]');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+
+        // Update button link when payment option changes
+        function updateCheckoutLink() {
             const selectedPayment = document.querySelector('input[name="payment-type"]:checked').value;
-            window.location.href = stripeLinks[selectedPayment];
+            checkoutBtn.href = stripeLinks[selectedPayment];
+
+            // Update visual selection styling
+            paymentOptions.forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    option.style.borderColor = 'var(--color-primary)';
+                    option.style.borderWidth = '3px';
+                    option.querySelector('.check-icon').style.background = 'var(--color-primary)';
+                } else {
+                    option.style.borderColor = 'var(--color-gray-light)';
+                    option.style.borderWidth = '2px';
+                    option.querySelector('.check-icon').style.background = 'transparent';
+                    option.querySelector('.check-icon').style.color = 'transparent';
+                }
+            });
+        }
+
+        // Add event listeners to radio buttons
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', updateCheckoutLink);
         });
+
+        // Also make payment options clickable
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                updateCheckoutLink();
+            });
+        });
+
+        // Initialize on load
+        updateCheckoutLink();
     </script>
 
 </body>
