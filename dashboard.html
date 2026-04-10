@@ -1200,6 +1200,22 @@
         const LEADS_STORAGE_KEY = 'iderma_leads_data';
         const NOTES_STORAGE_KEY = 'iderma_leads_notes';
 
+        // ===== MAPEO DE PREGUNTAS DEL QUIZ =====
+        const QUIZ_QUESTIONS = {
+            q1: '¿Qué te preocupa más de tu piel en este momento?',
+            q2: '¿Cuándo empezaste a notar estos cambios?',
+            q3: '¿Cómo describirías la velocidad del cambio?',
+            q4: '¿Has probado colágeno en polvo, cápsulas o bebible?',
+            q5: '¿Gastas actualmente en cremas antiedad, sérums o tratamientos faciales?',
+            q6: '¿Te reconoces cuando te miras al espejo o ves fotos recientes?',
+            q7: '¿Cómo describirías tu situación hormonal?',
+            q8: '¿Duermes bien?',
+            q9: '¿Tomas desayuno con proteína (huevos, yogur, jamón, etc.)?',
+            q10: '¿Bebes al menos 1.5-2L de agua al día?',
+            q11: '¿Pasas tiempo al aire libre / luz natural durante el día?',
+            q12: 'Si empiezas un protocolo, ¿podrías comprometerte 12 semanas completas?'
+        };
+
         let leadsData = [];
         let filteredLeads = [];
         let currentLeadIndex = -1;
@@ -1365,7 +1381,10 @@
             try {
                 const respuestas = JSON.parse(lead.respuestas || '{}');
                 const respuestasHtml = Object.entries(respuestas)
-                    .map(([key, value]) => `<div class="lead-info-row"><span class="lead-info-label">${key}:</span><span class="lead-info-value">${value}</span></div>`)
+                    .map(([key, value]) => {
+                        const pregunta = QUIZ_QUESTIONS[key] || key;
+                        return `<div class="lead-info-row"><span class="lead-info-label">${pregunta}:</span><span class="lead-info-value">${value}</span></div>`;
+                    })
                     .join('');
                 document.getElementById('modalRespuestas').innerHTML = respuestasHtml || '<p>Sin respuestas registradas</p>';
             } catch (e) {
