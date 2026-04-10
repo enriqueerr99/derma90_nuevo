@@ -233,6 +233,16 @@
             flex: 1;
             padding: 2rem;
             background-color: var(--color-beige);
+            overflow: hidden;
+        }
+
+        #section-dashboard[style*="display: none"] {
+            display: none !important;
+            visibility: hidden;
+            position: absolute;
+            height: 0;
+            width: 0;
+            overflow: hidden;
         }
 
         /* ===== HEADER DASHBOARD ===== */
@@ -1017,7 +1027,7 @@
             </div>
 
             <!-- SECTION: DASHBOARD -->
-            <div id="section-dashboard" style="display: none;">
+            <div id="section-dashboard" style="display: none; width: 100%;">
                 <!-- TABLE -->
                 <div class="table-container">
                     <table>
