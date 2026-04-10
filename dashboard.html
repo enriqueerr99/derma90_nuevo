@@ -1047,8 +1047,22 @@
 
             <!-- SECTION: REPORTES -->
             <div id="section-reportes" style="display: block;">
-                <div class="dashboard-header" style="justify-content: center;">
-                    <h1>Reportes</h1>
+                <div class="dashboard-header" style="justify-content: center; flex-direction: column; align-items: center;">
+                    <h1 style="margin-bottom: 1.5rem;">Reportes</h1>
+                    <div class="dashboard-header-stats" style="width: 100%; justify-content: center;">
+                        <div class="stat-badge">
+                            <div class="stat-value" id="totalLeadsReport">0</div>
+                            <div class="stat-label">Total</div>
+                        </div>
+                        <div class="stat-badge">
+                            <div class="stat-value" id="newLeadsReport">0</div>
+                            <div class="stat-label">Nuevos</div>
+                        </div>
+                        <div class="stat-badge">
+                            <div class="stat-value" id="contactedLeadsReport">0</div>
+                            <div class="stat-label">Contactados</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
@@ -1457,6 +1471,15 @@
         }
 
         function updateCharts() {
+            // Actualizar stats en reportes
+            const total = leadsData.length;
+            const nuevos = leadsData.filter(l => (l.estado || 'nuevo') === 'nuevo').length;
+            const contactados = leadsData.filter(l => (l.estado || 'nuevo') === 'contactado').length;
+
+            document.getElementById('totalLeadsReport').textContent = total;
+            document.getElementById('newLeadsReport').textContent = nuevos;
+            document.getElementById('contactedLeadsReport').textContent = contactados;
+
             // Calcular distribución de perfiles
             const perfilesCount = {};
             const landingsCount = { premium: 0, original: 0 };
