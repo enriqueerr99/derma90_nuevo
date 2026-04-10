@@ -1086,6 +1086,16 @@
                         <div id="statsLandings" style="margin-top: 2rem; font-size: 0.95rem; text-align: center;"></div>
                     </div>
                 </div>
+
+                <!-- Gráfico Leads por Día -->
+                <div style="margin-top: 3rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
+                    <div class="table-container" style="padding: 2.5rem;">
+                        <h3 style="text-align: center; margin-bottom: 2rem; color: var(--color-primary); font-size: 1.25rem;">Leads por Día</h3>
+                        <div style="position: relative; height: 350px;">
+                            <canvas id="chartLeadsPerDay"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1457,6 +1467,7 @@
         // ===== SECCIONES =====
         let chartPerfiles = null;
         let chartLandings = null;
+        let chartLeadsPerDay = null;
 
         function showSection(section) {
             document.getElementById('section-dashboard').style.display = section === 'dashboard' ? 'block' : 'none';
@@ -1579,6 +1590,57 @@
                 <div style="margin-bottom: 0.5rem;"><strong>Premium:</strong> ${landingsCount.premium} leads (${statsPremium}%)</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Original:</strong> ${landingsCount.original} leads (${statsOriginal}%)</div>
             `;
+
+            // Gráfico de Leads por Día
+            const leadsPerDay = {};
+            leadsData.forEach(lead => {
+                const date = lead.timestamp ? new Date(lead.timestamp).toLocaleDateString('es-ES') : 'Sin fecha';
+                leadsPerDay[date] = (leadsPerDay[date] || 0) + 1;
+            });
+
+            // Ordenar fechas
+            const sortedDates = Object.keys(leadsPerDay).sort((a, b) => {
+                const dateA = new Date(a.split('/').reverse().join('-'));
+                const dateB = new Date(b.split('/').reverse().join('-'));
+                return dateA - dateB;
+            });
+
+            const daysLabels = sortedDates;
+            const daysData = sortedDates.map(date => leadsPerDay[date]);
+
+            const ctxLeadsPerDay = document.getElementById('chartLeadsPerDay').getContext('2d');
+            if (chartLeadsPerDay) chartLeadsPerDay.destroy();
+            chartLeadsPerDay = new Chart(ctxLeadsPerDay, {
+                type: 'bar',
+                data: {
+                    labels: daysLabels,
+                    datasets: [{
+                        label: 'Leads',
+                        data: daysData,
+                        backgroundColor: '#c67856',
+                        borderColor: '#a25f42',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         // Actualizar gráficos cuando se cargan nuevos leads
