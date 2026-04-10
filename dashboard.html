@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Leads — IDERMA</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-black: #1a1a1a;
+            --color-gray-dark: #4a4a4a;
+            --color-gray-medium: #757575;
+            --color-gray-light: #d4d4d4;
+            --color-beige: #f5f3f0;
+            --color-white: #fafaf9;
+            --color-primary: #c67856;
+            --color-primary-dark: #a25f42;
+            --color-primary-light: #f4e8e2;
+            --color-gold: #b8945f;
+            --color-green-tea: #8a9b7a;
+            --color-success: #6b7f5e;
+            --color-error: #c85a54;
+            --color-warning: #e8b84d;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-black);
+            background-color: var(--color-beige);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== LOGIN SCREEN ===== */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-container.hidden {
+            display: none;
+        }
+
+        .login-box {
+            background: var(--color-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            max-width: 400px;
+            width: 90%;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-box h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .login-box p {
+            color: var(--color-gray-medium);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--color-black);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(198, 120, 86, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(198, 120, 86, 0.3);
+        }
+
+        .login-error {
+            color: var(--color-error);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        /* ===== DASHBOARD LAYOUT ===== */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--color-white);
+            border-right: 1px solid var(--color-gray-light);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-logo {
+            height: 40px;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--color-gray-dark);
+            border-radius: 6px;
+            transition: var(--transition);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+
+        .sidebar-logout {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--color-gray-light);
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--color-error);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            background-color: #b04a44;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--color-beige);
+        }
+
+        /* ===== HEADER DASHBOARD ===== */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2rem;
+            color: var(--color-primary);
+        }
+
+        .dashboard-header-stats {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .stat-badge {
+            background-color: var(--color-white);
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .stat-badge .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .stat-badge .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* ===== FILTERS & CONTROLS ===== */
+        .controls-bar {
+            background-color: var(--color-white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(198, 120, 86, 0.1);
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            background-color: var(--color-white);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(198, 120, 86, 0.1);
+        }
+
+        .btn-action {
+            padding: 0.75rem 1.25rem;
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-action:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .refresh-status {
+            font-size: 0.8rem;
+            color: var(--color-gray-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-indicator {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== TABLE ===== */
+        .table-container {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--color-beige);
+            border-bottom: 2px solid var(--color-gray-light);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--color-gray-light);
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        tbody tr:hover {
+            background-color: var(--color-primary-light);
+        }
+
+        /* Estado badges */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-nuevo {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-contactado {
+            background-color: #e8f5e9;
+            color: var(--color-success);
+        }
+
+        .badge-seguimiento {
+            background-color: #fff3e0;
+            color: #f57c00;
+        }
+
+        .badge-cerrado {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .badge-perfil {
+            background-color: var(--color-primary-light);
+            color: var(--color-primary);
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--color-gray-light);
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-gray-dark);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--color-primary);
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--color-gray-medium);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .lead-info {
+            background-color: var(--color-beige);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .lead-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .lead-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .lead-info-label {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .lead-info-value {
+            color: var(--color-black);
+        }
+
+        .textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(198, 120, 86, 0.1);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--color-gray-light);
+            padding-top: 1.5rem;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .modal-actions .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .modal-actions .btn-primary:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .modal-actions .btn-secondary {
+            background-color: var(--color-gray-light);
+            color: var(--color-gray-dark);
+        }
+
+        .modal-actions .btn-secondary:hover {
+            background-color: #c0c0c0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--color-gray-light);
+                padding: 1rem;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dashboard-header-stats {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .stat-badge {
+                flex: 1;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+            }
+
+            .search-input,
+            .filter-select,
+            .btn-action {
+                width: 100%;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-gray-medium);
+        }
+
+        .empty-state svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- LOGIN SCREEN -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <h1>Dashboard</h1>
+            <p>Gestión de Leads — IDERMA</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="login-btn">Acceder</button>
+                <div class="login-error" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard" style="display: none;">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <img src="/assets/images/logo.svg" alt="IDERMA">
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" onclick="return false;">📊 Dashboard</a></li>
+                <li><a href="#" onclick="return false;">📋 Reportes</a></li>
+                <li><a href="#" onclick="return false;">⚙️ Configuración</a></li>
+            </ul>
+            <div class="sidebar-logout">
+                <button class="logout-btn" id="logoutBtn">Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Leads</h1>
+                </div>
+                <div class="dashboard-header-stats">
+                    <div class="stat-badge">
+                        <div class="stat-value" id="totalLeads">0</div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-value" id="newLeads">0</div>
+                        <div class="stat-label">Nuevos</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-value" id="contactedLeads">0</div>
+                        <div class="stat-label">Contactados</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROLS -->
+            <div class="controls-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="Buscar por email, nombre...">
+                <select class="filter-select" id="filterPerfil">
+                    <option value="">Todos los perfiles</option>
+                    <option value="somaplus">SOMA+</option>
+                    <option value="barrera">BARRERA</option>
+                    <option value="densidad">DENSIDAD</option>
+                    <option value="estres">ESTRÉS</option>
+                </select>
+                <select class="filter-select" id="filterEstado">
+                    <option value="">Todos los estados</option>
+                    <option value="nuevo">Nuevo</option>
+                    <option value="contactado">Contactado</option>
+                    <option value="seguimiento">Seguimiento</option>
+                    <option value="cerrado">Cerrado</option>
+                </select>
+                <button class="btn-action" onclick="exportToCSV()">📥 Exportar CSV</button>
+                <div class="refresh-status">
+                    <span class="refresh-indicator"></span>
+                    <span id="refreshStatus">Actualizado</span>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nombre</th>
+                            <th>Perfil</th>
+                            <th>Estado</th>
+                            <th>Teléfono</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <p>Cargando leads...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETALLE LEAD -->
+    <div class="modal" id="leadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Detalles del Lead</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+
+            <div class="modal-section">
+                <h3>Información Personal</h3>
+                <div class="lead-info">
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Email:</span>
+                        <span class="lead-info-value" id="modalEmail">-</span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Nombre:</span>
+                        <span class="lead-info-value" id="modalNombre">-</span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Teléfono:</span>
+                        <span class="lead-info-value" id="modalTelefono">-</span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Perfil:</span>
+                        <span class="lead-info-value"><span class="badge badge-perfil" id="modalPerfil">-</span></span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Fecha:</span>
+                        <span class="lead-info-value" id="modalFecha">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h3>Tráfico / Campaña</h3>
+                <div class="lead-info">
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Fuente:</span>
+                        <span class="lead-info-value" id="modalUtmSource">-</span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Medio:</span>
+                        <span class="lead-info-value" id="modalUtmMedium">-</span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Campaña:</span>
+                        <span class="lead-info-value" id="modalUtmCampaign">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <h3>Estado</h3>
+                <select class="filter-select" id="modalEstado" style="width: 100%;">
+                    <option value="nuevo">Nuevo</option>
+                    <option value="contactado">Contactado</option>
+                    <option value="seguimiento">Seguimiento</option>
+                    <option value="cerrado">Cerrado</option>
+                </select>
+            </div>
+
+            <div class="modal-section">
+                <h3>Notas del Closer</h3>
+                <textarea class="textarea" id="modalNotas" placeholder="Escribe notas sobre este lead..."></textarea>
+            </div>
+
+            <div class="modal-section">
+                <h3>Respuestas del Quiz</h3>
+                <div class="lead-info" id="modalRespuestas">
+                    <p>Cargando respuestas...</p>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="closeModal()">Cerrar</button>
+                <button class="btn-primary" onclick="saveLead()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== CONSTANTES =====
+        const CREDENTIALS = { username: 'admin', password: 'iderma2026' };
+        const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycbwcx-6q6ZJ4BN1kgA38cKJStD7UhrNCKyTE9gtQmpzdzvLkRgZDrJwu1o5FH_PX1NmB/exec';
+        const STORAGE_KEY = 'iderma_dashboard_login';
+        const LEADS_STORAGE_KEY = 'iderma_leads_data';
+        const NOTES_STORAGE_KEY = 'iderma_leads_notes';
+
+        let leadsData = [];
+        let filteredLeads = [];
+        let currentLeadIndex = -1;
+        let leadsNotes = JSON.parse(localStorage.getItem(NOTES_STORAGE_KEY) || '{}');
+
+        // ===== LOGIN =====
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === CREDENTIALS.username && password === CREDENTIALS.password) {
+                localStorage.setItem(STORAGE_KEY, 'true');
+                showDashboard();
+            } else {
+                document.getElementById('loginError').textContent = 'Usuario o contraseña incorrectos';
+                document.getElementById('loginError').style.display = 'block';
+            }
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        });
+
+        // ===== INIT =====
+        window.addEventListener('load', () => {
+            if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                showDashboard();
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('loginContainer').classList.add('hidden');
+            document.getElementById('dashboard').style.display = 'flex';
+            loadLeads();
+            // Polling cada 5 segundos
+            setInterval(loadLeads, 5000);
+        }
+
+        // ===== CARGAR LEADS =====
+        async function loadLeads() {
+            try {
+                const response = await fetch(GOOGLE_SHEETS_API);
+                const data = await response.json();
+                leadsData = data.map((lead, index) => ({
+                    ...lead,
+                    id: index,
+                    estado: leadsNotes[index]?.estado || 'nuevo',
+                    notas: leadsNotes[index]?.notas || ''
+                }));
+
+                localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
+                filterAndDisplayLeads();
+                updateStats();
+                updateRefreshStatus();
+            } catch (error) {
+                console.error('Error cargando leads:', error);
+            }
+        }
+
+        // ===== FILTROS Y BÚSQUEDA =====
+        document.getElementById('searchInput').addEventListener('input', filterAndDisplayLeads);
+        document.getElementById('filterPerfil').addEventListener('change', filterAndDisplayLeads);
+        document.getElementById('filterEstado').addEventListener('change', filterAndDisplayLeads);
+
+        function filterAndDisplayLeads() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const perfilFilter = document.getElementById('filterPerfil').value;
+            const estadoFilter = document.getElementById('filterEstado').value;
+
+            filteredLeads = leadsData.filter(lead => {
+                const matchSearch = !searchTerm ||
+                    lead.email?.toLowerCase().includes(searchTerm) ||
+                    lead.nombre?.toLowerCase().includes(searchTerm);
+                const matchPerfil = !perfilFilter || lead.perfil?.toLowerCase() === perfilFilter;
+                const matchEstado = !estadoFilter || lead.estado?.toLowerCase() === estadoFilter;
+
+                return matchSearch && matchPerfil && matchEstado;
+            });
+
+            displayLeadsTable();
+        }
+
+        function displayLeadsTable() {
+            const tbody = document.getElementById('leadsTableBody');
+
+            if (filteredLeads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--color-gray-medium);">No se encontraron leads</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filteredLeads.map((lead, idx) => `
+                <tr onclick="openLeadModal(${leadsData.indexOf(lead)})">
+                    <td>${lead.email || '-'}</td>
+                    <td>${lead.nombre || '-'}</td>
+                    <td><span class="badge badge-perfil">${(lead.perfil || 'N/A').toUpperCase()}</span></td>
+                    <td><span class="badge badge-${lead.estado || 'nuevo'}">${(lead.estado || 'Nuevo').charAt(0).toUpperCase() + (lead.estado || 'nuevo').slice(1)}</span></td>
+                    <td>${lead.telefono || '-'}</td>
+                    <td>${formatDate(lead[0])}</td>
+                    <td><button class="btn-action" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="openLeadModal(${leadsData.indexOf(lead)}); event.stopPropagation();">Ver</button></td>
+                </tr>
+            `).join('');
+        }
+
+        // ===== MODAL LEAD =====
+        function openLeadModal(leadIndex) {
+            currentLeadIndex = leadIndex;
+            const lead = leadsData[leadIndex];
+
+            document.getElementById('modalEmail').textContent = lead.email || '-';
+            document.getElementById('modalNombre').textContent = lead.nombre || '-';
+            document.getElementById('modalTelefono').textContent = lead.telefono || '-';
+            document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
+            document.getElementById('modalFecha').textContent = formatDate(lead[0]);
+            document.getElementById('modalUtmSource').textContent = lead.utm_source || '-';
+            document.getElementById('modalUtmMedium').textContent = lead.utm_medium || '-';
+            document.getElementById('modalUtmCampaign').textContent = lead.utm_campaign || '-';
+            document.getElementById('modalEstado').value = lead.estado || 'nuevo';
+            document.getElementById('modalNotas').value = lead.notas || '';
+
+            // Mostrar respuestas del quiz
+            try {
+                const respuestas = JSON.parse(lead.respuestas || '{}');
+                const respuestasHtml = Object.entries(respuestas)
+                    .map(([key, value]) => `<div class="lead-info-row"><span class="lead-info-label">${key}:</span><span class="lead-info-value">${value}</span></div>`)
+                    .join('');
+                document.getElementById('modalRespuestas').innerHTML = respuestasHtml || '<p>Sin respuestas registradas</p>';
+            } catch (e) {
+                document.getElementById('modalRespuestas').innerHTML = '<p>Error al cargar respuestas</p>';
+            }
+
+            document.getElementById('leadModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('leadModal').classList.remove('active');
+        }
+
+        function saveLead() {
+            const lead = leadsData[currentLeadIndex];
+            lead.estado = document.getElementById('modalEstado').value;
+            lead.notas = document.getElementById('modalNotas').value;
+
+            leadsNotes[currentLeadIndex] = {
+                estado: lead.estado,
+                notas: lead.notas
+            };
+
+            localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(leadsNotes));
+            localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
+
+            filterAndDisplayLeads();
+            updateStats();
+            closeModal();
+            alert('Lead actualizado correctamente');
+        }
+
+        // ===== ESTADÍSTICAS =====
+        function updateStats() {
+            const total = leadsData.length;
+            const nuevos = leadsData.filter(l => (l.estado || 'nuevo') === 'nuevo').length;
+            const contactados = leadsData.filter(l => (l.estado || 'nuevo') === 'contactado').length;
+
+            document.getElementById('totalLeads').textContent = total;
+            document.getElementById('newLeads').textContent = nuevos;
+            document.getElementById('contactedLeads').textContent = contactados;
+        }
+
+        function updateRefreshStatus() {
+            const now = new Date();
+            document.getElementById('refreshStatus').textContent = `Actualizado hace ${Math.floor((Date.now() - now) / 1000)}s`;
+        }
+
+        // ===== EXPORTAR CSV =====
+        function exportToCSV() {
+            if (leadsData.length === 0) {
+                alert('No hay leads para exportar');
+                return;
+            }
+
+            const headers = ['Fecha', 'Email', 'Nombre', 'Teléfono', 'Perfil', 'Estado', 'Notas', 'UTM Source', 'UTM Medium', 'UTM Campaign'];
+            const rows = leadsData.map(lead => [
+                formatDate(lead[0]),
+                lead.email,
+                lead.nombre,
+                lead.telefono,
+                lead.perfil,
+                lead.estado || 'nuevo',
+                lead.notas || '',
+                lead.utm_source || '',
+                lead.utm_medium || '',
+                lead.utm_campaign || ''
+            ]);
+
+            const csv = [
+                headers.join(','),
+                ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+            ].join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `leads_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        // ===== UTILIDADES =====
+        function formatDate(timestamp) {
+            if (!timestamp) return '-';
+            try {
+                const date = new Date(timestamp);
+                return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            } catch {
+                return '-';
+            }
+        }
+
+        // Cerrar modal al hacer click fuera
+        document.getElementById('leadModal').addEventListener('click', (e) => {
+            if (e.target.id === 'leadModal') closeModal();
+        });
+    </script>
+</body>
+</html>
