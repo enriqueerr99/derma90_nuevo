@@ -1084,6 +1084,10 @@
                 <h3>Tráfico / Campaña</h3>
                 <div class="lead-info">
                     <div class="lead-info-row">
+                        <span class="lead-info-label">Landing Page:</span>
+                        <span class="lead-info-value" id="modalLandingUrl" style="word-break: break-all; font-size: 0.9rem;">-</span>
+                    </div>
+                    <div class="lead-info-row">
                         <span class="lead-info-label">Fuente:</span>
                         <span class="lead-info-value" id="modalUtmSource">-</span>
                     </div>
@@ -1130,7 +1134,7 @@
     <script>
         // ===== CONSTANTES =====
         const CREDENTIALS = { username: 'admin', password: 'iderma2026' };
-        const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycbwcx-6q6ZJ4BN1kgA38cKJStD7UhrNCKyTE9gtQmpzdzvLkRgZDrJwu1o5FH_PX1NmB/exec';
+        const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycbxcZWeu99dTautLTB-0onFfUip9tO73RoG5PHm_DCxExkRrBvvJSgqb18ciWms2D1w/exec';
         const STORAGE_KEY = 'iderma_dashboard_login';
         const LEADS_STORAGE_KEY = 'iderma_leads_data';
         const NOTES_STORAGE_KEY = 'iderma_leads_notes';
@@ -1272,6 +1276,17 @@
             document.getElementById('modalTelefono').textContent = lead.telefono || '-';
             document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
             document.getElementById('modalFecha').textContent = formatDate(lead.timestamp);
+
+            // Landing URL - determinar si es premium o original
+            const landingUrl = lead.landing_url || '-';
+            let landingLabel = landingUrl;
+            if (landingUrl.includes('premium')) {
+                landingLabel = '🔴 PREMIUM (' + landingUrl + ')';
+            } else if (landingUrl.includes('index.html') || landingUrl.includes('original')) {
+                landingLabel = '🟢 ORIGINAL (' + landingUrl + ')';
+            }
+            document.getElementById('modalLandingUrl').textContent = landingLabel;
+
             document.getElementById('modalUtmSource').textContent = lead.utm_source || '-';
             document.getElementById('modalUtmMedium').textContent = lead.utm_medium || '-';
             document.getElementById('modalUtmCampaign').textContent = lead.utm_campaign || '-';
