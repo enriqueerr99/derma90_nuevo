@@ -1167,6 +1167,8 @@
         // ===== INIT =====
         window.addEventListener('load', () => {
             if (localStorage.getItem(STORAGE_KEY) === 'true') {
+                // Limpiar cache de leads para forzar recarga
+                localStorage.removeItem(LEADS_STORAGE_KEY);
                 showDashboard();
             }
         });
