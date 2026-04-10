@@ -965,6 +965,7 @@
             <ul class="sidebar-menu">
                 <li><a href="#" class="active" onclick="showSection('dashboard'); return false;">📊 Dashboard</a></li>
                 <li><a href="#" onclick="showSection('reportes'); return false;">📋 Reportes</a></li>
+                <li><a href="#" onclick="showSection('test'); return false;">🧪 Test</a></li>
                 <li><a href="#" onclick="return false;">⚙️ Configuración</a></li>
             </ul>
             <div class="sidebar-logout">
@@ -974,28 +975,30 @@
 
         <!-- MAIN CONTENT -->
         <div class="main-content">
-            <div class="dashboard-header">
-                <div>
-                    <h1>Leads</h1>
+            <!-- DASHBOARD CONTROLS SECTION -->
+            <div id="dashboard-controls-section">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Leads</h1>
+                    </div>
+                    <div class="dashboard-header-stats">
+                        <div class="stat-badge">
+                            <div class="stat-value" id="totalLeads">0</div>
+                            <div class="stat-label">Total</div>
+                        </div>
+                        <div class="stat-badge">
+                            <div class="stat-value" id="newLeads">0</div>
+                            <div class="stat-label">Nuevos</div>
+                        </div>
+                        <div class="stat-badge">
+                            <div class="stat-value" id="contactedLeads">0</div>
+                            <div class="stat-label">Contactados</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="dashboard-header-stats">
-                    <div class="stat-badge">
-                        <div class="stat-value" id="totalLeads">0</div>
-                        <div class="stat-label">Total</div>
-                    </div>
-                    <div class="stat-badge">
-                        <div class="stat-value" id="newLeads">0</div>
-                        <div class="stat-label">Nuevos</div>
-                    </div>
-                    <div class="stat-badge">
-                        <div class="stat-value" id="contactedLeads">0</div>
-                        <div class="stat-label">Contactados</div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- CONTROLS -->
-            <div class="controls-bar">
+                <!-- CONTROLS -->
+                <div class="controls-bar">
                 <input type="text" class="search-input" id="searchInput" placeholder="Buscar por email, nombre...">
                 <select class="filter-select" id="filterPerfil">
                     <option value="">Todos los perfiles</option>
@@ -1016,6 +1019,7 @@
                     <span class="refresh-indicator"></span>
                     <span id="refreshStatus">Actualizado</span>
                 </div>
+            </div>
             </div>
 
             <!-- SECTION: DASHBOARD -->
@@ -1236,6 +1240,7 @@
             document.getElementById('dashboard').style.display = 'flex';
             document.getElementById('section-dashboard').style.display = 'block';
             document.getElementById('section-reportes').style.display = 'none';
+            document.getElementById('dashboard-controls-section').style.display = 'block';
             loadLeads();
             // Polling cada 5 segundos
             setInterval(loadLeads, 5000);
@@ -1471,10 +1476,11 @@
 
         function showSection(section) {
             document.getElementById('section-dashboard').style.display = section === 'dashboard' ? 'block' : 'none';
-            document.getElementById('section-reportes').style.display = section === 'reportes' ? 'block' : 'none';
+            document.getElementById('section-reportes').style.display = (section === 'reportes' || section === 'test') ? 'block' : 'none';
+            document.getElementById('dashboard-controls-section').style.display = section === 'dashboard' ? 'block' : 'none';
 
-            // Actualizar gráficos cuando se muestre la sección de reportes
-            if (section === 'reportes') {
+            // Actualizar gráficos cuando se muestre la sección de reportes o test
+            if (section === 'reportes' || section === 'test') {
                 updateCharts();
             }
 
