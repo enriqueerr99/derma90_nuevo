@@ -1,0 +1,23 @@
+{
+  "skill_name": "gammapdf",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Necesito un perfil completo para DENSIDAD. Incluye validación del problema, diagnosis de causas, la solución con SŌMA+, timeline de resultados esperados y FAQs. Asegúrate de usar imágenes relevantes del proyecto y que todo esté en español con el tema Derma.",
+      "expected_output": "Una presentación Gamma completa (6-8 slides) en español con tema Derma, que incluya: slide de portada con DENSIDAD, validación del problema, diagnosis, solución con ingredientes, timeline de resultados, FAQs, y PDF exportado",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Crea un documento de ESTRÉS cutáneo. Debe explicar qué es el estrés en la piel, cómo afecta, síntomas, solución con ingredientes activos, y pasos de aplicación. Todo en español, con el tema Derma, e incluye imágenes de ingredientes si están disponibles.",
+      "expected_output": "Una presentación Gamma con 5-7 slides sobre estrés cutáneo, con tema Derma, imágenes de ingredientes, estructura clara, y PDF exportado",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Genera una guía de SŌMA+ que incluya: presentación del producto, 92 ingredientes activos (solo los principales), beneficios clinicamente probados, instrucciones de uso, timeline de 90 días, y testimonios. Usa el tema Derma, todo en español, con imágenes del proyecto.",
+      "expected_output": "Una presentación Gamma de 8-10 slides sobre SŌMA+ con tema Derma, descripción de ingredientes clave, beneficios, instrucciones, timeline, y PDF exportado",
+      "files": []
+    }
+  ]
+}
