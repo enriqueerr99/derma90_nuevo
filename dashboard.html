@@ -1017,7 +1017,7 @@
             </div>
 
             <!-- SECTION: DASHBOARD -->
-            <div id="section-dashboard">
+            <div id="section-dashboard" style="display: none;">
                 <!-- TABLE -->
                 <div class="table-container">
                     <table>
@@ -1046,24 +1046,28 @@
             </div>
 
             <!-- SECTION: REPORTES -->
-            <div id="section-reportes" style="display: none;">
-                <div class="dashboard-header">
+            <div id="section-reportes" style="display: block;">
+                <div class="dashboard-header" style="justify-content: center;">
                     <h1>Reportes</h1>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
                     <!-- Gráfico Perfiles -->
-                    <div class="table-container" style="padding: 2rem;">
-                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary);">Distribución de Perfiles</h3>
-                        <canvas id="chartPerfiles"></canvas>
-                        <div id="statsPerfiles" style="margin-top: 1.5rem; font-size: 0.9rem;"></div>
+                    <div class="table-container" style="padding: 2.5rem;">
+                        <h3 style="text-align: center; margin-bottom: 2rem; color: var(--color-primary); font-size: 1.25rem;">Distribución de Perfiles</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="chartPerfiles"></canvas>
+                        </div>
+                        <div id="statsPerfiles" style="margin-top: 2rem; font-size: 0.95rem; text-align: center;"></div>
                     </div>
 
                     <!-- Gráfico Landings -->
-                    <div class="table-container" style="padding: 2rem;">
-                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary);">Distribución de Landings</h3>
-                        <canvas id="chartLandings"></canvas>
-                        <div id="statsLandings" style="margin-top: 1.5rem; font-size: 0.9rem;"></div>
+                    <div class="table-container" style="padding: 2.5rem;">
+                        <h3 style="text-align: center; margin-bottom: 2rem; color: var(--color-primary); font-size: 1.25rem;">Distribución de Landings</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="chartLandings"></canvas>
+                        </div>
+                        <div id="statsLandings" style="margin-top: 2rem; font-size: 0.95rem; text-align: center;"></div>
                     </div>
                 </div>
             </div>
@@ -1205,6 +1209,8 @@
             document.getElementById('loginContainer').classList.add('hidden');
             document.getElementById('dashboard').style.display = 'flex';
             loadLeads();
+            // Mostrar reportes por defecto
+            showSection('reportes');
             // Polling cada 5 segundos
             setInterval(loadLeads, 5000);
         }
