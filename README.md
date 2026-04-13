@@ -359,14 +359,69 @@ if (barreraScore > 6 && densidadScore < 5 && estresScore < 5) {
 
 ## 🔄 Pipeline de Ventas (Sales Automation)
 
-**Ver `pipeline.md` para detalles completos**
+**Ver `pipeline.md` para detalles técnicos completos**
 
-1. Quiz completado → Datos a Google Sheets + GHL
-2. Resultado mostrado → PDF descargable
-3. Botón WhatsApp → Envío inmediato del PDF
-4. Audio automático → Introducción del coaching
-5. AI Agent → Recopila contexto emocional
-6. Closer manual → Cierre consultivo
+### Flujo Completo:
+
+```
+1️⃣  QUIZ COMPLETADO
+    └─ Datos → Google Sheets (webhook)
+    └─ Lead sync → GHL (con tags de perfil)
+    └─ Email confirmación automático
+
+2️⃣  PANTALLA DE RESULTADO
+    └─ Muestra perfil diagnóstico (BARRERA/DENSIDAD/ESTRÉS/SOMA+)
+    └─ PDF descargable personalizado
+    └─ CTA: "Cuéntame por WhatsApp"
+
+3️⃣  BOTÓN WHATSAPP (Lead → WhatsApp directo)
+    └─ Envío inmediato del PDF diagnóstico
+    └─ Trigger: sendProfilePdfViaWhatsapp()
+    └─ Le llega el PDF automáticamente (sin esperar)
+
+4️⃣  AUDIO AUTOMÁTICO (continuidad sin fricción)
+    └─ Envío: "Acabo de enviarte tu diagnóstico.
+               Ahora voy a hacerte unas preguntas para 
+               entender mejor tu situación, ¿vale?"
+    └─ Propósito: Mantener continuidad (no parece un "bot" diferente)
+    └─ Tono: Misma persona, conversación natural
+
+5️⃣  AI AGENT (recopilación de contexto emocional)
+    └─ Entra automáticamente en conversación
+    └─ Pregunta inicial: "Cuéntame, ¿qué síntomas has tenido?"
+    └─ Objetivo: Entender círculo vicioso
+               (síntomas → emociones → comportamientos)
+    └─ Construye contexto para el closer
+    └─ Duración: 5-10 min de conversación natural
+
+6️⃣  CLOSER MANUAL (venta consultiva)
+    └─ Acceso a:
+       - Perfil del diagnóstico
+       - Respuestas completas del quiz
+       - Historial de conversación con AI Agent
+       - Contexto emocional del cliente
+    └─ Cierra venta 1-1
+    └─ Envía link de checkout
+```
+
+### Tecnología Detrás:
+
+| Componente | Propósito |
+|-----------|----------|
+| **Google Sheets** | Database de leads + respuestas completas |
+| **Google Apps Script** | Webhook que captura quiz → sincroniza con GHL |
+| **GHL** | CRM centralizado, tags automáticos por perfil |
+| **WhatsApp API** | Envío de PDF + mensajes automáticos |
+| **AI Agent** | Chatbot que recopila contexto emocional |
+| **Stripe** | Checkout en el paso 6 (después de cierre del closer) |
+
+### Métricas del Pipeline:
+
+- **Quiz → Email capturado:** 60%+
+- **Email → Completa conversación AI:** 40%+
+- **AI completado → Closer toca:** 80%+
+- **Closer toca → Checkout:** 20-30%
+- **Checkout → Compra:** 70%+
 
 ---
 
