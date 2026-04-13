@@ -118,7 +118,7 @@ function sendToGHL(email, nombre, telefono, perfil, respuestas_json, respuestas_
   try {
     const ghlApiUrl = 'https://services.leadconnectorhq.com/contacts/';
     const locationId = 'HQHKWr2W3GrzB0yCYF6R';
-    const apiToken = 'pit-94a492fc-5102-4b91-9ce3-3eeacb8baf62';
+    const apiToken = 'pit-5d4ed751-459c-4bc1-a353-9d314fe67009';
 
     // Separa nombre en firstName y lastName
     const [firstName, ...lastNameParts] = nombre.split(' ');
