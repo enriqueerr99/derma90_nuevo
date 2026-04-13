@@ -490,6 +490,17 @@
                         <div class="loading-spinner"></div>
                         <h3>Analizando tus respuestas...</h3>
                         <p style="color: var(--color-gray-medium);">Calculando tu perfil y protocolo personalizado</p>
+                        <div style="margin-top: 2rem; font-size: 0.85rem;">
+                            <div style="margin-bottom: 0.75rem;">
+                                <span id="step-sheets">⏳ Guardando tus datos...</span>
+                            </div>
+                            <div style="margin-bottom: 0.75rem;">
+                                <span id="step-ghl">⏳ Registrando en la plataforma...</span>
+                            </div>
+                            <div>
+                                <span id="step-redirect">⏳ Preparando tu resultado personalizado...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -684,11 +695,14 @@
             // Calculate profile
             const profile = calculateProfile(answers);
             
-            // Send lead to Google Sheets
-            const webhookUrl = 'https://script.google.com/macros/s/AKfycbzbye01xZf0i59EZlJm1iqZ6IwQ9pr0Fl_-l--u0Ll5V2NhFlilUbyMm_Hij1H8dODe/exec';
-            
+            // Send lead to Google Sheets + GHL
+            const webhookUrl = 'https://script.google.com/macros/s/AKfycbzlccyoKnQaX2XQ8hpH3_rkLQ7rZJXQpByCvMEqMrTI1AfVoEFTKYJ6C-tkOAd1lbPK/exec';
+
             try {
-                await fetch(webhookUrl, {
+                // Update step indicator
+                document.getElementById('step-sheets').textContent = '✅ Guardando tus datos...';
+
+                const response = await fetch(webhookUrl, {
                     method: 'POST',
                     mode: 'no-cors', // Importante para Google Apps Script
                     headers: {
@@ -708,10 +722,15 @@
                         timestamp: trafficSource.timestamp
                     })
                 });
-                
-                console.log('Lead enviado a Google Sheets');
+
+                // Simular procesamiento en GHL
+                await new Promise(resolve => setTimeout(resolve, 1200));
+                document.getElementById('step-ghl').textContent = '✅ Registrando en la plataforma...';
+
+                console.log('Lead enviado a Google Sheets + GHL');
             } catch (error) {
                 console.error('Error al enviar lead:', error);
+                document.getElementById('step-sheets').textContent = '⚠️ Error al guardar datos';
                 // Continuar de todas formas
             }
             
@@ -731,7 +750,11 @@
             
             // Redirect to result page with profile (siempre funciona)
             setTimeout(() => {
-                window.location.href = `resultado.html?profile=${profile}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefonoLimpio)}`;
+                document.getElementById('step-redirect').textContent = '✅ Preparando tu resultado personalizado...';
+
+                setTimeout(() => {
+                    window.location.href = `resultado.html?profile=${profile}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefonoLimpio)}`;
+                }, 800);
             }, 1500);
         });
         

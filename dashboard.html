@@ -1034,6 +1034,7 @@
                             <th>Perfil</th>
                             <th>Estado</th>
                             <th>Teléfono</th>
+                            <th>GHL</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
@@ -1142,6 +1143,20 @@
             </div>
 
             <div class="modal-section">
+                <h3>Sincronización GHL</h3>
+                <div class="lead-info">
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">Estado:</span>
+                        <span class="lead-info-value"><span id="modalGhlStatus" style="padding: 0.3rem 0.75rem; border-radius: 4px; font-size: 0.85rem;">⏳ Pendiente</span></span>
+                    </div>
+                    <div class="lead-info-row">
+                        <span class="lead-info-label">ID Contacto:</span>
+                        <span class="lead-info-value"><code style="background: var(--color-beige); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;" id="modalGhlId">-</code></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-section">
                 <h3>Tráfico / Campaña</h3>
                 <div class="lead-info">
                     <div class="lead-info-row">
@@ -1199,7 +1214,7 @@
             evacloser: { password: 'iderma2026', canExport: false },
             veronica: { password: 'iderma2026', canExport: false }
         };
-        const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycbzbye01xZf0i59EZlJm1iqZ6IwQ9pr0Fl_-l--u0Ll5V2NhFlilUbyMm_Hij1H8dODe/exec';
+        const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycbzlccyoKnQaX2XQ8hpH3_rkLQ7rZJXQpByCvMEqMrTI1AfVoEFTKYJ6C-tkOAd1lbPK/exec';
         const STORAGE_KEY = 'iderma_dashboard_login';
         const STORAGE_USER_KEY = 'iderma_dashboard_user';
         const LEADS_STORAGE_KEY = 'iderma_leads_data';
@@ -1355,6 +1370,7 @@
 
             tbody.innerHTML = filteredLeads.map((lead, idx) => {
                 const leadIndex = leadsData.indexOf(lead);
+                const ghlStatus = lead.ghlId ? '✅ Sincronizado' : '⏳ Pendiente';
                 return `
                 <tr onclick="openLeadModal(${leadIndex})">
                     <td><strong>${lead.id || '-'}</strong></td>
@@ -1363,6 +1379,7 @@
                     <td><span class="badge badge-perfil">${(lead.perfil || 'N/A').toUpperCase()}</span></td>
                     <td><span class="badge badge-${lead.estado || 'nuevo'}">${(lead.estado || 'Nuevo').charAt(0).toUpperCase() + (lead.estado || 'nuevo').slice(1)}</span></td>
                     <td>${lead.telefono || '-'}</td>
+                    <td><span style="font-size: 0.85rem; color: ${lead.ghlId ? '#6b7f5e' : '#e8b84d'};">${ghlStatus}</span></td>
                     <td>${formatDate(lead.timestamp)}</td>
                     <td><button class="btn-action" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="openLeadModal(${leadIndex}); event.stopPropagation();">Ver</button></td>
                 </tr>
@@ -1381,6 +1398,19 @@
             document.getElementById('modalTelefono').textContent = lead.telefono || '-';
             document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
             document.getElementById('modalFecha').textContent = formatDate(lead.timestamp);
+
+            // GHL Status
+            if (lead.ghlId) {
+                document.getElementById('modalGhlStatus').textContent = '✅ Sincronizado';
+                document.getElementById('modalGhlStatus').style.backgroundColor = '#e8f5e9';
+                document.getElementById('modalGhlStatus').style.color = '#6b7f5e';
+                document.getElementById('modalGhlId').textContent = lead.ghlId;
+            } else {
+                document.getElementById('modalGhlStatus').textContent = '⏳ Pendiente de sincronización';
+                document.getElementById('modalGhlStatus').style.backgroundColor = '#fff3e0';
+                document.getElementById('modalGhlStatus').style.color = '#f57c00';
+                document.getElementById('modalGhlId').textContent = '-';
+            }
 
             // Landing URL - determinar si es premium o original
             const landingUrl = lead.landing_url || '-';
