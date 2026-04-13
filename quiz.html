@@ -778,7 +778,7 @@
                 document.getElementById('step-redirect').textContent = '✅ Preparando tu resultado personalizado...';
 
                 setTimeout(() => {
-                    window.location.href = `resultado.html?profile=${profile}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefonoLimpio)}`;
+                    window.location.href = `post-quiz.html?profile=${profile}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}&telefono=${encodeURIComponent(telefonoLimpio)}`;
                 }, 800);
             }, 1500);
         });
