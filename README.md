@@ -37,36 +37,44 @@ El quiz diagnostica **4 perfiles** para crear sensación de personalización:
 ## 🚀 Funnel de Conversión
 
 ```
-Landing (index.html)
-    ↓ [CTA: "Hacer el test"]
-    ↓
-Quiz Diagnóstico (quiz.html)
-    → Calcula perfil del cliente
-    → Captura email
-    ↓
-Resultado Personalizado (resultado.html)
-    → "Tu perfil es BARRERA/DENSIDAD/ESTRÉS/SOMA+"
-    → Descarga PDF del diagnóstico
-    → CTA: "Envía al WhatsApp"
-    ↓
-Lead Sync (Google Sheets + GHL)
-    → Webhook automático
-    → Guarda respuestas + perfil
-    → Sincroniza con CRM
-    ↓
-WhatsApp Flow (pipeline.md)
-    → PDF del diagnóstico
-    → Audio introducción
-    → AI Agent recopila info emocional
-    ↓
-Checkout (checkout.html)
-    → UN ÚNICO PRECIO (€49 o el que sea)
-    → Protocolo SŌMA (12 semanas)
-    ↓
-Confirmación (confirmacion.html)
-    → Acceso a dashboard
-    → Instrucciones de coaching
-    → Acceso a comunidad
+1️⃣  Landing (index.html)
+    └─ CTA: "Hacer el test"
+    
+2️⃣  Quiz Diagnóstico (quiz.html)
+    └─ 12 preguntas → calcula perfil
+    └─ Captura email (LEAD CAPTURE)
+    └─ Webhook → Google Sheets + GHL (automático)
+    
+3️⃣  Pantalla Post-Quiz (resultado.html)
+    └─ Muestra: "Tu perfil es BARRERA/DENSIDAD/ESTRÉS/SOMA+"
+    └─ Botón: "Cuéntame por WhatsApp"
+    
+4️⃣  Al clic → WhatsApp Automation
+    ├─ PDF del diagnóstico (envío inmediato)
+    ├─ Audio: "Acabo de enviarte tu diagnóstico..."
+    └─ Trigger: AI Agent entra automáticamente
+    
+5️⃣  AI Agent (conversación automática)
+    ├─ Pregunta: "Cuéntame, ¿qué síntomas has tenido?"
+    ├─ Recopila contexto emocional
+    ├─ Entiende círculo vicioso (síntomas → emociones)
+    └─ Duración: 5-10 min
+    
+6️⃣  Closer Manual (venta consultiva)
+    ├─ Acceso a todo el contexto de la cliente
+    │  ├─ Respuestas completas del quiz
+    │  ├─ Perfil diagnóstico
+    │  └─ Conversación con AI Agent
+    └─ Envía link de checkout
+    
+7️⃣  Checkout (checkout.html)
+    ├─ UN PRECIO: €49 SŌMA Protocol (12 semanas)
+    └─ Stripe payment
+    
+8️⃣  Confirmación (confirmacion.html)
+    ├─ Acceso a dashboard
+    ├─ Instrucciones coaching
+    └─ Acceso a comunidad
 ```
 
 ---
