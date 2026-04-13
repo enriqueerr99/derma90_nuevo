@@ -120,22 +120,26 @@ function sendToGHL(email, nombre, telefono, perfil, respuestas_json, respuestas_
     const locationId = 'HQHKWr2W3GrzB0yCYF6R';
     const apiToken = 'pit-5d4ed751-459c-4bc1-a353-9d314fe67009';
 
+    Logger.log('=== INICIANDO CREACIÓN DE CONTACTO EN GHL ===');
+    Logger.log('Email: ' + email);
+    Logger.log('Nombre: ' + nombre);
+    Logger.log('Teléfono: ' + telefono);
+    Logger.log('Perfil/Tag: ' + perfil);
+
     // Separa nombre en firstName y lastName
     const [firstName, ...lastNameParts] = nombre.split(' ');
     const lastName = lastNameParts.join(' ') || '';
 
-    // Payload para crear el contacto en GHL
+    // Payload con locationId INCLUIDO
     const payload = {
       locationId: locationId,
       firstName: firstName || '',
       lastName: lastName || '',
       email: email || '',
-      phone: telefono || '',
-      customFields: {
-        'quiz_resultado': perfil || '',
-        'respuestas_quiz': respuestas_json
-      }
+      phone: telefono || ''
     };
+
+    Logger.log('Payload: ' + JSON.stringify(payload));
 
     // Opciones del fetch para crear contacto
     const options = {
@@ -150,35 +154,46 @@ function sendToGHL(email, nombre, telefono, perfil, respuestas_json, respuestas_
     };
 
     // Crea el contacto en GHL
+    Logger.log('Enviando request a: ' + ghlApiUrl);
     const response = UrlFetchApp.fetch(ghlApiUrl, options);
     const responseCode = response.getResponseCode();
     const responseText = response.getContentText();
 
-    Logger.log('GHL Contact Create - Status Code: ' + responseCode);
-    Logger.log('GHL Contact Create Response: ' + responseText);
+    Logger.log('GHL Response Code: ' + responseCode);
+    Logger.log('GHL Response Text: ' + responseText);
+
+    let contactId = null;
+    let result = {};
 
     try {
-      const result = JSON.parse(responseText);
+      result = JSON.parse(responseText);
 
-      // Si el contacto se creó exitosamente, agregar el tag del perfil
+      // Buscar contactId en diferentes estructuras posibles
       if (result.contact && result.contact.id) {
-        const contactId = result.contact.id;
-        Logger.log('Contacto creado con ID: ' + contactId + ' - Asignando tag: ' + perfil);
-        addTagToContact(contactId, perfil, apiToken);
+        contactId = result.contact.id;
+        Logger.log('✅ Contacto creado - ID: ' + contactId);
       } else if (result.id) {
-        // Por si la respuesta tiene estructura diferente
-        const contactId = result.id;
-        Logger.log('Contacto creado con ID: ' + contactId + ' - Asignando tag: ' + perfil);
-        addTagToContact(contactId, perfil, apiToken);
+        contactId = result.id;
+        Logger.log('✅ Contacto creado - ID: ' + contactId);
+      } else if (responseCode === 201) {
+        Logger.log('⚠️ Status 201 pero no se encontró ID en response');
+        Logger.log('Response estructura: ' + JSON.stringify(result));
+      }
+
+      // Si encontramos el contactId, agregar el tag
+      if (contactId) {
+        Logger.log('Procediendo a agregar tag: ' + perfil);
+        const tagResult = addTagToContact(contactId, perfil, apiToken);
+        Logger.log('Tag Result: ' + JSON.stringify(tagResult));
       }
 
       return result;
     } catch(parseError) {
-      Logger.log('Parse Error: ' + parseError.toString());
-      return { error: 'Parse error', rawResponse: responseText };
+      Logger.log('❌ Parse Error: ' + parseError.toString());
+      return { error: 'Parse error', rawResponse: responseText, code: responseCode };
     }
   } catch (error) {
-    Logger.log('Error enviando a GHL: ' + error.toString());
+    Logger.log('❌ Error enviando a GHL: ' + error.toString());
     return { error: error.toString() };
   }
 }
@@ -186,15 +201,20 @@ function sendToGHL(email, nombre, telefono, perfil, respuestas_json, respuestas_
 // ─── Agrega el tag del perfil al contacto en GHL ───────────────────────────────
 function addTagToContact(contactId, perfil, apiToken) {
   try {
+    const locationId = 'HQHKWr2W3GrzB0yCYF6R';
     const tagUrl = 'https://services.leadconnectorhq.com/contacts/' + contactId + '/tags';
-
-    // Normaliza el nombre del tag (ej: "soma+" → "SOMA+", "barrera" → "BARRERA")
     const tagName = perfil.toUpperCase().trim();
+
+    Logger.log('=== ASIGNANDO TAG ===');
+    Logger.log('URL: ' + tagUrl);
+    Logger.log('Tag: ' + tagName);
 
     // Payload para agregar el tag
     const tagPayload = {
       tags: [tagName]
     };
+
+    Logger.log('Tag Payload: ' + JSON.stringify(tagPayload));
 
     const tagOptions = {
       method: 'post',
@@ -212,12 +232,16 @@ function addTagToContact(contactId, perfil, apiToken) {
     const tagResponseCode = tagResponse.getResponseCode();
     const tagResponseText = tagResponse.getContentText();
 
-    Logger.log('GHL Tag Add - Status Code: ' + tagResponseCode);
-    Logger.log('GHL Tag Add Response: ' + tagResponseText);
+    Logger.log('Tag Response Code: ' + tagResponseCode);
+    Logger.log('Tag Response Text: ' + tagResponseText);
+
+    if (tagResponseCode === 200 || tagResponseCode === 201) {
+      Logger.log('✅ Tag asignado correctamente');
+    }
 
     return JSON.parse(tagResponseText);
   } catch (error) {
-    Logger.log('Error agregando tag a GHL: ' + error.toString());
+    Logger.log('❌ Error agregando tag a GHL: ' + error.toString());
     return { error: error.toString() };
   }
 }

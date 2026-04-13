@@ -696,15 +696,16 @@
             const profile = calculateProfile(answers);
             
             // Send lead to Google Sheets + GHL
-            const webhookUrl = 'https://script.google.com/macros/s/AKfycbwbEKKyJJDSRyvooEaMxfqeJFTCqrBf1vxYavfhKa_jyxETPtK02J6f6zmK2Q4KfrCD/exec';
+            const webhookUrl = 'https://script.google.com/macros/s/AKfycbyPd2IPp9cdRMfM4stDT6gUzyqN-4KGKYIpUst_sbD8G5ZdK7YF1zGNvFcge09S1D3T/exec';
 
             try {
                 // Update step indicator
                 document.getElementById('step-sheets').textContent = '✅ Guardando tus datos...';
 
+                // 1. Enviar a Google Sheets
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
-                    mode: 'no-cors', // Importante para Google Apps Script
+                    mode: 'no-cors',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -723,8 +724,32 @@
                     })
                 });
 
-                // Simular procesamiento en GHL
-                await new Promise(resolve => setTimeout(resolve, 1200));
+                // 2. Enviar a GHL directamente
+                document.getElementById('step-ghl').textContent = '⏳ Registrando en la plataforma...';
+
+                const [firstName, ...lastNameParts] = nombre.split(' ');
+                const lastName = lastNameParts.join(' ') || '';
+
+                const ghlResponse = await fetch('https://services.leadconnectorhq.com/contacts/', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer pit-5d4ed751-459c-4bc1-a353-9d314fe67009',
+                        'Content-Type': 'application/json',
+                        'Version': '2021-07-28'
+                    },
+                    body: JSON.stringify({
+                        locationId: 'HQHKWr2W3GrzB0yCYF6R',
+                        firstName: firstName || '',
+                        lastName: lastName || '',
+                        email: email || '',
+                        phone: telefonoLimpio || '',
+                        tags: [profile.toUpperCase()]
+                    })
+                });
+
+                const ghlData = await ghlResponse.json();
+                console.log('Contacto creado en GHL:', ghlData);
+
                 document.getElementById('step-ghl').textContent = '✅ Registrando en la plataforma...';
 
                 console.log('Lead enviado a Google Sheets + GHL');
