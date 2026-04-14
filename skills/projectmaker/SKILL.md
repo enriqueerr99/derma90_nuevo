@@ -42,10 +42,10 @@ This skill generates a **complete, production-ready project blueprint** as a PDF
    - "I have a [pain point] I want to solve with a business"
 
 2. **Answer the interactive questions** — The skill will ask you about:
-   - Your product/service
+   - Your product/service and what it delivers
    - The main pain point it solves
    - Your target audience (age, gender, profession, location)
-   - Pricing strategy
+   - **PRICING**: Either you tell me your price point, OR I'll ask you about value delivery and suggest 3 pricing scenarios (economy, standard, premium) based on your offering
    - Brand tone and colors
    - Specific use cases or differentiators
    - Any existing competition or similar products
@@ -58,10 +58,35 @@ This skill generates a **complete, production-ready project blueprint** as a PDF
    - Configure the quiz questions in your platform
    - Follow the pre-launch checklist before going live
 
+## About Pricing
+
+The skill will handle pricing in **two ways**:
+
+**Option A: You know your price**
+- You tell me: "€249" or "$99/month" or "€49 for 12 weeks"
+- I use that exact price in every section (checkout page, metrics, financial projections, etc.)
+
+**Option B: You want price guidance**
+- You describe what you're offering (supplement? coaching? digital product? subscription?)
+- You describe the value (transformation over what timeframe? for how many customers?)
+- I suggest 3 scenarios:
+  - **Economy tier**: Lower price, wider audience, thin margins
+  - **Standard tier**: Mid-market price, healthy margin, best conversion
+  - **Premium tier**: Higher price, niche audience, max margin
+- You pick which one fits your business model
+- The blueprint is generated with YOUR chosen price
+
+**Important**: All pricing appears in the PDF in:
+- Checkout page HTML
+- Metrics table (revenue projections)
+- Financial assumptions
+- Funnel conversion targets
+
 ## Important Notes
 
 - **This is a BLUEPRINT, not a finished product.** All HTML/copy examples are templates you'll customize.
 - **The skill uses the IDERMA framework as a base.** This means your product should have a systemic solution (not just cosmetic), affect daily life, and ideally have an emotional component. It works best for supplements, digital programs, coaching, health/wellness products, and B2C services.
+- **Pricing is flexible**: No prices are hardcoded. Whatever price you choose (or I suggest) goes into every section of the blueprint.
 - **You'll still need to:** Write your own copy, design graphics, set up payment processing, configure your CRM, and deploy. The blueprint just organizes the strategy.
 
 ## What Makes This Different
