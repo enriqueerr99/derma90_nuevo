@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentos Legales - Instituto DERMA90</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <style>
+        .legal-documents {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .legal-documents h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+            text-align: center;
+        }
+
+        .documents-intro {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .document-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .document-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .document-card h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .document-card p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .document-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .documents-info {
+            background: #f0f4f8;
+            border-left: 4px solid var(--color-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+            color: #333;
+        }
+
+        .documents-info h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .documents-info ul {
+            margin-left: 2rem;
+        }
+
+        .documents-info li {
+            margin-bottom: 0.5rem;
+        }
+
+        .pdf-size {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="legal-documents">
+        <h1>📋 Documentos Legales</h1>
+        <p class="documents-intro">
+            Accede a todos nuestros documentos legales en formato PDF.
+            Descarga los que necesites para revisar nuestras políticas y términos.
+        </p>
+
+        <div class="documents-grid">
+            <!-- Aviso Legal -->
+            <div class="document-card">
+                <div class="document-icon">⚖️</div>
+                <h2>Aviso Legal</h2>
+                <p>Información legal sobre el uso de nuestros servicios y responsabilidades.</p>
+                <a href="/aviso-legal" class="download-btn">
+                    📖 Leer Documento
+                </a>
+            </div>
+
+            <!-- Política de Privacidad -->
+            <div class="document-card">
+                <div class="document-icon">🔒</div>
+                <h2>Política de Privacidad</h2>
+                <p>Conoce cómo protegemos y utilizamos tus datos personales.</p>
+                <a href="/politica-privacidad" class="download-btn">
+                    📖 Leer Documento
+                </a>
+            </div>
+
+            <!-- Términos y Condiciones -->
+            <div class="document-card">
+                <div class="document-icon">📜</div>
+                <h2>Términos y Condiciones</h2>
+                <p>Lee los términos generales que regulan el uso de nuestros servicios.</p>
+                <a href="/terminos-y-condiciones" class="download-btn">
+                    📖 Leer Documento
+                </a>
+            </div>
+
+            <!-- Política de Devoluciones -->
+            <div class="document-card">
+                <div class="document-icon">↩️</div>
+                <h2>Política de Devoluciones</h2>
+                <p>Información sobre nuestras políticas de devoluciones y reembolsos.</p>
+                <a href="/politica-devoluciones" class="download-btn">
+                    📖 Leer Documento
+                </a>
+            </div>
+        </div>
+
+        <div class="documents-info">
+            <h3>ℹ️ Información Importante</h3>
+            <ul>
+                <li>Todos nuestros documentos están disponibles en formato PDF</li>
+                <li>Puedes descargarlos en cualquier momento desde esta página</li>
+                <li>Si tienes preguntas sobre nuestras políticas, contáctanos</li>
+                <li>Los documentos se actualizan periódicamente para mantenerlos vigentes</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
