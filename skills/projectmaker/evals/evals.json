@@ -1,0 +1,17 @@
+{
+  "skill_name": "projectmaker",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to create a business around helping people with sleep problems. My product is a supplement that combines melatonin, magnesium, and adaptogens. Target audience is busy professionals aged 30-50 in the US. I'm thinking of pricing it at $44 for 8 weeks. I want the brand to feel premium and scientific.",
+      "expected_output": "A comprehensive PDF blueprint with 4 personas for sleep issues, 12-15 quiz questions, HTML examples for landing/quiz/results/checkout pages, project architecture, and launch checklist",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Build me a blueprint for a digital coaching program about productivity for entrepreneurs. The pain point is time management and overwhelm. My audience is solopreneurs making $50k-$500k/year. I want to charge $199 for 12 weeks. The vibe should be energetic and motivational.",
+      "expected_output": "A PDF blueprint showing 4 personas related to productivity, quiz questions, HTML examples adapted for coaching, architecture with email/community flows, pre-launch checklist, and realistic conversion metrics",
+      "files": []
+    }
+  ]
+}
