@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RITUAL SŌMA Completo — Guía para Closer | Instituto DERMA90</title>
+    <meta name="description" content="Estructura completa del ritual SŌMA: 12 semanas, protocolo diario, ejemplos reales, FAQ defensiva para closers.">
+
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #8b7355;
+            --color-primary-light: #f5f1ed;
+            --color-beige: #faf8f5;
+            --color-dark: #2a2622;
+            --color-gray-dark: #6b6359;
+            --color-gray-medium: #9a8f87;
+            --color-success: #7ba878;
+            --color-warning: #d4a574;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-dark);
+            background: white;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-beige) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--color-gray-dark);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        nav {
+            background: var(--color-dark);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+            overflow-x: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--color-warning);
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            background: var(--color-primary-light);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .section-header p {
+            color: var(--color-gray-dark);
+            font-size: 1.05rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 3px solid var(--color-primary);
+        }
+
+        .card h3 {
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .protocol-box {
+            background: var(--color-beige);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--color-success);
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .faq-item {
+            background: var(--color-beige);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .faq-item:hover {
+            background: var(--color-primary-light);
+        }
+
+        .faq-item strong {
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item p {
+            color: var(--color-gray-dark);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--color-primary);
+            background: white;
+            color: var(--color-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab-button.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .tab-button:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--color-primary-light);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--color-beige);
+        }
+
+        tr:hover {
+            background: var(--color-beige);
+        }
+
+        .progression-bar {
+            background: var(--color-beige);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bar {
+            flex: 1;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-success) 0%, var(--color-primary) 100%);
+            transition: width 0.3s;
+        }
+
+        .week-label {
+            min-width: 100px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        footer {
+            background: var(--color-dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .cta-button {
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--color-gray-dark);
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: var(--color-beige);
+            border-radius: 6px;
+            border-left: 3px solid var(--color-success);
+            padding-left: 1rem;
+        }
+
+        .checklist li:before {
+            content: "✓ ";
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .tab-buttons {
+                gap: 0.5rem;
+            }
+
+            .tab-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>🌟 RITUAL SŌMA Completo</h1>
+    <p>Estructura defensiva para closer — Protocolo de 12 semanas, ejemplos reales, FAQ, argumentación</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a onclick="scrollToSection('estructura')">Estructura</a></li>
+        <li><a onclick="scrollToSection('fases')">4 Fases</a></li>
+        <li><a onclick="scrollToSection('tareas')">Micro-Tareas</a></li>
+        <li><a onclick="scrollToSection('faq')">FAQ Defensiva</a></li>
+        <li><a onclick="scrollToSection('casos')">Casos Reales</a></li>
+        <li><a onclick="scrollToSection('argumentacion')">Argumentación</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <!-- INTRODUCCIÓN -->
+    <section id="intro">
+        <div class="section-header">
+            <h2>¿Qué es el Ritual SŌMA?</h2>
+            <p>El ritual es el mecanismo de ejecución del protocolo de 12 semanas. No es motivación, es estructura repetible día a día que genera regulación hormonal.</p>
+        </div>
+
+        <div class="card">
+            <h3>3 Pilares del Ritual</h3>
+            <ol style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Consistencia temporal</strong> — Mismo horario = misma respuesta corporal</li>
+                <li><strong>Protocolos específicos</strong> — Sabe exactamente qué hacer, no vagas intenciones</li>
+                <li><strong>Calibración diaria</strong> — Datos para ajustes según respuesta real</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- ESTRUCTURA DIARIA -->
+    <section id="estructura">
+        <div class="section-header">
+            <h2>📅 Estructura Diaria — 3 Momentos Clave</h2>
+            <p>Lo que hace el cliente cada día, minuto a minuto</p>
+        </div>
+
+        <!-- MAÑANA -->
+        <div class="card">
+            <h3>🌅 Mañana (07:00 — Ventana 09:30)</h3>
+            <p><strong>RITUAL SHOT — El núcleo (5 minutos totales)</strong></p>
+
+            <div class="protocol-box">
+Protocolo exacto (5 minutos):
+
+1. Postura 30 segundos
+   └─ Pies separados ancho de hombros
+   └─ Espalda recta
+   └─ Hombros atrás
+   └─ Mandíbula relajada
+
+2. Respiración nasal 6 ciclos
+   └─ Inhala por nariz: 4 segundos
+   └─ Exhala por nariz: 4 segundos
+   └─ Objetivo: Activación parasimpática inicial
+
+3. Shot del suplemento (SŌMA)
+   └─ Tomar con agua
+   └─ Tiempo: inmediato después de respiración
+
+4. Agua (mínimo 250ml)
+   └─ Inmediatamente después del shot
+   └─ Inicia hidratación del día
+
+✓ COMPLETADO (5 minutos)
+            </div>
+
+            <h4 style="margin-top: 1.5rem;">Por qué funciona este formato:</h4>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>La consistencia temporal (07:00 siempre) entrena al cuerpo a esperar regulación</li>
+                <li>Las 6 respiraciones son suficientes para activación parasimpática sin exceso</li>
+                <li>El agua inmediata mejora absorción del suplemento</li>
+                <li>El horario de cierre (09:30) permite flexibilidad pero evita procrastinación</li>
+            </ul>
+
+            <h4 style="margin-top: 1.5rem;">Ejemplo de ejecución cliente:</h4>
+            <div class="protocol-box">
+Martes 7:15am - Lucía se despierta
+7:15 — Postura 30s (mientras el café se calienta)
+7:16 — 6 respiraciones nasales
+7:17 — Shot SŌMA
+7:18 — Vaso de agua
+7:19 — Listo para desayunar
+
+✓ Ritual completado
+            </div>
+        </div>
+
+        <!-- MEDIODÍA -->
+        <div class="card">
+            <h3>☀️ Mediodía (14:00 — Varía por semana)</h3>
+            <p><strong>Opción A: Bloque Single-Tasking (Semanas 1, 3, 7)</strong></p>
+
+            <div class="protocol-box">
+SINGLE-TASKING — 25 minutos
+
+Estructura:
+• 1 tarea específica
+• Sin teléfono
+• Sin notificaciones
+• Sin interrupciones
+• 25 minutos continuos
+
+Resultado esperado: 6 páginas en 25 min
+(sin ritual: 45 min con interrupciones)
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Opción B: Meditación Respiratoria (Semanas 2-4)</strong></p>
+
+            <div class="protocol-box">
+RESPIRACIÓN 4-6 — 10 minutos
+
+[INICIO]
+Siéntate erguida. Hombros atrás. Mandíbula relajada.
+Cierra los ojos. No hay música. No hay ambiente.
+Solo tú y tu respiración.
+
+[CICLO RESPIRATORIO]
+Inhala por la nariz: 4 segundos
+Exhala por la nariz: 6 segundos
+Repetir durante 10 minutos
+
+[MANEJO DE DISTRACCIONES]
+Cuando la mente divague, observa el pensamiento.
+Etiquétalo: "pensamiento".
+Vuelve a la respiración. 4 dentro. 6 fuera.
+
+[FINAL]
+Abre los ojos lentamente.
+
+Esto NO es relajación. Es entrenamiento de regulación.
+✓ Sesión completa
+            </div>
+
+            <p style="margin-top: 1rem;"><strong>Beneficio fisiológico:</strong></p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>Exhalación larga (6s) → activación nervio vago</li>
+                <li>Reducción de reactividad hormonal</li>
+                <li>Mejora tolerancia al estrés</li>
+                <li>Menor cortisol en ciclos posteriores</li>
+            </ul>
+        </div>
+
+        <!-- NOCHE -->
+        <div class="card">
+            <h3>🌙 Noche (21:00 — 2 minutos)</h3>
+            <p><strong>CALIBRACIÓN DIARIA</strong></p>
+
+            <div class="protocol-box">
+Check-in Noche — [Nombre] — [Fecha]
+
+1. ¿Sueño previsto esta noche? (0-10)
+   Respuesta: ___/10
+
+2. Estabilidad energética hoy (0-10)
+   Respuesta: ___/10
+
+3. Presencia skin actual (0-10)
+   Respuesta: ___/10
+
+4. ¿Completaste ritual? Sí / No
+5. ¿Completaste micro-tarea? Sí / No / N/A
+
+Enviar por WhatsApp a coach
+            </div>
+
+            <h4 style="margin-top: 1rem;">Cómo se usa:</h4>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>Cliente envía vía WhatsApp a las 21:00</li>
+                <li>Coach analiza tendencias</li>
+                <li>Si hay variación anormal → ajuste de siguiente día</li>
+                <li>Si está en rango esperado → continúa protocolo</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 4 FASES -->
+    <section id="fases">
+        <div class="section-header">
+            <h2>🔄 Las 4 Fases del Ritual (12 Semanas)</h2>
+            <p>Progresión lógica del protocolo según capacidad cliente</p>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="switchTab('fase1')">Fase 1</button>
+            <button class="tab-button" onclick="switchTab('fase2')">Fase 2</button>
+            <button class="tab-button" onclick="switchTab('fase3')">Fase 3</button>
+            <button class="tab-button" onclick="switchTab('fase4')">Fase 4</button>
+        </div>
+
+        <div id="fase1" class="tab-content active">
+            <div class="card">
+                <h3>Fase 1: BASELINE RESET (Semanas 1-3)</h3>
+                <p><strong>Objetivo:</strong> Establecer consistencia y estabilidad base</p>
+
+                <h4 style="margin-top: 1rem;">Lo que hace el cuerpo:</h4>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li>Detecta patrón repetido (07:00 siempre)</li>
+                    <li>Comienza a "predecir" regulación</li>
+                    <li>Reduce varianza de energía</li>
+                    <li>Skin responde a consistencia hormonal</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Protocolo:</h4>
+                <ul class="checklist">
+                    <li>Ritual shot todos los días (sin excepciones)</li>
+                    <li>Micro-tareas 3-4 veces por semana</li>
+                    <li>Meditación 2 veces por semana</li>
+                    <li>Calibración noche: siempre</li>
+                    <li>Caminatas opcionales</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Métricas esperadas:</h4>
+                <div class="progression-bar">
+                    <span class="week-label">Energía:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 40%;"></div></div>
+                    <span style="min-width: 80px;">4/10 → 6/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Sueño:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 35%;"></div></div>
+                    <span style="min-width: 80px;">4/10 → 6/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Skin:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 25%;"></div></div>
+                    <span style="min-width: 80px;">4/10 → 5/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Ritual:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 95%;"></div></div>
+                    <span style="min-width: 80px;">95%+</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="fase2" class="tab-content">
+            <div class="card">
+                <h3>Fase 2: NERVOUS SYSTEM REGULATION (Semanas 4-6)</h3>
+                <p><strong>Objetivo:</strong> Entrenar respuesta a estrés, aumentar tolerancia</p>
+
+                <h4 style="margin-top: 1rem;">Lo que hace el cuerpo:</h4>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li>El nervio vago se "entrena" con meditación</li>
+                    <li>Mejor recuperación post-estrés</li>
+                    <li>Menos reactivity emocional</li>
+                    <li>Ciclo hormonal más predecible</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Protocolo adicional:</h4>
+                <ul class="checklist">
+                    <li>Ritual shot (constante)</li>
+                    <li>Body Scan Ejecutivo (meditación nueva)</li>
+                    <li>Incomodidad Controlada (agua fría 30-60s)</li>
+                    <li>Postura pre-reuniones importantes</li>
+                    <li>Check-in Semana 4: primeros datos de ajuste</li>
+                </ul>
+
+                <div class="progression-bar">
+                    <span class="week-label">Energía:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 60%;"></div></div>
+                    <span style="min-width: 80px;">6/10 → 7.5/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Sueño:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 55%;"></div></div>
+                    <span style="min-width: 80px;">6/10 → 7/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Skin:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 65%;"></div></div>
+                    <span style="min-width: 80px;">5/10 → 7/10</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="fase3" class="tab-content">
+            <div class="card">
+                <h3>Fase 3: STRUCTURAL BUILD (Semanas 7-9)</h3>
+                <p><strong>Objetivo:</strong> Construir capacidad física y mental, aumentar demanda</p>
+
+                <h4 style="margin-top: 1rem;">Lo que hace el cuerpo:</h4>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li>Adaptación a carga aumentada</li>
+                    <li>Mejor energía sostenida</li>
+                    <li>Mayor claridad mental</li>
+                    <li>Skin más densa y radiante</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Protocolo:</h4>
+                <ul class="checklist">
+                    <li>Ritual shot + extensión (ahora 6 min)</li>
+                    <li>Bloque Single-Tasking x2 por semana</li>
+                    <li>Caminata + Micro-tareas combinadas</li>
+                    <li>Visualización de Ejecución (meditación nueva)</li>
+                    <li>"Una cosa difícil temprano" (antes 11:00)</li>
+                </ul>
+
+                <div class="progression-bar">
+                    <span class="week-label">Energía:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 80%;"></div></div>
+                    <span style="min-width: 80px;">7.5/10 → 8.5/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Sueño:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 75%;"></div></div>
+                    <span style="min-width: 80px;">7/10 → 8/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Skin:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 85%;"></div></div>
+                    <span style="min-width: 80px;">7/10 → 8.5/10</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="fase4" class="tab-content">
+            <div class="card">
+                <h3>Fase 4: CONSOLIDATION & AUTONOMY (Semanas 10-12)</h3>
+                <p><strong>Objetivo:</strong> Independencia, el ritual se vuelve "automático"</p>
+
+                <h4 style="margin-top: 1rem;">Lo que hace el cuerpo:</h4>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li>El ritual ya no requiere fuerza de voluntad</li>
+                    <li>Cuerpo lo pide (no se siente como obligación)</li>
+                    <li>Skin transformado vs Baseline</li>
+                    <li>Energía estable y sostenida</li>
+                </ul>
+
+                <h4 style="margin-top: 1rem;">Protocolo:</h4>
+                <ul class="checklist">
+                    <li>Ritual shot (totalmente automático ahora)</li>
+                    <li>Micro-tareas: cliente elige según patrón</li>
+                    <li>Meditación: solo si la quiere (pero muchas la mantienen)</li>
+                    <li>Check-in final (Semana 12): evaluación</li>
+                </ul>
+
+                <div class="progression-bar">
+                    <span class="week-label">Energía:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 85%;"></div></div>
+                    <span style="min-width: 80px;">8/10 → 8.5/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Sueño:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 80%;"></div></div>
+                    <span style="min-width: 80px;">8/10 → 8.5/10</span>
+                </div>
+                <div class="progression-bar">
+                    <span class="week-label">Skin:</span>
+                    <div class="bar"><div class="bar-fill" style="width: 90%;"></div></div>
+                    <span style="min-width: 80px;">8/10 → 9/10</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MICRO-TAREAS -->
+    <section id="tareas">
+        <div class="section-header">
+            <h2>⚡ Biblioteca de Micro-Tareas</h2>
+            <p>Acciones concretas asignadas durante el programa según fase</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarea</th>
+                    <th>Semanas</th>
+                    <th>Duración</th>
+                    <th>Por qué funciona</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Bloque Single-Tasking</strong></td>
+                    <td>1, 3, 7</td>
+                    <td>25 min</td>
+                    <td>Reduce fatiga decisional, entrena foco sostenido</td>
+                </tr>
+                <tr>
+                    <td><strong>Checkpoint Hidratación</strong></td>
+                    <td>1, 5</td>
+                    <td>—</td>
+                    <td>Deshidratación = tensión skin, niebla mental, caída energía</td>
+                </tr>
+                <tr>
+                    <td><strong>Caminata 10 min Post-Comida</strong></td>
+                    <td>2, 5, 7</td>
+                    <td>10 min</td>
+                    <td>Estabiliza energía, reduce crash insulínico, mejora circulación</td>
+                </tr>
+                <tr>
+                    <td><strong>Checkpoint Skin</strong></td>
+                    <td>5, 7, 9</td>
+                    <td>2 min</td>
+                    <td>Refuerza consciencia de cambio, detecta mejora temprana</td>
+                </tr>
+                <tr>
+                    <td><strong>Postura + Respiración Pre-Reunión</strong></td>
+                    <td>6, 9</td>
+                    <td>7 min</td>
+                    <td>Mejora voz, mirada, reduce reactividad, eleva presencia</td>
+                </tr>
+                <tr>
+                    <td><strong>Agua Fría (Incomodidad Controlada)</strong></td>
+                    <td>4</td>
+                    <td>30-60s</td>
+                    <td>Sube tolerancia estrés, mejora circulación facial, tensor natural</td>
+                </tr>
+                <tr>
+                    <td><strong>Una Cosa Difícil Temprano</strong></td>
+                    <td>9</td>
+                    <td>Varía</td>
+                    <td>Reduce ansiedad residual, aumenta sensación de poder</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- FAQ DEFENSIVA -->
+    <section id="faq">
+        <div class="section-header">
+            <h2>💬 FAQ Defensiva — Respuestas Modelo</h2>
+            <p>15+ preguntas que tu closer puede encontrar (con respuestas de 30 segundos)</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Tengo que levantarme a las 7 exacto?"</strong>
+            <p>R: "La ventana es 7:00-9:30. Idealmente antes de 9:00. La consistencia temporal es lo que entrena al cuerpo. Si cambias mucho (lunes 7am, martes 10am), el cuerpo no establece patrón. Por eso la ventana existe — flexibilidad, pero con límite."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Y si viajo o tengo agenda rara?"</strong>
+            <p>R: "El ritual es 5 minutos. Cabe en cualquier lado. Clientes en viajes de trabajo, con hijos, en congresos — todos lo hacen. Algunos en el aeropuerto antes de embarcar. Algunos en el hotel. Lo importante es que SUCEDA."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Qué pasa si me salto 3 días?"</strong>
+            <p>R: "Tu cuerpo recalibra. Vuelves a Baseline. No es fracaso, es biología. Por eso nuestro sistema es flexible — si fallas 2 días, retoma día 3. Si fallas 5 días, necesitamos ajuste. El ritual funciona porque tu cuerpo SABE que a las 07:00 llega regulación. Si lo interrumpes, debe recalibrar."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Cuándo veo cambios en skin?"</strong>
+            <p>R: "Semana 1 es recolección de datos. Semana 2-3 vez cambio de energía/sueño (que después refleja en piel). Semana 4-6 ves cambio visible en skin: menos enrojecimiento, más luminosidad, textura más pareja. Semana 7-12 es transformación de densidad (menos flaccidez, más estructura)."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Funciona si tengo ciclo irregular?"</strong>
+            <p>R: "Exactamente para eso sirve. El ritual ESTABILIZA el ciclo. Con inconsistencia hormonal, la piel está reactiva porque no sabe qué esperar. El ritual entrena a tu cuerpo a esperar regulación. Eso reduce reactivity y permite que skin mejore."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿5 minutos de verdad da tanto cambio?"</strong>
+            <p>R: "Sí, pero es 5 minutos TODOS los días durante 12 SEMANAS en la misma hora. Es como riego — una sola vez no hace crecer la planta. Todos los días sí. Eso + meditación + tareas + dormir mejor = transformación. El ritual es el disparador."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Después de 12 semanas puedo dejar de hacerlo?"</strong>
+            <p>R: "Técnicamente sí. Pero ¿por qué? Es 5 minutos. Clientes que mantienen el ritual mantienen cambios. Clientes que paran — regresan a Baseline en 3-4 semanas. El ritual no es 'cura', es mantenimiento. Como cepillarse los dientes."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Es realmente necesario todos los días?"</strong>
+            <p>R: "La consistencia es lo que funciona. Tu cuerpo aprende solo si recibe señal consistente. Una vez a la semana no funciona. 5 veces a la semana casi funciona (pero no del todo). Todos los días funciona porque tu sistema nervioso SABE qué esperar. Es biología, no preferencia."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Por qué me piden reportar números todas las noches?"</strong>
+            <p>R: "Dos razones: 1) Tu coach ve patrones que tú no ves (ej: 'te notas bien pero reportas baja energía — hay desconexión'). 2) El sistema ajusta según datos (si estás en crash energético, no escalamos intensidad, reducimos)."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿No es otra cosa más en mi lista?"</strong>
+            <p>R: "Es lo opuesto. La mayoría de clientes QUITA cosas de la lista porque el ritual les da energía. En lugar de 3 cafés para llegar a mediodía, necesitan 1. En lugar de "debería llamar al cliente difícil" todo el día, lo hacen antes de 11am. Ganan 90 minutos de energía por día."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Y si no tengo disciplina?"</strong>
+            <p>R: "La disciplina llega DAY 7. Los primeros 6 días es fuerza bruta. Día 7 tu cuerpo ya LO PIDE (hormesis — ahora espera). Es como hacer ejercicio — primera semana es muy duro. Semana 2-3 empieza a ser natural. Semana 4+ es automático."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Hay estudios?"</strong>
+            <p>R: "Los componentes sí: meditación respiratoria (estudios sobre regulación vagal), consistent routine y cortisol, hydration y skin health, structured menus y dopamina. Lo que NO hay es estudio de exactamente esto, porque es programa nuevo. Pero los bloques son validados."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "Suena mucho complicado"</strong>
+            <p>R: "Es 5 min mañana + 10 min mediodía. Menos tiempo que un café. Semana 1 parece mucho porque está todo nuevo. Semana 2 es más fácil. Semana 3 es automático. Conozco la tensión — pero clientes me dicen 'es sorprendentemente simple'."</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>P: "¿Funciona para perimenopausia específicamente?"</strong>
+            <p>R: "Específicamente sí. Tu problema es volatilidad hormonal. El ritual ESTABILIZA eso. No es medicina — es consistencia que entrena a tu cuerpo a esperar regulación. Resulta que eso funciona exactamente para el caos de perimenopausia."</p>
+        </div>
+    </section>
+
+    <!-- CASOS REALES -->
+    <section id="casos">
+        <div class="section-header">
+            <h2>📍 Casos de Uso Reales</h2>
+            <p>Ejemplos de clientes que vieron resultados con el protocolo</p>
+        </div>
+
+        <div class="card">
+            <h3>Caso 1: Marina, 48 años, Directora Comercial</h3>
+            <p><strong>Baseline:</strong></p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>Energía: 4/10 (crashes a las 3pm)</li>
+                <li>Sueño: 5/10 (insomnio, ansiedad nocturna)</li>
+                <li>Skin: Reactiva, enrojecimientos frecuentes</li>
+            </ul>
+
+            <p style="margin-top: 1rem;"><strong>Semana 4:</strong></p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li>Energía: 7/10 (sin crash)</li>
+                <li>Sueño: 7/10 (duerme de un tirón)</li>
+                <li>Skin: "Menos roja, más radiante"</li>
+            </ul>
+
+            <p style="margin-top: 1rem;"><strong>Semana 12:</strong></p>
+            <p>"Ya no necesito 3 cafés. Mi jefe preguntó qué hiciste. Mi pareja dice que estoy diferente."</p>
+            <p><strong>Decisión:</strong> Mantener ritual + añadir siguiente protocolo</p>
+        </div>
+
+        <div class="card">
+            <h3>Caso 2: Carmen, 45 años, Emprendedora (Recovery)</h3>
+            <p><strong>Semana 1:</strong> "Esto es demasiado, abandono"</p>
+            <p style="margin-top: 1rem;"><strong>Intervención coach:</strong> "¿Cuál es el real problema? ¿Horario? ¿Protocolo?"</p>
+            <p style="margin-top: 1rem;"><strong>Resultado:</strong> Carmen relata que problema es que se siente "fuera de control" si lo hace a horas raras.</p>
+            <p style="margin-top: 1rem;"><strong>Ajuste:</strong> Se fija horario fijo de ritual (no ventana) + recordatorio en teléfono.</p>
+            <p style="margin-top: 1rem;"><strong>Semana 2-6:</strong> "Ahora es fácil, ni pienso"</p>
+            <p style="margin-top: 1rem;"><strong>Semana 12:</strong> Mantiene ritual de por vida.</p>
+        </div>
+    </section>
+
+    <!-- ARGUMENTACIÓN FINAL -->
+    <section id="argumentacion">
+        <div class="section-header">
+            <h2>🎯 Argumentación de Cierre</h2>
+            <p>Frases defensivas para cerrar la venta</p>
+        </div>
+
+        <div class="card">
+            <h3>Si cliente pregunta: "¿Realmente funciona todo esto?"</h3>
+            <div class="protocol-box">
+"Sí. Pero no porque sea mágico. Funciona porque es consistencia +
+estructura + datos + ajuste.
+
+Mañana te levantarás y harás un ritual de 5 minutos. Probablemente
+te parecerá poco.
+
+Día 7 verás que tu sueño mejora. Día 14 alguien te preguntará qué
+hiciste con la piel.
+
+No es porque el suplemento es milagro. Es porque tu cuerpo está
+recibiendo la MISMA señal, TODOS los días, durante TRES MESES. Eso
+entrena regulación.
+
+Y eso funciona. Así funciona la biología."
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Si objeción de precio:</h3>
+            <div class="protocol-box">
+"El precio no es por 5 minutos. Es por 12 semanas de coach que
+ajusta según TUS datos, meditaciones, micro-tareas, y transformación
+final.
+
+¿Cuánto cuesta un dermatólogo que no resuelve perimenopausia?
+¿Un psicólogo por insomnio? Esto resuelve ambos.
+
+Además, ganas energía — eso vale dinero también."
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Puntos clave para repetir:</h3>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Consistencia es todo.</strong> No es complejidad, es repetición.</li>
+                <li><strong>Semana 4 ves cambio real.</strong> No es semana 2, es semana 4. Set expectations.</li>
+                <li><strong>Es ciencia, no fe.</strong> Los componentes tienen estudios. La combinación es nueva pero validada.</li>
+                <li><strong>Tu cuerpo responde.</strong> No necesita creer. Solo necesita patrón.</li>
+                <li><strong>Ganas tiempo, no pierdes.</strong> Energía extra al final del día.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Cierre en 3 puntos:</h3>
+            <div class="protocol-box">
+1. "¿Entiendes la estructura?" (Si/No)
+2. "¿Crees que puedes hacerlo 12 semanas?" (Si/No)
+3. "¿Empezamos?" (Si/No)
+
+Si sí a los tres → Cierra venta
+Si no en alguno → Vuelve a ese punto
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUMEN EJECUTIVO -->
+    <section>
+        <div class="section-header">
+            <h2>✅ Qué Incluye Tu Programa</h2>
+        </div>
+
+        <div class="card">
+            <ul class="checklist">
+                <li>Ritual diario estructurado (5 minutos)</li>
+                <li>Suplemento SŌMA (12 semanas completas)</li>
+                <li>Meditaciones guiadas con scripts completos</li>
+                <li>Micro-tareas diseñadas por fase</li>
+                <li>Coaching WhatsApp diario</li>
+                <li>Check-ins bi-semanales (6 totales)</li>
+                <li>Ajustes según tus datos reales</li>
+                <li>Acceso a comunidad exclusiva de clientes</li>
+                <li>Portal digital con material completo</li>
+                <li>12 semanas de soporte continuado</li>
+            </ul>
+
+            <button class="cta-button" onclick="alert('Tu closer está listo para cerrar con esta información.')">Closer Preparado ✓</button>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p><strong>Instituto DERMA90 · Ritual SŌMA — Guía Completa para Closer</strong></p>
+    <p style="margin-top: 1rem; opacity: 0.8;">Documentación defensiva | Abril 2026</p>
+</footer>
+
+<script>
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    element.scrollIntoView({ behavior: 'smooth' });
+}
+
+function switchTab(tabName) {
+    // Hide all tab contents
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Remove active class from all buttons
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(button => button.classList.remove('active'));
+
+    // Show selected tab and highlight button
+    document.getElementById(tabName).classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>
