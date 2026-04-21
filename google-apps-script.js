@@ -40,6 +40,9 @@ function doPost(e) {
     // Envía el lead a GHL
     const ghlResult = sendToGHL(email, nombre, telefono, perfil, respuestas, data.respuestas);
 
+    // Envía notificación por email
+    sendNotificationEmails(email, nombre, telefono, perfil, timestamp);
+
     // Respuesta exitosa (con info de GHL para debugging)
     return ContentService
       .createTextOutput(JSON.stringify({
@@ -243,5 +246,55 @@ function addTagToContact(contactId, perfil, apiToken) {
   } catch (error) {
     Logger.log('❌ Error agregando tag a GHL: ' + error.toString());
     return { error: error.toString() };
+  }
+}
+
+// ─── Envía notificación por email cuando entra un nuevo lead ───────────────────────────────
+function sendNotificationEmails(email, nombre, telefono, perfil, timestamp) {
+  try {
+    const recipients = [
+      'info@iderma90.com',
+      'cristina102001@gmail.com'
+    ];
+
+    const subject = '🔔 NUEVO LEAD - ' + nombre + ' (' + perfil.toUpperCase() + ')';
+
+    const body = `¡Nuevo lead ha llegado!
+
+📋 INFORMACIÓN DEL LEAD:
+─────────────────────────────
+Nombre: ${nombre}
+Email: ${email}
+Teléfono: ${telefono}
+Perfil: ${perfil.toUpperCase()}
+Fecha/Hora: ${timestamp}
+
+🎯 ACCIONES:
+→ Responder por WhatsApp: https://wa.me/${telefono.replace(/[^\d+]/g, '')}
+→ Contactar por email: ${email}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Mensaje automático de IDERMA90
+`;
+
+    recipients.forEach(function(recipient) {
+      try {
+        GmailApp.sendEmail(
+          recipient,
+          subject,
+          body,
+          {
+            name: 'IDERMA90 Leads',
+            replyTo: 'noreply@iderma90.com'
+          }
+        );
+        Logger.log('✅ Email enviado a: ' + recipient);
+      } catch (emailError) {
+        Logger.log('❌ Error enviando email a ' + recipient + ': ' + emailError.toString());
+      }
+    });
+
+  } catch (error) {
+    Logger.log('❌ Error en sendNotificationEmails: ' + error.toString());
   }
 }
