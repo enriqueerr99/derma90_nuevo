@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredientes & Contraindicaciones - SŌMA | DERMA90</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #faf8f5;
+            color: #12100e;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #12100e;
+            color: white;
+            padding: 64px 24px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 46px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 16px;
+            opacity: 0.85;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            header {
+                padding: 48px 20px;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 64px 24px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 48px 20px;
+            }
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-tabs button {
+            padding: 14px 28px;
+            border: none;
+            background: white;
+            color: #12100e;
+            cursor: pointer;
+            border-radius: 2px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            border: 1px solid #e8e0d4;
+        }
+
+        .nav-tabs button:hover {
+            background: #B85C3C;
+            color: white;
+            border-color: #B85C3C;
+        }
+
+        .nav-tabs button.active {
+            background: #B85C3C;
+            color: white;
+            border-color: #B85C3C;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tabs button {
+                width: 100%;
+            }
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-box {
+            margin-bottom: 48px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border: 2px solid #B85C3C;
+        }
+
+        .search-box button {
+            padding: 12px 28px;
+            background: #B85C3C;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            transition: opacity 0.3s;
+        }
+
+        .search-box button:hover {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+        }
+
+        .ingredient-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 64px;
+        }
+
+        .ingredient-card {
+            background: white;
+            border-radius: 4px;
+            padding: 24px;
+            border: 1px solid #e8e0d4;
+            transition: all 0.3s ease;
+        }
+
+        .ingredient-card:hover {
+            border-color: #B85C3C;
+        }
+
+        .ingredient-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #12100e;
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .ingredient-card .dosis {
+            background: #faf8f5;
+            padding: 8px 12px;
+            border-radius: 2px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #B85C3C;
+        }
+
+        .ingredient-card .funcion {
+            color: #5a5550;
+            font-size: 14px;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        .ingredient-card .vrn {
+            color: #B85C3C;
+            font-weight: 600;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .ingredient-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contraindication-card {
+            background: white;
+            border-radius: 4px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid #e8e0d4;
+            border-left: 4px solid #b44;
+        }
+
+        .contraindication-card.moderado {
+            border-left-color: #ff9800;
+        }
+
+        .contraindication-card.leve {
+            border-left-color: #ffc107;
+        }
+
+        .contraindication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .contraindication-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #12100e;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .contraindication-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #12100e;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .risk-badge.alto {
+            background: #b44;
+            color: white;
+        }
+
+        .risk-badge.moderado {
+            background: #ff9800;
+            color: white;
+        }
+
+        .risk-badge.leve {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .risk-badge.critico {
+            background: #8b0000;
+            color: white;
+        }
+
+        .recommendation {
+            background: #e3f2fd;
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 24px;
+            font-weight: 500;
+            border-left: 4px solid #2196F3;
+            font-size: 14px;
+            color: #1565c0;
+        }
+
+        .recommendation.no {
+            background: #fdf0f0;
+            border-left-color: #b44;
+            color: #7a1617;
+            font-weight: 600;
+        }
+
+        .recommendation.consultar {
+            background: #fdebd0;
+            border-left-color: #ff9800;
+            color: #7d4f0f;
+            font-weight: 600;
+        }
+
+        .recommendation.monitorizar {
+            background: #fef9e7;
+            border-left-color: #ffc107;
+            color: #6e5d0b;
+            font-weight: 600;
+        }
+
+        .ingredients-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #e8e0d4;
+        }
+
+        .ingredients-table thead {
+            background: #12100e;
+            color: white;
+        }
+
+        .ingredients-table th,
+        .ingredients-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e8e0d4;
+            font-size: 14px;
+        }
+
+        .ingredients-table tbody tr:hover {
+            background: #faf8f5;
+        }
+
+        .ingredients-table th {
+            font-weight: 600;
+            font-size: 13px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #f0f0f0;
+            color: #B85C3C;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .alert {
+            background: #fdf0f0;
+            border: 2px solid #b44;
+            border-radius: 4px;
+            padding: 24px;
+            margin-bottom: 48px;
+            color: #7a1617;
+        }
+
+        .alert h4 {
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #12100e;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .alert ul {
+            margin-left: 24px;
+        }
+
+        .alert li {
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #12100e;
+            color: white;
+            text-align: center;
+            padding: 32px 24px;
+            margin-top: 64px;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+        footer p {
+            margin-bottom: 12px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #e3f2fd;
+            color: #1565c0;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 16px;
+            margin-right: 12px;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: #12100e;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 24px;
+            }
+
+            .contraindication-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ingredients-table {
+                font-size: 0.9em;
+            }
+
+            .ingredients-table th,
+            .ingredients-table td {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💊 SŌMA - Protocolo DERMA90</h1>
+        <p>Guía completa de ingredientes y contraindicaciones</p>
+    </header>
+
+    <div class="container">
+        <!-- Tabs de navegación -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="ingredientes">📋 Ingredientes</button>
+            <button class="tab-btn" data-tab="contraindicaciones">⚠️ Contraindicaciones</button>
+            <button class="tab-btn" data-tab="grupos-riesgo">👥 Grupos de Riesgo</button>
+        </div>
+
+        <!-- SECCIÓN 1: INGREDIENTES -->
+        <div id="ingredientes" class="section active">
+            <div class="search-box">
+                <input type="text" id="searchIngredients" placeholder="Buscar ingrediente...">
+                <button onclick="searchIngredients()">Buscar</button>
+            </div>
+
+            <div class="alert">
+                <h4>⚠️ Alérgenos Identificados</h4>
+                <p>Este suplemento <strong>CONTIENE:</strong></p>
+                <ul>
+                    <li><span class="highlight">GLUTEN</span> (Trigo extracto seco - 30mg)</li>
+                    <li><span class="highlight">SOJA</span> (Lecitina de soja polvo - 12.28mg)</li>
+                </ul>
+            </div>
+
+            <h2 style="margin-bottom: 20px; color: #2c3e50;">Lista Completa de Ingredientes (Por 1 Cápsula)</h2>
+
+            <table class="ingredients-table" id="ingredientsTable">
+                <thead>
+                    <tr>
+                        <th>Ingrediente</th>
+                        <th>Dosis</th>
+                        <th>VRN %</th>
+                        <th>Función</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Vitaminas -->
+                    <tr>
+                        <td><strong>Vitamina E 50%</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>80.532mg</td>
+                        <td>225%</td>
+                        <td>Protección antioxidante potente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamina A</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>18mg / 2700μg</td>
+                        <td>337.5%</td>
+                        <td>Mantenimiento de piel y visión</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamina D</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>18μg</td>
+                        <td>360%</td>
+                        <td>Absorción mineral e inmunidad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamina C</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>36mg</td>
+                        <td>45%</td>
+                        <td>Formación de colágeno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vitamina B6</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>7.20mg</td>
+                        <td>514.29%</td>
+                        <td>Metabolismo proteico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Niacina (B3)</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>3.6mg</td>
+                        <td>22.5%</td>
+                        <td>Salud de la piel</td>
+                    </tr>
+
+                    <!-- Minerales -->
+                    <tr>
+                        <td><strong>Zinc</strong><br><span class="category-badge">Mineral</span></td>
+                        <td>3mg</td>
+                        <td>30%</td>
+                        <td>Síntesis proteica y piel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Selenio</strong><br><span class="category-badge">Mineral</span></td>
+                        <td>60μg</td>
+                        <td>109%</td>
+                        <td>Antioxidante e inmunidad</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cobre</strong><br><span class="category-badge">Mineral</span></td>
+                        <td>0.3mg</td>
+                        <td>30%</td>
+                        <td>Cofactor colágeno y melanina</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manganeso</strong><br><span class="category-badge">Mineral</span></td>
+                        <td>0.613mg</td>
+                        <td>30.65%</td>
+                        <td>Metabolismo óseo</td>
+                    </tr>
+
+                    <!-- Antioxidantes Botánicos -->
+                    <tr>
+                        <td><strong>Cúrcuma 95%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>54mg</td>
+                        <td>-</td>
+                        <td>Antiinflamatorio potente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semilla de Uva 95%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>45mg</td>
+                        <td>-</td>
+                        <td>Proantocianidinas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Licopeno</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>1.5mg</td>
+                        <td>-</td>
+                        <td>Protección solar interna</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Té Verde 40%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>13.2mg</td>
+                        <td>-</td>
+                        <td>Antioxidante y relajación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Astaxantina</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>1.2mg</td>
+                        <td>-</td>
+                        <td>Antioxidante marino</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Escaramujo 50%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>27mg</td>
+                        <td>-</td>
+                        <td>Vitamina C natural + bioflavonoides</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Acacia de Japón 95%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>12mg</td>
+                        <td>-</td>
+                        <td>Bioflavonoides</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pimienta Negra 95%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>3mg</td>
+                        <td>-</td>
+                        <td>Biodisponibilidad (potenciador)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sauce 3%</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>8.39mg</td>
+                        <td>-</td>
+                        <td>Antiinflamatorio natural</td>
+                    </tr>
+
+                    <!-- Otros -->
+                    <tr>
+                        <td><strong>MSM</strong><br><span class="category-badge">Cofactor</span></td>
+                        <td>54mg</td>
+                        <td>-</td>
+                        <td>Precursor colágeno, azufre</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ácido Alfa Lipoico</strong><br><span class="category-badge">Antioxidante</span></td>
+                        <td>30mg</td>
+                        <td>-</td>
+                        <td>Antioxidante sistémico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bromelaina</strong><br><span class="category-badge">Enzima</span></td>
+                        <td>14.4mg</td>
+                        <td>-</td>
+                        <td>Digestión proteica</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kiwi Extracto Seco</strong><br><span class="category-badge">Enzima</span></td>
+                        <td>24mg</td>
+                        <td>-</td>
+                        <td>Enzima proteolítica</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cola de Caballo 4%</strong><br><span class="category-badge">Botánico</span></td>
+                        <td>15mg</td>
+                        <td>-</td>
+                        <td>Colágeno y elastina</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lecitina de Soja</strong><br><span class="category-badge">Botánico</span> ⚠️</td>
+                        <td>12.28mg</td>
+                        <td>-</td>
+                        <td>Emulsionante y soporte neuronal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ácido Pantoténico (B5)</strong><br><span class="category-badge">Vitamina</span></td>
+                        <td>4.8mg</td>
+                        <td>80%</td>
+                        <td>Metabolismo energético</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px; margin-bottom: 20px; color: #2c3e50;">📋 Información Destacada</h3>
+            <div class="ingredient-grid">
+                <div class="ingredient-card">
+                    <h3>Presentación</h3>
+                    <div class="funcion">
+                        <strong>1 cápsula diaria</strong><br>
+                        Contiene todos los ingredientes listados
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <h3>Duración del Protocolo</h3>
+                    <div class="funcion">
+                        <strong>12 semanas (90 días)</strong><br>
+                        Periodo de adaptación: 3-4 semanas
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <h3>Mejor Forma de Tomar</h3>
+                    <div class="funcion">
+                        <strong>Con desayuno</strong><br>
+                        Proteína + luz natural para máxima absorción
+                    </div>
+                </div>
+                <div class="ingredient-card">
+                    <h3>Mecanismo Principal</h3>
+                    <div class="funcion">
+                        1. Síntesis de colágeno<br>
+                        2. Protección antioxidante<br>
+                        3. Absorción y cofactores
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 2: CONTRAINDICACIONES -->
+        <div id="contraindicaciones" class="section">
+            <div class="search-box">
+                <input type="text" id="searchContraindications" placeholder="Buscar medicamento o condición...">
+                <button onclick="searchContraindications()">Buscar</button>
+            </div>
+
+            <h2 style="margin-bottom: 20px; color: #2c3e50;">Contraindicaciones Conocidas</h2>
+
+            <!-- RYEQO -->
+            <div class="contraindication-card" id="contraindication-ryeqo">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🔴 RYEQO</h3>
+                        <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Relugolix + Estradiol + Noretindrona</p>
+                    </div>
+                    <span class="risk-badge alto">RIESGO ALTO</span>
+                </div>
+                <p><strong>Descripción:</strong> Anticonceptivo hormonal para sangrado menstrual abundante asociado con fibromas uterinos.</p>
+
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">Ingredientes Problemáticos:</h4>
+                <table class="ingredients-table" style="margin: 15px 0;">
+                    <thead>
+                        <tr>
+                            <th>Ingrediente</th>
+                            <th>Dosis</th>
+                            <th>Riesgo</th>
+                            <th>Razón</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vitamina E 50%</strong></td>
+                            <td>80.532mg (225%)</td>
+                            <td><span class="risk-badge alto" style="display: inline-block;">ALTO</span></td>
+                            <td>Propiedades anticoagulantes; Ryeqo incrementa trombosis</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cúrcuma 95%</strong></td>
+                            <td>54mg</td>
+                            <td><span class="risk-badge moderado" style="display: inline-block;">MODERADO</span></td>
+                            <td>Efectos antitrombóticos, antiinflamatorio potente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sauce (salicina)</strong></td>
+                            <td>8.39mg</td>
+                            <td><span class="risk-badge moderado" style="display: inline-block;">MODERADO</span></td>
+                            <td>Mecanismo similar a aspirina, afecta coagulación</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ácido Alfa Lipoico</strong></td>
+                            <td>30mg</td>
+                            <td><span class="risk-badge leve" style="display: inline-block;">LEVE</span></td>
+                            <td>Propiedades anticoagulantes leves</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bromelaina</strong></td>
+                            <td>14.4mg</td>
+                            <td><span class="risk-badge leve" style="display: inline-block;">LEVE</span></td>
+                            <td>Enzima proteolítica con efectos anticoagulantes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pimienta Negra (piperina)</strong></td>
+                            <td>3mg</td>
+                            <td><span class="risk-badge leve" style="display: inline-block;">LEVE</span></td>
+                            <td>Inhibe CYP3A4, puede aumentar biodisponibilidad</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="recommendation no">
+                    ❌ NO RECOMENDADO sin supervisión médica. Requiere aprobación del ginecólogo.
+                </div>
+
+                <h4 style="margin-top: 20px; margin-bottom: 10px;">⚠️ Síntomas de Alerta:</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Hemorragias anormales</li>
+                    <li>Hematomas espontáneos</li>
+                    <li>Dolor en pantorrillas</li>
+                    <li>Dificultad respiratoria</li>
+                </ul>
+            </div>
+
+            <!-- TRASTORNOS DE COAGULACIÓN -->
+            <div class="contraindication-card" id="contraindication-coagulation">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🔴 Trastornos de Coagulación</h3>
+                        <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Hemofilia, Trombofilia, Síndrome de Antifosfolípido</p>
+                    </div>
+                    <span class="risk-badge critico">CRÍTICO</span>
+                </div>
+                <p><strong>Motivo:</strong> El suplemento contiene múltiples agentes que afectan la coagulación:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Vitamina E 225% VRN</li>
+                    <li>Cúrcuma</li>
+                    <li>Sauce</li>
+                    <li>Bromelaina</li>
+                    <li>Ácido alfa lipoico</li>
+                </ul>
+
+                <div class="recommendation no">
+                    ❌ CONTRAINDICADO - Riesgo severo de sangrado.
+                </div>
+            </div>
+
+            <!-- EMBARAZO -->
+            <div class="contraindication-card" id="contraindication-pregnancy">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🔴 Embarazo</h3>
+                    </div>
+                    <span class="risk-badge critico">CRÍTICO</span>
+                </div>
+
+                <table class="ingredients-table" style="margin: 15px 0;">
+                    <thead>
+                        <tr>
+                            <th>Ingrediente</th>
+                            <th>Razón</th>
+                            <th>Recomendación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Vitamina A</strong></td>
+                            <td>2700μg (337.5% VRN) - Teratogenicidad en altas dosis</td>
+                            <td>❌ Evitar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cúrcuma</strong></td>
+                            <td>Propiedades uterotónicas potenciales</td>
+                            <td>❌ Evitar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bromelaina</strong></td>
+                            <td>Puede afectar placenta</td>
+                            <td>❌ Evitar</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sauce (salicina)</strong></td>
+                            <td>Efectos antiinflamatorios sistémicos</td>
+                            <td>❌ Evitar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="recommendation no">
+                    ❌ NO RECOMENDADO en embarazo sin supervisión médica.
+                </div>
+            </div>
+
+            <!-- LACTANCIA -->
+            <div class="contraindication-card moderado" id="contraindication-lactancia">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🟡 Lactancia</h3>
+                    </div>
+                    <span class="risk-badge moderado">RIESGO MODERADO</span>
+                </div>
+                <p><strong>Consideraciones:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Vitamina A en altas dosis puede pasar a leche materna</li>
+                    <li>Cúrcuma se transfiere en pequeñas cantidades</li>
+                    <li>Bromelaina generalmente segura en lactancia</li>
+                </ul>
+
+                <div class="recommendation consultar">
+                    ⚠️ CONSULTAR CON PEDIATRA/MÉDICO antes de consumir.
+                </div>
+            </div>
+
+            <!-- INSUFICIENCIA RENAL O HEPÁTICA -->
+            <div class="contraindication-card moderado" id="contraindication-renal">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🟡 Insuficiencia Renal o Hepática</h3>
+                    </div>
+                    <span class="risk-badge moderado">RIESGO MODERADO</span>
+                </div>
+                <p><strong>Motivo:</strong> Metabolismo y eliminación de ingredientes comprometidos.</p>
+                <p><strong>Ingredientes de mayor preocupación:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Vitamina A (metabolismo hepático)</li>
+                    <li>Vitamina E (eliminación hepática)</li>
+                    <li>Selenio (eliminación renal)</li>
+                    <li>MSM (metabolismo hepático)</li>
+                </ul>
+
+                <div class="recommendation consultar">
+                    ⚠️ CONSULTAR CON NEFRÓLOGO/HEPATÓLOGO - Ajuste de dosis posible.
+                </div>
+            </div>
+
+            <!-- ÚLCERA GÁSTRICA -->
+            <div class="contraindication-card leve" id="contraindication-gastrica">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🟡 Úlcera Gástrica o Reflujo Severo</h3>
+                    </div>
+                    <span class="risk-badge leve">RIESGO LEVE-MODERADO</span>
+                </div>
+                <p><strong>Ingredientes irritantes:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Pimienta negra (piperina) - Irritante gástrica</li>
+                    <li>Cúrcuma - Puede aumentar ácidez</li>
+                    <li>Sauce (salicina) - Irritación gástrica</li>
+                </ul>
+
+                <div class="recommendation monitorizar">
+                    ⏳ TOMAR CON ALIMENTOS Y ABUNDANTE AGUA - Monitorizar síntomas.
+                </div>
+            </div>
+
+            <!-- ALÉRGENOS CRÍTICOS -->
+            <div class="contraindication-card" id="contraindication-gluten">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🔴 Celiaquía o Sensibilidad al Gluten</h3>
+                    </div>
+                    <span class="risk-badge critico">CRÍTICO</span>
+                </div>
+                <p><strong>Alérgeno presente:</strong> Trigo extracto seco (30mg) - ⚠️ CONTIENE GLUTEN</p>
+                <p style="margin-top: 10px;">Puede causar inflamación, daño intestinal y reacciones autoinmunes.</p>
+
+                <div class="recommendation no">
+                    ❌ CONTRAINDICADO - Riesgo de reacción alérgica severa.
+                </div>
+            </div>
+
+            <div class="contraindication-card" id="contraindication-soja">
+                <div class="contraindication-header">
+                    <div>
+                        <h3>🔴 Alergia a la Soja</h3>
+                    </div>
+                    <span class="risk-badge critico">CRÍTICO</span>
+                </div>
+                <p><strong>Alérgeno presente:</strong> Lecitina de soja polvo (12.28mg) - ⚠️ CONTIENE SOJA</p>
+                <p style="margin-top: 10px;">Puede causar reacción alérgica.</p>
+
+                <div class="recommendation no">
+                    ❌ CONTRAINDICADO - Riesgo de reacción alérgica.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 3: GRUPOS DE RIESGO -->
+        <div id="grupos-riesgo" class="section">
+            <h2 style="margin-bottom: 30px; color: #2c3e50;">Grupos de Riesgo</h2>
+
+            <div class="ingredient-grid">
+                <div class="ingredient-card" style="border-left-color: #c0392b;">
+                    <h3 style="color: #c0392b;">🔴 Grupo 1: CRÍTICO</h3>
+                    <p style="font-weight: 600; margin-bottom: 15px; color: #922b21;">NO CONSUMIR</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li>Pacientes con hemofilia o trastornos de coagulación</li>
+                        <li>Embarazadas</li>
+                        <li>Pacientes con tratamiento anticoagulante (warfarina, dabigatrán, etc.)</li>
+                        <li>Pacientes en Ryeqo o similares</li>
+                        <li>Alergia a gluten o soja</li>
+                    </ul>
+                </div>
+
+                <div class="ingredient-card" style="border-left-color: #f39c12;">
+                    <h3 style="color: #f39c12;">🟠 Grupo 2: MODERADO</h3>
+                    <p style="font-weight: 600; margin-bottom: 15px; color: #7d4f0f;">CONSULTAR ANTES</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li>Lactantes</li>
+                        <li>Insuficiencia renal o hepática</li>
+                        <li>Úlcera gástrica o reflujo severo</li>
+                        <li>Alergia a frutas tropicales (piña, kiwi)</li>
+                        <li>Alergia a componentes botánicos</li>
+                    </ul>
+                </div>
+
+                <div class="ingredient-card" style="border-left-color: #f1c40f;">
+                    <h3 style="color: #8e6f0f;">🟡 Grupo 3: LEVE</h3>
+                    <p style="font-weight: 600; margin-bottom: 15px; color: #6e5d0b;">MONITORIZAR</p>
+                    <ul style="margin-left: 20px; font-size: 0.95em;">
+                        <li>Antecedente de trombosis</li>
+                        <li>Mayores de 65 años</li>
+                        <li>Múltiples medicaciones</li>
+                        <li>Problemas digestivos leves</li>
+                        <li>Sensibilidad a suplementos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert" style="margin-top: 30px;">
+                <h4>📞 Antes de Iniciar SŌMA</h4>
+                <p>Si perteneces a cualquiera de estos grupos, <strong>consulta con tu médico</strong> antes de iniciar el suplemento.</p>
+                <p style="margin-top: 15px; font-weight: 600;">Tu seguridad es nuestra prioridad.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>📋 Información sobre SŌMA - Protocolo DERMA90 | Última actualización: Abril 2026</p>
+        <p style="margin-top: 10px; opacity: 0.8;">Para más información o consultas, contacta a nuestro equipo médico.</p>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Remove active class from all buttons
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+
+                // Show selected section and mark button as active
+                document.getElementById(tabName).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Search functionality
+        function searchIngredients() {
+            const input = document.getElementById('searchIngredients').value.toLowerCase();
+            const rows = document.querySelectorAll('#ingredientsTable tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        function searchContraindications() {
+            const input = document.getElementById('searchContraindications').value.toLowerCase();
+            const cards = document.querySelectorAll('[id^="contraindication-"]');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(input) ? '' : 'none';
+            });
+        }
+
+        // Allow search on Enter key
+        document.getElementById('searchIngredients')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchIngredients();
+        });
+
+        document.getElementById('searchContraindications')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') searchContraindications();
+        });
+    </script>
+</body>
+</html>
