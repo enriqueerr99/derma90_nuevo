@@ -1211,6 +1211,13 @@
                 </div>
             </div>
 
+            <div class="modal-section">
+                <h3>Historial de Cambios</h3>
+                <div class="lead-info" id="modalHistorial" style="max-height: 300px; overflow-y: auto;">
+                    <p>Cargando historial...</p>
+                </div>
+            </div>
+
             <div class="modal-actions">
                 <button class="btn-secondary" onclick="closeModal()">Cerrar</button>
                 <button class="btn-primary" onclick="saveLead()">Guardar Cambios</button>
@@ -1226,6 +1233,7 @@
             veronica: { password: 'iderma2026', canExport: false }
         };
         const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycby1pnTXa3qvi686q-MhhFJJgU6hbaLU3P-XnoYyMvSJcVxLWu7qQoUSs3q7UPvE-sw/exec';
+        const GOOGLE_NOTES_API = 'https://script.google.com/macros/s/AKfycbw1dNT5GEaM1i8IHcnchWUeStGR0hpN4o2wDeJXSEEkJ4irX7xXsuASk_Dx0SH1-uZt/exec';
         const STORAGE_KEY = 'iderma_dashboard_login';
         const STORAGE_USER_KEY = 'iderma_dashboard_user';
         const LEADS_STORAGE_KEY = 'iderma_leads_data';
@@ -1399,7 +1407,7 @@
         }
 
         // ===== MODAL LEAD =====
-        function openLeadModal(leadIndex) {
+        async function openLeadModal(leadIndex) {
             currentLeadIndex = leadIndex;
             const lead = leadsData[leadIndex];
 
@@ -1409,6 +1417,45 @@
             document.getElementById('modalTelefono').textContent = lead.telefono || '-';
             document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
             document.getElementById('modalFecha').textContent = formatDate(lead.timestamp);
+
+            // Cargar notas desde Google Sheets
+            try {
+                const notesResponse = await fetch(`${GOOGLE_NOTES_API}?action=getNotes&email=${encodeURIComponent(lead.email)}`);
+                const notesData = await notesResponse.json();
+                lead.estado = notesData.estado || 'nuevo';
+                lead.notas = notesData.notas || '';
+            } catch (error) {
+                console.error('Error cargando notas:', error);
+            }
+
+            // Cargar historial desde Google Sheets
+            try {
+                const historyResponse = await fetch(`${GOOGLE_NOTES_API}?action=getHistory&email=${encodeURIComponent(lead.email)}`);
+                const historyData = await historyResponse.json();
+
+                if (historyData && historyData.length > 0) {
+                    const historyHtml = historyData.map(entry => `
+                        <div class="lead-info-row" style="border-bottom: 1px solid var(--color-gray-light); padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="margin-bottom: 0.25rem;">
+                                <strong style="color: var(--color-primary);">${entry.tipo}</strong>
+                                <span style="font-size: 0.8rem; color: var(--color-gray-medium);"> • ${entry.fecha}</span>
+                            </div>
+                            <div style="margin-bottom: 0.25rem;">
+                                <span style="font-size: 0.9rem;">${entry.descripcion}</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--color-gray-medium);">
+                                Por: <strong>${entry.usuario}</strong>
+                            </div>
+                        </div>
+                    `).join('');
+                    document.getElementById('modalHistorial').innerHTML = historyHtml;
+                } else {
+                    document.getElementById('modalHistorial').innerHTML = '<p>Sin historial de cambios</p>';
+                }
+            } catch (error) {
+                console.error('Error cargando historial:', error);
+                document.getElementById('modalHistorial').innerHTML = '<p>Error cargando historial</p>';
+            }
 
             // GHL Status
             if (lead.ghlId) {
@@ -1462,23 +1509,40 @@
             document.getElementById('leadModal').classList.remove('active');
         }
 
-        function saveLead() {
+        async function saveLead() {
             const lead = leadsData[currentLeadIndex];
+            const estadoAnterior = lead.estado || 'nuevo';
+            const notasAnteriores = lead.notas || '';
             lead.estado = document.getElementById('modalEstado').value;
             lead.notas = document.getElementById('modalNotas').value;
+            const currentUser = localStorage.getItem(STORAGE_USER_KEY) || 'Sistema';
 
-            leadsNotes[currentLeadIndex] = {
-                estado: lead.estado,
-                notas: lead.notas
-            };
+            try {
+                // Guardar notas en Google Sheets
+                const saveResponse = await fetch(`${GOOGLE_NOTES_API}?action=saveNotes&email=${encodeURIComponent(lead.email)}&estado=${encodeURIComponent(lead.estado)}&notas=${encodeURIComponent(lead.notas)}&usuario=${encodeURIComponent(currentUser)}&estadoAnterior=${encodeURIComponent(estadoAnterior)}`, {
+                    method: 'POST'
+                });
+                const saveResult = await saveResponse.json();
 
-            localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(leadsNotes));
-            localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
+                if (saveResult.success) {
+                    leadsNotes[currentLeadIndex] = {
+                        estado: lead.estado,
+                        notas: lead.notas
+                    };
+                    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(leadsNotes));
+                    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
 
-            filterAndDisplayLeads();
-            updateStats();
-            closeModal();
-            alert('Lead actualizado correctamente');
+                    filterAndDisplayLeads();
+                    updateStats();
+                    closeModal();
+                    alert('Lead actualizado correctamente');
+                } else {
+                    alert('Error al guardar las notas');
+                }
+            } catch (error) {
+                console.error('Error guardando notas:', error);
+                alert('Error al guardar las notas: ' + error.message);
+            }
         }
 
         // ===== ESTADÍSTICAS =====
