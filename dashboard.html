@@ -1233,7 +1233,7 @@
             veronica: { password: 'iderma2026', canExport: false }
         };
         const GOOGLE_SHEETS_API = 'https://script.google.com/macros/s/AKfycby1pnTXa3qvi686q-MhhFJJgU6hbaLU3P-XnoYyMvSJcVxLWu7qQoUSs3q7UPvE-sw/exec';
-        const GOOGLE_NOTES_API = 'https://script.google.com/macros/s/AKfycbxkqtzdsv7FJ8fPGJji2egJwNdhwW4rG-7MqH40Qb54KCOO5fLmfRabiKv-SwD_vdE/exec';
+        const GOOGLE_NOTES_API = 'https://script.google.com/macros/s/AKfycbyNDYCphwg_qSww0_TD5Nd2RHhnp3OCcNm8_Ujk8DL4GbVBYhU5h_mKw7nMlm1vIpaT/exec';
         const STORAGE_KEY = 'iderma_dashboard_login';
         const STORAGE_USER_KEY = 'iderma_dashboard_user';
         const LEADS_STORAGE_KEY = 'iderma_leads_data';
@@ -1418,35 +1418,36 @@
             document.getElementById('modalPerfil').textContent = (lead.perfil || 'N/A').toUpperCase();
             document.getElementById('modalFecha').textContent = formatDate(lead.timestamp);
 
-            // Cargar datos del lead desde localStorage
-            const leadKey = `lead_${lead.email}`;
-            const leadData = JSON.parse(localStorage.getItem(leadKey) || '{}');
+            // Cargar datos desde Google Sheets
+            try {
+                const response = await fetch(`${GOOGLE_NOTES_API}?action=getFullData&email=${encodeURIComponent(lead.email)}`);
+                const data = await response.json();
 
-            lead.estado = leadData.estado || 'nuevo';
-            lead.notas = leadData.notas || '';
+                lead.estado = data.notes.estado || 'nuevo';
+                lead.notas = data.notes.notas || '';
 
-            // Mostrar historial desde localStorage
-            const historyKey = `history_${lead.email}`;
-            const history = JSON.parse(localStorage.getItem(historyKey) || '[]');
-
-            if (history && history.length > 0) {
-                const historyHtml = history.map(entry => `
-                    <div class="lead-info-row" style="border-bottom: 1px solid var(--color-gray-light); padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                        <div style="margin-bottom: 0.25rem;">
-                            <strong style="color: var(--color-primary);">${entry.tipo}</strong>
-                            <span style="font-size: 0.8rem; color: var(--color-gray-medium);"> • ${entry.fecha}</span>
+                if (data.history && data.history.length > 0) {
+                    const historyHtml = data.history.map(entry => `
+                        <div class="lead-info-row" style="border-bottom: 1px solid var(--color-gray-light); padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="margin-bottom: 0.25rem;">
+                                <strong style="color: var(--color-primary);">${entry.tipo}</strong>
+                                <span style="font-size: 0.8rem; color: var(--color-gray-medium);"> • ${entry.fecha}</span>
+                            </div>
+                            <div style="margin-bottom: 0.25rem;">
+                                <span style="font-size: 0.9rem;">${entry.descripcion}</span>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--color-gray-medium);">
+                                Por: <strong>${entry.usuario}</strong>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 0.25rem;">
-                            <span style="font-size: 0.9rem;">${entry.descripcion}</span>
-                        </div>
-                        <div style="font-size: 0.8rem; color: var(--color-gray-medium);">
-                            Por: <strong>${entry.usuario}</strong>
-                        </div>
-                    </div>
-                `).join('');
-                document.getElementById('modalHistorial').innerHTML = historyHtml;
-            } else {
-                document.getElementById('modalHistorial').innerHTML = '<p>Sin historial de cambios</p>';
+                    `).join('');
+                    document.getElementById('modalHistorial').innerHTML = historyHtml;
+                } else {
+                    document.getElementById('modalHistorial').innerHTML = '<p>Sin historial de cambios</p>';
+                }
+            } catch (error) {
+                console.error('Error cargando datos:', error);
+                document.getElementById('modalHistorial').innerHTML = '<p>Error cargando historial</p>';
             }
 
             // GHL Status
@@ -1501,61 +1502,39 @@
             document.getElementById('leadModal').classList.remove('active');
         }
 
-        function saveLead() {
+        async function saveLead() {
             const lead = leadsData[currentLeadIndex];
             const estadoAnterior = lead.estado || 'nuevo';
-            const notasAnteriores = lead.notas || '';
             lead.estado = document.getElementById('modalEstado').value;
             lead.notas = document.getElementById('modalNotas').value;
             const currentUser = localStorage.getItem(STORAGE_USER_KEY) || 'Sistema';
 
-            // Guardar en localStorage
-            const leadKey = `lead_${lead.email}`;
-            localStorage.setItem(leadKey, JSON.stringify({
-                estado: lead.estado,
-                notas: lead.notas
-            }));
-
-            // Crear entrada de historial
-            const estadoCambió = estadoAnterior !== lead.estado;
-            const notasCambiaron = notasAnteriores !== lead.notas;
-
-            if (estadoCambió || notasCambiaron) {
-                const historyKey = `history_${lead.email}`;
-                const history = JSON.parse(localStorage.getItem(historyKey) || '[]');
-                const ahora = new Date().toLocaleString('es-ES');
-                let descripcion = '';
-
-                if (estadoCambió && notasCambiaron) {
-                    descripcion = `Estado cambió de "${estadoAnterior}" a "${lead.estado}" y se actualizó nota`;
-                } else if (estadoCambió) {
-                    descripcion = `Estado cambió de "${estadoAnterior}" a "${lead.estado}"`;
-                } else if (notasCambiaron) {
-                    descripcion = `Nota actualizada`;
-                }
-
-                history.push({
-                    tipo: 'ACTUALIZACIÓN',
-                    descripcion: descripcion,
-                    usuario: currentUser,
-                    fecha: ahora
+            try {
+                // Guardar en Google Sheets
+                const response = await fetch(`${GOOGLE_NOTES_API}?action=saveNotes&email=${encodeURIComponent(lead.email)}&estado=${encodeURIComponent(lead.estado)}&notas=${encodeURIComponent(lead.notas)}&usuario=${encodeURIComponent(currentUser)}`, {
+                    method: 'POST'
                 });
+                const result = await response.json();
 
-                localStorage.setItem(historyKey, JSON.stringify(history));
+                if (result.success) {
+                    leadsNotes[currentLeadIndex] = {
+                        estado: lead.estado,
+                        notas: lead.notas
+                    };
+                    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(leadsNotes));
+                    localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
+
+                    filterAndDisplayLeads();
+                    updateStats();
+                    closeModal();
+                    alert('Lead actualizado correctamente');
+                } else {
+                    alert('Error al guardar: ' + (result.error || 'Error desconocido'));
+                }
+            } catch (error) {
+                console.error('Error guardando:', error);
+                alert('Error al guardar las notas: ' + error.message);
             }
-
-            // Actualizar datos
-            leadsNotes[currentLeadIndex] = {
-                estado: lead.estado,
-                notas: lead.notas
-            };
-            localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(leadsNotes));
-            localStorage.setItem(LEADS_STORAGE_KEY, JSON.stringify(leadsData));
-
-            filterAndDisplayLeads();
-            updateStats();
-            closeModal();
-            alert('Lead actualizado correctamente');
         }
 
         // ===== ESTADÍSTICAS =====
