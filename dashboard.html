@@ -1073,7 +1073,7 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 2rem; padding: 0;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; padding: 0;">
                     <!-- Gráfico Perfiles -->
                     <div class="table-container" style="padding: 2rem;">
                         <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary); font-size: 1.15rem;">Distribución de Perfiles</h3>
@@ -1092,10 +1092,21 @@
                         <div id="statsLandings" style="margin-top: 1.5rem; font-size: 0.9rem; text-align: center;"></div>
                     </div>
 
-                    <!-- Gráfico Leads por Día (más ancho) -->
-                    <div class="table-container" style="padding: 2rem; margin-right: 2rem;">
-                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary); font-size: 1.15rem;">Leads por Día</h3>
+                    <!-- Gráfico UTM Source -->
+                    <div class="table-container" style="padding: 2rem;">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary); font-size: 1.15rem;">Origen de Tráfico (UTM Source)</h3>
                         <div style="position: relative; height: 250px;">
+                            <canvas id="chartUtmSource"></canvas>
+                        </div>
+                        <div id="statsUtmSource" style="margin-top: 1.5rem; font-size: 0.9rem; text-align: center;"></div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; padding: 0; margin-top: 2rem;">
+                    <!-- Gráfico Leads por Día (ancho completo) -->
+                    <div class="table-container" style="padding: 2rem;">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--color-primary); font-size: 1.15rem;">Leads por Día</h3>
+                        <div style="position: relative; height: 300px;">
                             <canvas id="chartLeadsPerDay"></canvas>
                         </div>
                     </div>
@@ -1543,6 +1554,7 @@
         // ===== SECCIONES =====
         let chartPerfiles = null;
         let chartLandings = null;
+        let chartUtmSource = null;
         let chartLeadsPerDay = null;
 
         function showSection(section) {
@@ -1667,6 +1679,56 @@
                 <div style="margin-bottom: 0.5rem;"><strong>Premium:</strong> ${landingsCount.premium} leads (${statsPremium}%)</div>
                 <div style="margin-bottom: 0.5rem;"><strong>Original:</strong> ${landingsCount.original} leads (${statsOriginal}%)</div>
             `;
+
+            // Gráfico de UTM Source
+            const utmSourceCount = {};
+            leadsData.forEach(lead => {
+                const source = (lead.utm_source || 'Directo').toLowerCase().trim();
+                utmSourceCount[source] = (utmSourceCount[source] || 0) + 1;
+            });
+
+            const utmLabels = Object.keys(utmSourceCount);
+            const utmData = Object.values(utmSourceCount);
+            const utmTotal = utmData.reduce((a, b) => a + b, 0);
+
+            const ctxUtmSource = document.getElementById('chartUtmSource').getContext('2d');
+            if (chartUtmSource) chartUtmSource.destroy();
+            chartUtmSource = new Chart(ctxUtmSource, {
+                type: 'doughnut',
+                data: {
+                    labels: utmLabels,
+                    datasets: [{
+                        data: utmData,
+                        backgroundColor: [
+                            '#c67856',
+                            '#8a9b7a',
+                            '#b8945f',
+                            '#e8b84d',
+                            '#d4a574',
+                            '#9b8b7e'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { font: { size: 12 }, padding: 15 }
+                        }
+                    }
+                }
+            });
+
+            // Estadísticas de UTM Source
+            const statsUtmSourceHtml = utmLabels.map((label, idx) => {
+                const count = utmData[idx];
+                const percentage = ((count / utmTotal) * 100).toFixed(1);
+                return `<div style="margin-bottom: 0.5rem;"><strong>${label.toUpperCase()}:</strong> ${count} leads (${percentage}%)</div>`;
+            }).join('');
+            document.getElementById('statsUtmSource').innerHTML = statsUtmSourceHtml;
 
             // Gráfico de Leads por Día
             const leadsPerDay = {};
