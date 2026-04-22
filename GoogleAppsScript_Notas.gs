@@ -10,120 +10,162 @@ const SHEET_ID = "1Hz_cY0e_nr263HGSRMc8kNf1Efo6hxx1kB6CnF8gnrw";
 const NOTES_SHEET_NAME = "Notas";
 const HISTORY_SHEET_NAME = "Historial";
 
-// Inicializar la hoja de notas si no existe
-function initializeNotesSheet() {
+// Obtener referencia a las hojas
+function getNotesSheet() {
   const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
   let sheet = spreadsheet.getSheetByName(NOTES_SHEET_NAME);
 
   if (!sheet) {
     sheet = spreadsheet.insertSheet(NOTES_SHEET_NAME);
-    // Headers: Email, Estado, Notas, Fecha Actualización
     sheet.appendRow(["Email", "Estado", "Notas", "Fecha Actualización"]);
   }
 
   return sheet;
 }
 
-// Inicializar la hoja de historial si no existe
-function initializeHistorySheet() {
+function getHistorySheet() {
   const spreadsheet = SpreadsheetApp.openById(SHEET_ID);
   let sheet = spreadsheet.getSheetByName(HISTORY_SHEET_NAME);
 
   if (!sheet) {
     sheet = spreadsheet.insertSheet(HISTORY_SHEET_NAME);
-    // Headers: Email, Tipo, Descripcion, Usuario, Fecha
     sheet.appendRow(["Email", "Tipo", "Descripcion", "Usuario", "Fecha"]);
   }
 
   return sheet;
 }
 
-// Agregar entrada al historial
-function addHistoryEntry(email, tipo, descripcion, usuario) {
-  const sheet = initializeHistorySheet();
-  const ahora = new Date().toLocaleString('es-ES');
-  sheet.appendRow([email, tipo, descripcion, usuario, ahora]);
-}
-
 // Obtener notas de un lead
 function getNotes(email) {
-  const sheet = initializeNotesSheet();
-  const data = sheet.getDataRange().getValues();
+  try {
+    const sheet = getNotesSheet();
+    const data = sheet.getDataRange().getValues();
 
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][0] === email) {
-      return {
-        estado: data[i][1] || "nuevo",
-        notas: data[i][2] || "",
-        fechaActualizacion: data[i][3] || ""
-      };
-    }
-  }
-
-  return {
-    estado: "nuevo",
-    notas: "",
-    fechaActualizacion: ""
-  };
-}
-
-// Guardar notas de un lead
-function saveNotes(email, estado, notas, usuario, estadoAnterior) {
-  const sheet = initializeNotesSheet();
-  const data = sheet.getDataRange().getValues();
-  const ahora = new Date().toLocaleString('es-ES');
-  let descripcion = "";
-
-  // Buscar si existe
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][0] === email) {
-      const estadoAntiguo = data[i][1];
-
-      // Crear descripción del cambio
-      if (estadoAniguo !== estado && notas !== data[i][2]) {
-        descripcion = `Estado cambió de "${estadoAniguo}" a "${estado}" y se actualizó nota`;
-      } else if (estadoAniguo !== estado) {
-        descripcion = `Estado cambió de "${estadoAniguo}" a "${estado}"`;
-      } else if (notas !== data[i][2]) {
-        descripcion = `Nota actualizada`;
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0]).trim() === String(email).trim()) {
+        return {
+          estado: String(data[i][1] || "nuevo").trim(),
+          notas: String(data[i][2] || "").trim(),
+          fechaActualizacion: String(data[i][3] || "")
+        };
       }
-
-      sheet.getRange(i + 1, 2).setValue(estado); // Estado
-      sheet.getRange(i + 1, 3).setValue(notas);  // Notas
-      sheet.getRange(i + 1, 4).setValue(ahora);  // Fecha
-
-      if (descripcion) {
-        addHistoryEntry(email, "ACTUALIZACIÓN", descripcion, usuario);
-      }
-
-      return { success: true, message: "Notas guardadas correctamente" };
     }
-  }
 
-  // Si no existe, crear una nueva fila
-  sheet.appendRow([email, estado, notas, ahora]);
-  addHistoryEntry(email, "CREACIÓN", `Lead creado con estado "${estado}"`, usuario);
-  return { success: true, message: "Notas creadas correctamente" };
+    return {
+      estado: "nuevo",
+      notas: "",
+      fechaActualizacion: ""
+    };
+  } catch (e) {
+    Logger.log("Error en getNotes: " + e);
+    throw e;
+  }
 }
 
 // Obtener historial de un lead
 function getHistory(email) {
-  const sheet = initializeHistorySheet();
-  const data = sheet.getDataRange().getValues();
-  const history = [];
+  try {
+    const sheet = getHistorySheet();
+    const data = sheet.getDataRange().getValues();
+    const history = [];
 
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][0] === email) {
-      history.push({
-        tipo: data[i][1],
-        descripcion: data[i][2],
-        usuario: data[i][3],
-        fecha: data[i][4]
-      });
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0]).trim() === String(email).trim()) {
+        history.push({
+          tipo: String(data[i][1] || ""),
+          descripcion: String(data[i][2] || ""),
+          usuario: String(data[i][3] || ""),
+          fecha: String(data[i][4] || "")
+        });
+      }
     }
-  }
 
-  return history.reverse(); // Mostrar más reciente primero
+    return history.reverse();
+  } catch (e) {
+    Logger.log("Error en getHistory: " + e);
+    throw e;
+  }
+}
+
+// Obtener notas + historial en una sola llamada (más rápido)
+function getFullData(email) {
+  try {
+    return {
+      notes: getNotes(email),
+      history: getHistory(email)
+    };
+  } catch (e) {
+    Logger.log("Error en getFullData: " + e);
+    throw e;
+  }
+}
+
+// Agregar entrada al historial
+function addHistoryEntry(email, tipo, descripcion, usuario) {
+  try {
+    const sheet = getHistorySheet();
+    const ahora = new Date().toLocaleString('es-ES');
+    sheet.appendRow([email, tipo, descripcion, usuario, ahora]);
+  } catch (e) {
+    Logger.log("Error en addHistoryEntry: " + e);
+    throw e;
+  }
+}
+
+// Guardar notas de un lead
+function saveNotes(email, estado, notas, usuario) {
+  try {
+    const sheet = getNotesSheet();
+    const data = sheet.getDataRange().getValues();
+    const ahora = new Date().toLocaleString('es-ES');
+
+    email = String(email).trim();
+    estado = String(estado || "nuevo").trim();
+    notas = String(notas || "").trim();
+    usuario = String(usuario || "Sistema").trim();
+
+    let descripcion = "";
+
+    // Buscar si existe
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0]).trim() === email) {
+        const estadoAntiguo = String(data[i][1] || "nuevo").trim();
+        const notasAnteriores = String(data[i][2] || "").trim();
+
+        // Detectar cambios
+        const estadoCambió = estadoAntiguo !== estado;
+        const notasCambiaron = notasAnteriores !== notas;
+
+        if (estadoCambió && notasCambiaron) {
+          descripcion = `Estado: "${estadoAntiguo}" → "${estado}" | Nota: "${notasAnteriores}" → "${notas}"`;
+        } else if (estadoCambió) {
+          descripcion = `Estado cambió de "${estadoAntiguo}" a "${estado}"`;
+        } else if (notasCambiaron) {
+          descripcion = `Nota: "${notasAnteriores}" → "${notas}"`;
+        }
+
+        // Actualizar valores
+        sheet.getRange(i + 1, 2).setValue(estado);
+        sheet.getRange(i + 1, 3).setValue(notas);
+        sheet.getRange(i + 1, 4).setValue(ahora);
+
+        // Registrar en historial si hay cambios
+        if (descripcion) {
+          addHistoryEntry(email, "ACTUALIZACIÓN", descripcion, usuario);
+        }
+
+        return { success: true, message: "Notas guardadas correctamente" };
+      }
+    }
+
+    // Si no existe, crear una nueva fila
+    sheet.appendRow([email, estado, notas, ahora]);
+    addHistoryEntry(email, "CREACIÓN", `Lead creado con estado "${estado}"`, usuario);
+    return { success: true, message: "Notas creadas correctamente" };
+  } catch (e) {
+    Logger.log("Error en saveNotes: " + e);
+    throw e;
+  }
 }
 
 // Handle GET/POST requests
@@ -142,7 +184,6 @@ function handleRequest(e) {
     const estado = e.parameter.estado;
     const notas = e.parameter.notas;
     const usuario = e.parameter.usuario || "Sistema";
-    const estadoAnterior = e.parameter.estadoAnterior;
 
     if (action === "getNotes") {
       const result = getNotes(email);
@@ -150,7 +191,7 @@ function handleRequest(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
     else if (action === "saveNotes") {
-      const result = saveNotes(email, estado, notas, usuario, estadoAnterior);
+      const result = saveNotes(email, estado, notas, usuario);
       return ContentService.createTextOutput(JSON.stringify(result))
         .setMimeType(ContentService.MimeType.JSON);
     }
@@ -159,11 +200,17 @@ function handleRequest(e) {
       return ContentService.createTextOutput(JSON.stringify(result))
         .setMimeType(ContentService.MimeType.JSON);
     }
+    else if (action === "getFullData") {
+      const result = getFullData(email);
+      return ContentService.createTextOutput(JSON.stringify(result))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
     else {
       return ContentService.createTextOutput(JSON.stringify({ error: "Acción no válida" }))
         .setMimeType(ContentService.MimeType.JSON);
     }
   } catch (error) {
+    Logger.log("Error en handleRequest: " + error);
     return ContentService.createTextOutput(JSON.stringify({ error: error.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
